@@ -3,12 +3,33 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import {StateContext} from './contexts/state';
+import {StateProvider} from './contexts/state';
+
+const initState = {
+    username: 'default',
+    password: 'password',
+    userLoggedIn: false
+}
+
+const reducer = (state, action) => {
+    switch (action.type) {
+        case 'ADD_USERNAME':
+            return {
+                ...state, username: action.username
+            };
+        case 'ADD_PASSWORD':
+            return {
+                ...state, password: action.password
+            };
+        default: return state;
+
+    }
+};
 
 ReactDOM.render(
-    <StateContext.Provider>
+    <StateProvider initState={initState} reducer={reducer}>
         <App />
-    </StateContext.Provider>
+    </StateProvider>
 , document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change

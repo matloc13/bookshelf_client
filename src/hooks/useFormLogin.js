@@ -14,9 +14,7 @@ const useFormLogin = (cb) => {
             e.persist();
             setValues({...values, [e.target.name]: e.target.value});
         }
-
-        
-     
+    
 return [ handleSubmit, handleInput, values ];
 }
 

@@ -1,14 +1,23 @@
 import React from 'react';
-import useFormLogin from '../../hooks/useFormLogin';
+import useFormLogin from './../../hooks/useFormLogin';
+import useStateValue from './../../contexts/state';
 import Label from './label/Label';
 import Input from './inputs/Input';
 
 const Form = ({formType}) => {
  
     const submit= () => {
-        alert(`username: ${values.username}`)
+        dispatch({
+            type: 'ADD_USERNAME',
+            username: values.username
+            
+        })
+        alert(`username: ${values.username}`);
+        
     }
-    const [handleSubmit, handleInput, values] = useFormLogin(submit)
+    const [handleSubmit, handleInput, values] = useFormLogin(submit);
+
+    const [{state}, dispatch] = useStateValue();
 
     return (
         <form onSubmit={handleSubmit} className={'form-style'}>
@@ -27,7 +36,7 @@ const Form = ({formType}) => {
                 <Label
                     name={'password'}/>                  
                 <Input 
-                    type={'text'}
+                    type={'password'}
                     name={'password'}
                     value={values.password}
                     handleInput={handleInput}/>
