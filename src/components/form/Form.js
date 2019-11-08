@@ -4,36 +4,38 @@ import useAuth from "./../../hooks/useAuth";
 import Label from "./label/Label";
 import Input from "./inputs/Input";
 
-let formInfo = {
-  usr: {
-    username: "",
-    password: ""
-  }
-};
-
 const Form = ({ formType }) => {
   const [handleInput, values] = useInput();
   const [formAcc, setFormAcc] = useState({});
+  const [formInfo, setFormInfo] = useState({
+    user: {
+      username: "",
+      password: ""
+    }
+  });
   const [user, isAuthenticated] = useAuth(formAcc);
 
   const handleSubmit = e => {
     e.preventDefault();
-    formInfo = {
-      usr: {
+    setFormInfo({
+      user: {
         username: values.username,
         password: values.password
       }
-    };
-    if (formInfo.usr.username === " ") {
+    });
+    console.log(formInfo.user.username);
+    console.log(formType);
+
+    if (formInfo.user.username === " ") {
       throw new Error("username cannot be empty");
-    } else if (formInfo.usr.password === " ") {
+    } else if (formInfo.user.password === " ") {
       throw new Error("password cannot be empty");
     }
     switch (formType) {
       case "CREATE":
-        return setFormAcc(formInfo, { type: "CREATE" });
+        return setFormAcc({ type: "CREATE", payload: formInfo });
       case "LOGIN":
-        return setFormAcc(formInfo, { type: "LOGIN" });
+        return setFormAcc({ type: "LOGIN", payload: formInfo });
       default:
         throw new Error();
     }
