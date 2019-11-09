@@ -1,15 +1,12 @@
 const userReducer = (state, action) => {
   switch (action.type) {
     case "SET_USER":
-      console.log(action);
-
       return {
         ...state,
         id: action.id,
           username: action.username,
           isAuthenticated: action.isAuthenticated,
           token: action.token
-
       }
       case "LOGOUT_USER":
         return state = [];

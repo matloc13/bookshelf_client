@@ -1,4 +1,8 @@
-import { useEffect, useState, useContext } from "react";
+import {
+  useEffect,
+  useState,
+  useContext
+} from "react";
 import BASE_URL from "./../constants";
 import DispatchContext from "../contexts/dispatchContext";
 
@@ -6,6 +10,7 @@ const useAuth = action => {
   const dispatchUser = useContext(DispatchContext);
   const [isAuthenticated, setisAuthenticated] = useState(false);
   const [user, setUser] = useState({});
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (action) {
@@ -13,14 +18,15 @@ const useAuth = action => {
         case "CREATE":
           return async function createUser() {
             try {
+              setLoading(true);
               await fetch(`${BASE_URL}/users`, {
-                body: JSON.stringify(action.payload),
-                method: "POST",
-                headers: {
-                  Accept: "application/json, plain/text, */*",
-                  "Content-Type": "application/json"
-                }
-              })
+                  body: JSON.stringify(action.payload),
+                  method: "POST",
+                  headers: {
+                    Accept: "application/json, plain/text, */*",
+                    "Content-Type": "application/json"
+                  }
+                })
                 .then(res => res.json())
                 // .then(json => console.log(json.user))
                 .then(json => setUser(json))
@@ -39,19 +45,25 @@ const useAuth = action => {
                   isAuthenticated
                 });
               }
+              setLoading(false);
+            }
+            return () => {
+              console.log('cleanup cleanup everybody do your share');
+
             }
           };
         case "LOGIN":
           return async function loginUser() {
             try {
+              setLoading(true);
               await fetch(`${BASE_URL}/users/login`, {
-                body: JSON.stringify(action.payload),
-                method: "POST",
-                headers: {
-                  Accept: "application/json, plain/text, */*",
-                  "Content-Type": "application/json"
-                }
-              })
+                  body: JSON.stringify(action.payload),
+                  method: "POST",
+                  headers: {
+                    Accept: "application/json, plain/text, */*",
+                    "Content-Type": "application/json"
+                  }
+                })
                 .then(res => res.json())
                 // .then(json => console.log(json.user))
                 .then(json => setUser(json))
@@ -70,6 +82,7 @@ const useAuth = action => {
                   isAuthenticated
                 });
               }
+              setLoading(false);
             }
           };
         default:
@@ -81,6 +94,6 @@ const useAuth = action => {
     };
   }, [action]);
 
-  return [user, isAuthenticated];
+  return [loading];
 };
 export default useAuth;

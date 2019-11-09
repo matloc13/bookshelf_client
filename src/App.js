@@ -1,5 +1,6 @@
 import React, { useReducer } from "react";
 import Header from "./components/header/Header";
+import Hotlist from "./components/hotlist/Hotlist";
 import userReducer from "./reducers/userReducer";
 import DispatchContext from "./contexts/dispatchContext";
 import "./App.css";
@@ -20,6 +21,7 @@ const App = () => {
           <h1>hi</h1>
 
           <Header />
+          <Hotlist />
         </div>
       </UserContext.Provider>
     </DispatchContext.Provider>

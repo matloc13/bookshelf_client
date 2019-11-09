@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 const useInput = () => {
-  const [values, setValues] = useState({});
+  const [values, setValues] = useState(" ");
 
   const handleInput = e => {
     e.persist();
