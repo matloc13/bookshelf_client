@@ -9,7 +9,7 @@ const useHotlist = get => {
       getHotlist();
     }
     return () => {
-      console.log("current top");
+      setHotlist([]);
     };
   }, [get]);
 
