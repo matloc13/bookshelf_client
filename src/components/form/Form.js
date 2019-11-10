@@ -25,8 +25,7 @@ const Form = ({ formType }) => {
         password: values.password
       }
     });
-    // console.log(formInfo.user.username);
-    // console.log(formType);
+
     if (formInfo.user.username === " ") {
       throw new Error("username cannot be empty");
     } else if (formInfo.user.password === " ") {

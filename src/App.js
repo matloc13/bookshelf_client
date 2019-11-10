@@ -15,13 +15,17 @@ const initUser = {
   isAuthenticated: false
 };
 const initState = [];
+
 const App = () => {
   const [user, dispatchUser] = useReducer(userReducer, initUser);
   const [list, dispatchList] = useReducer(listReducer, initState);
-  // const [listItem, dispatchItem] = useReducer(listItemReducer, init);
+
+  const dispatch = action => {
+    [dispatchUser, dispatchList].forEach(fn => fn(action));
+  };
 
   return (
-    <DispatchContext.Provider value={dispatchUser}>
+    <DispatchContext.Provider value={dispatch}>
       <UserContext.Provider value={user}>
         <ListContext.Provider value={list}>
           <div className="App">

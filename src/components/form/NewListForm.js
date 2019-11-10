@@ -1,25 +1,29 @@
 import React, { useState } from "react";
-import useInput from "../../hooks/useInput";
-import useListGenerator from "./../../hooks/useListGenerator";
 import Input from "./inputs/Input";
 import Label from "./../form/label/Label";
-const NewListForm = ({ formType }) => {
+import useInput from "../../hooks/useInput";
+import useListGenerator from "./../../hooks/useListGenerator";
+const initList = {
+  title: "",
+  game: {}
+};
+
+const NewListForm = ({ formType, game }) => {
   const [handleInput, values] = useInput();
-  const [showForm, itemRes, loading] = useListGenerator();
-  const [formInfo, setFormInfo] = useState("");
+  const [formInfo, setFormInfo] = useState(initList);
   const [formAcc, setFormAcc] = useState({});
+  const [showForm, setShowFrom, item, loading] = useListGenerator(formAcc);
 
   const handleSubmit = e => {
     e.preventDefault();
-    setFormInfo({
-      title: values.title
-    });
-    // console.log(formInfo.user.username);
-    // console.log(formType);
+    setFormInfo({ ...formInfo, title: values.title, game: game });
+
     if (formInfo.title === " ") {
       throw new Error("username cannot be empty");
     }
-    if (formInfo.titele !== " ") {
+    if (formInfo.title !== " ") {
+      console.log(formInfo);
+
       return setFormAcc({ type: "NEWLIST", payload: formInfo });
     } else {
       throw new Error("did not submit");
@@ -33,7 +37,7 @@ const NewListForm = ({ formType }) => {
           id={formType}
           name="title"
           value={values.title}
-          handleChange={handleInput}
+          handleInput={handleInput}
         />
         <Input type="submit" name="New List" />
       </fieldset>

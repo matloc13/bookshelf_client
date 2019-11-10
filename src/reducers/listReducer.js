@@ -1,7 +1,10 @@
 import {} from "react";
+import dispatchItem from "./../reducers/listItemReducer";
 import uuid from "uuid";
+const initItem = {};
 
 const listReducer = (state, action) => {
+  // const [listItem, dispatchItem] = useReducer(listItemReducer, initItem);
   switch (action.type) {
     case "CREATE_LIST":
       return [
@@ -9,7 +12,13 @@ const listReducer = (state, action) => {
         {
           id: uuid(),
           userId: action.userId,
-          title: action.title
+          title: action.title,
+          items: [
+            dispatchItem({
+              type: "ADD_ITEM",
+              item: action.item
+            })
+          ]
         }
       ];
     default:

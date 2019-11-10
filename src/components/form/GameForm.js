@@ -1,5 +1,4 @@
 import React, { useState, useContext } from "react";
-import useInput from "../../hooks/useInput";
 import UserContext from "./../../contexts/userContext";
 import ListContext from "./../../contexts/listContext";
 import useListGenerator from "./../../hooks/useListGenerator";
@@ -13,20 +12,21 @@ const initForm = {
 };
 
 const GameForm = ({ formType, game }) => {
+  // console.log(game);
+
   const user = useContext(UserContext);
   const list = useContext(ListContext);
-  const [handleInput, values] = useInput();
   const [formAcc, setFormAcc] = useState({});
   const [formInfo, setFormInfo] = useState(initForm);
   const [selectedOption, setSelectedOption] = useState(null);
-  const [showForm, itemRes, loading] = useListGenerator(formAcc);
+  const [showForm, setShowForm, item, loading] = useListGenerator(formAcc);
 
   const handleSubmit = e => {
     e.preventDefault();
     setFormInfo({
-      name: values.name,
-      img: values.img,
-      bggid: values.bggid
+      name: game.name.value,
+      img: game.thumbnail.value,
+      bggid: game.id
     });
 
     if (formInfo.name === " ") {
@@ -57,33 +57,10 @@ const GameForm = ({ formType, game }) => {
         <form onSubmit={handleSubmit} className={"form-style"}>
           <fieldset className={"fieldset-style"}>
             <Select
+              className={`select-${formType}`}
               options={options}
               onChange={handleSelect}
               value={selectedOption}
-            />
-
-            <Input
-              id={formType}
-              type={"hidden"}
-              name={"name"}
-              value={values.name}
-              handleInput={handleInput}
-            />
-
-            <Input
-              id={formType}
-              type={"hidden"}
-              name={"img"}
-              value={values.img}
-              handleInput={handleInput}
-            />
-
-            <Input
-              id={formType}
-              type={"hidden"}
-              name="bggid"
-              value={values.bggid}
-              handleInput={handleInput}
             />
 
             <Input type={"submit"} name="Add Game" />

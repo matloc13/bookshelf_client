@@ -7,7 +7,7 @@ import BASE_URL from "./../constants";
 import DispatchContext from "../contexts/dispatchContext";
 
 const useAuth = action => {
-  const dispatchUser = useContext(DispatchContext);
+  const dispatch = useContext(DispatchContext);
   const [isAuthenticated, setisAuthenticated] = useState(false);
   const [user, setUser] = useState({});
   const [loading, setLoading] = useState(false);
@@ -37,7 +37,7 @@ const useAuth = action => {
               console.error(err);
             } finally {
               if (user.user) {
-                dispatchUser({
+                dispatch({
                   type: "SET_USER",
                   id: user.user.id,
                   username: user.user.username,
@@ -74,7 +74,7 @@ const useAuth = action => {
               console.error(err);
             } finally {
               if (user.user) {
-                dispatchUser({
+                dispatch({
                   type: "SET_USER",
                   id: user.user.id,
                   username: user.user.username,
