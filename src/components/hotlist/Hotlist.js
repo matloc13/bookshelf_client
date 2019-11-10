@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import useHotlist from "./../../hooks/useHotlist";
+import GameForm from "./../form/GameForm";
+import NewListForm from "./../form/NewListForm";
 const Hotlist = () => {
   const [get, setGet] = useState(false);
   const [hotlist, loading] = useHotlist(get);
@@ -26,6 +28,8 @@ const Hotlist = () => {
                     />
                     <span>RANK: {ele.rank}</span>
                   </div>
+                  <GameForm formType="ADDGAME" />
+                  <NewListForm formType="NewList" />
                 </div>
               );
             })
