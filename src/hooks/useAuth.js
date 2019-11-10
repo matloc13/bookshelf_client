@@ -49,27 +49,32 @@ const useAuth = action => {
             }
             return () => {
               console.log('cleanup cleanup everybody do your share');
-
             }
           };
         case "LOGIN":
           return async function loginUser() {
             try {
               setLoading(true);
-              await fetch(`${BASE_URL}/users/login`, {
-                  body: JSON.stringify(action.payload),
-                  method: "POST",
-                  headers: {
-                    Accept: "application/json, plain/text, */*",
-                    "Content-Type": "application/json"
-                  }
+              const res = await fetch(`${BASE_URL}/users/login`, {
+                body: JSON.stringify(action.payload),
+                method: "POST",
+                headers: {
+                  Accept: "application/json, plain/text, */*",
+                  "Content-Type": "application/json"
+                }
+              })
+              const json = await res.json()
+              // .then(json => console.log(json.user))
+
+              await new Promise((resolve, reject) => {
+
+                  return resolve(setUser(json))
                 })
-                .then(res => res.json())
-                // .then(json => console.log(json.user))
-                .then(json => setUser(json))
-                .then(console.log(user))
                 .then(setisAuthenticated(true))
-                .catch(err => console.error(err));
+                .then(console.log(user))
+                .catch((err) => console.error(err))
+
+
             } catch (err) {
               console.error(err);
             } finally {

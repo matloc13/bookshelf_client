@@ -17,28 +17,33 @@ const Form = ({ formType }) => {
   const [formInfo, setFormInfo] = useState(initUser);
   const [loading] = useAuth(formAcc);
 
-  const handleSubmit = e => {
+  const handleSubmit = async e => {
     e.preventDefault();
-    setFormInfo({
-      user: {
-        username: values.username,
-        password: values.password
-      }
-    });
+    try {
+      setFormInfo({
+        user: {
+          username: values.username,
+          password: values.password
+        }
+      });
 
-    if (formInfo.user.username === " ") {
-      throw new Error("username cannot be empty");
-    } else if (formInfo.user.password === " ") {
-      throw new Error("password cannot be empty");
-    }
-    if (formInfo.user.username !== " " && formInfo.user.passowrd !== " ") {
-      switch (formType) {
-        case "CREATE":
-          return setFormAcc({ type: "CREATE", payload: formInfo });
-        case "LOGIN":
-          return setFormAcc({ type: "LOGIN", payload: formInfo });
-        default:
-          throw new Error();
+      if (formInfo.user.username === " ") {
+        throw new Error("username cannot be empty");
+      } else if (formInfo.user.password === " ") {
+        throw new Error("password cannot be empty");
+      }
+    } catch (err) {
+      console.error(err);
+    } finally {
+      if (formInfo.user.username !== " " && formInfo.user.passowrd !== " ") {
+        switch (formType) {
+          case "CREATE":
+            return setFormAcc({ type: "CREATE", payload: formInfo });
+          case "LOGIN":
+            return setFormAcc({ type: "LOGIN", payload: formInfo });
+          default:
+            throw new Error();
+        }
       }
     }
   };

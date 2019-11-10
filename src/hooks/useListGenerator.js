@@ -23,7 +23,7 @@ const useListGenerator = action => {
             setLoading(true);
             try {
               const res = await fetch(
-                `${BASE_URL}/users/${user.id}/listanmes/${list.d}/games`,
+                `${BASE_URL}/users/${user.id}/listanmes/${list.id}/games`,
                 {
                   body: JSON.stringify(action.game),
                   method: "POST",
@@ -46,7 +46,7 @@ const useListGenerator = action => {
               });
             }
           };
-        case "NEWLIST":
+        case "CREATE_LIST":
           return async function listAndGame() {
             setLoading(true);
             try {
@@ -89,7 +89,7 @@ const useListGenerator = action => {
     return () => {
       console.log("cleanup cleanup everybody do your share");
     };
-  }, [action]);
+  }, [action, list, list.id, user.id, dispatch, item]);
 
   return [showForm, setShowForm, item, loading];
 };
