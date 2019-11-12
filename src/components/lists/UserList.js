@@ -11,7 +11,7 @@ const UserList = () => {
         {list &&
           list.map((ele, index) => {
             return (
-              <li key={index}>
+              <li key={ele.id}>
                 <h1>{ele.title}</h1>
               </li>
             );

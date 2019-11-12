@@ -6,7 +6,7 @@ import { reject } from "q";
 const useAuth = action => {
   const dispatch = useContext(DispatchContext);
   const [isAuthenticated, setisAuthenticated] = useState(false);
-  const [user, setUser] = useState({});
+  // const [user, setUser] = useState({});
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -16,113 +16,73 @@ const useAuth = action => {
           return async function createUser() {
             try {
               setLoading(true);
-              await fetch(`${BASE_URL}/users`, {
+              const res = await fetch(`${BASE_URL}/users`, {
                 body: JSON.stringify(action.payload),
                 method: "POST",
                 headers: {
                   Accept: "application/json, plain/text, */*",
                   "Content-Type": "application/json"
                 }
-              })
-                .then(res => res.json())
-                // .then(json => console.log(json.user))
-                .then(json => setUser(json))
-                .then(console.log(user))
-                .then(setisAuthenticated(true))
-                .catch(err => console.error(err));
+              });
+              const user = await res.json();
+              await new Promise(resolve => {
+                if (user.user) {
+                  return resolve(
+                    dispatch({
+                      type: "SET_USER",
+                      id: user.user.id,
+                      username: user.user.username,
+                      token: user.token
+                    })
+                  );
+                }
+              });
             } catch (err) {
               console.error(err);
             } finally {
-              if (user.user) {
-                dispatch({
-                  type: "SET_USER",
-                  id: user.user.id,
-                  username: user.user.username,
-                  token: user.token,
-                  isAuthenticated
-                });
-              }
+              setisAuthenticated(true);
               setLoading(false);
             }
           };
         case "LOGIN":
-          // return async function loginUser() {
-          //   try {
-          //     setLoading(true);
-          //     const res = await fetch(`${BASE_URL}/users/login`, {
-          //       body: JSON.stringify(action.payload),
-          //       method: "POST",
-          //       headers: {
-          //         Accept: "application/json, plain/text, */*",
-          //         "Content-Type": "application/json"
-          //       }
-          //     });
-          //     const json = await res.json();
+          return async function loginUser() {
+            try {
+              setLoading(true);
+              const res = await fetch(`${BASE_URL}/users/login`, {
+                body: JSON.stringify(action.payload),
+                method: "POST",
+                headers: {
+                  Accept: "application/json, plain/text, */*",
+                  "Content-Type": "application/json"
+                }
+              });
+              const user = await res.json();
 
-          //     await new Promise(resolve => {
-          //       return resolve(setUser(json));
-          //     })
-          //       .then(setisAuthenticated(true))
-          //       .catch(err => console.error(err))
-          //       .finally(console.log(user));
-          //   } catch (err) {
-          //     console.error(err);
-          //   } finally {
-          //     if (user.user) {
-          //       dispatch({
-          //         type: "SET_USER",
-          //         id: user.user.id,
-          //         username: user.user.username,
-          //         token: user.token,
-          //         isAuthenticated
-          //       });
-          //     }
-          //     setLoading(false);
-          //   }
-          // };
-          return new Promise(resolve => {
-            const loginUser = async () => {
-              try {
-                const res = await fetch(`${BASE_URL}/users/login`, {
-                  body: JSON.stringify(action.payload),
-                  method: "POST",
-                  headers: {
-                    Accept: "application/json, plain/text, */*",
-                    "Content-Type": "application/json"
-                  }
-                });
-                const json = await res.json();
-                await new Promise(resolve => {
-                  return resolve(setUser(json));
-                })
-                  .then(setisAuthenticated(true))
-                  .catch(err => console.log(err))
-                  .finally(console.log(user));
-              } catch (err) {
-                console.error(err);
-              }
-            };
-            if (!user.user) {
-              return reject(console.error("err"));
+              await new Promise(resolve => {
+                if (user.user) {
+                  return resolve(
+                    dispatch({
+                      type: "SET_USER",
+                      id: user.user.id,
+                      username: user.user.username,
+                      token: user.token
+                    })
+                  );
+                }
+              });
+            } catch (err) {
+              console.error(err);
+            } finally {
+              setisAuthenticated(true);
+              setLoading(false);
             }
-
-            return resolve(
-              dispatch({
-                type: "SET_USER",
-                id: user.user.id,
-                username: user.user.username,
-                token: user.token,
-                isAuthenticated
-              })
-            );
-          });
-
+          };
         default:
           return;
       }
     }
   }, [action]);
 
-  return [loading];
+  return [loading, isAuthenticated];
 };
 export default useAuth;
