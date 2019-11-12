@@ -1,7 +1,6 @@
 import { useEffect, useState, useContext } from "react";
 import BASE_URL from "./../constants";
 import DispatchContext from "../contexts/dispatchContext";
-import { reject } from "q";
 
 const useAuth = action => {
   const dispatch = useContext(DispatchContext);
@@ -77,6 +76,8 @@ const useAuth = action => {
               setLoading(false);
             }
           };
+        case "LOGOUT":
+          return dispatch({ type: "LOGOUT_USER" });
         default:
           return;
       }

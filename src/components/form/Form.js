@@ -15,7 +15,7 @@ const Form = ({ formType }) => {
   const [handleInput, values] = useInput();
   const [formAcc, setFormAcc] = useState({});
   const [formInfo, setFormInfo] = useState(initUser);
-  const [loading] = useAuth(formAcc);
+  const [loading, isAuthenticated] = useAuth(formAcc);
 
   useEffect(() => {
     setFormInfo({
@@ -50,10 +50,27 @@ const Form = ({ formType }) => {
     }
   };
 
+  const handleLogout = async e => {
+    e.preventDefault();
+    try {
+      let confirmLogout = confirm("Are you sure you want to Logout?");
+      if (confirmLogout) {
+        return setFormAcc({ type: "LOGOUT" });
+      } else {
+        return;
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   return (
     <>
-      {loading ? (
-        <h1>...Loading...</h1>
+      {loading && <h1>...Loading...</h1>}
+      {isAuthenticated ? (
+        <form onSubmit={handleLogout}>
+          <Input id="logout" type="submit" name="Logout" />
+        </form>
       ) : (
         <form onSubmit={handleSubmit} className={"form-style"}>
           <fieldset className={"fieldset-style"}>
