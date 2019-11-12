@@ -14,7 +14,7 @@ const useListGenerator = action => {
   useEffect(() => {
     if (action.payload) {
       console.log(action.payload.title);
-
+      setLoading(true);
       switch (action.type) {
         case "ADDGAME":
           return addGame(action.payload.game, user.id, action.payload.list_id);
@@ -31,7 +31,6 @@ const useListGenerator = action => {
   }, [action]);
 
   const listAndGame = (game, uid, title) => {
-    setLoading(true);
     fetch(`${BASE_URL}/users/${uid}/listnames`, {
       method: "POST",
       body: JSON.stringify({
@@ -61,7 +60,6 @@ const useListGenerator = action => {
   };
 
   const addGame = (game, uid, lid) => {
-    setLoading(true);
     fetch(`${BASE_URL}/users/${uid}/listnames/${lid}/games`, {
       method: "POST",
       body: JSON.stringify(game),

@@ -1,6 +1,7 @@
 import { useEffect, useState, useContext } from "react";
 import BASE_URL from "./../constants";
 import DispatchContext from "../contexts/dispatchContext";
+import { reject } from "q";
 
 const useAuth = action => {
   const dispatch = useContext(DispatchContext);
@@ -43,52 +44,83 @@ const useAuth = action => {
               }
               setLoading(false);
             }
-            return () => {
-              console.log("cleanup cleanup everybody do your share");
-            };
           };
         case "LOGIN":
-          return async function loginUser() {
-            try {
-              setLoading(true);
-              const res = await fetch(`${BASE_URL}/users/login`, {
-                body: JSON.stringify(action.payload),
-                method: "POST",
-                headers: {
-                  Accept: "application/json, plain/text, */*",
-                  "Content-Type": "application/json"
-                }
-              });
-              const json = await res.json();
+          // return async function loginUser() {
+          //   try {
+          //     setLoading(true);
+          //     const res = await fetch(`${BASE_URL}/users/login`, {
+          //       body: JSON.stringify(action.payload),
+          //       method: "POST",
+          //       headers: {
+          //         Accept: "application/json, plain/text, */*",
+          //         "Content-Type": "application/json"
+          //       }
+          //     });
+          //     const json = await res.json();
 
-              await new Promise((resolve, reject) => {
-                return resolve(setUser(json));
-              })
-                .then(setisAuthenticated(true))
-                .then(console.log(user))
-                .catch(err => console.error(err));
-            } catch (err) {
-              console.error(err);
-            } finally {
-              if (user.user) {
-                dispatch({
-                  type: "SET_USER",
-                  id: user.user.id,
-                  username: user.user.username,
-                  token: user.token,
-                  isAuthenticated
+          //     await new Promise(resolve => {
+          //       return resolve(setUser(json));
+          //     })
+          //       .then(setisAuthenticated(true))
+          //       .catch(err => console.error(err))
+          //       .finally(console.log(user));
+          //   } catch (err) {
+          //     console.error(err);
+          //   } finally {
+          //     if (user.user) {
+          //       dispatch({
+          //         type: "SET_USER",
+          //         id: user.user.id,
+          //         username: user.user.username,
+          //         token: user.token,
+          //         isAuthenticated
+          //       });
+          //     }
+          //     setLoading(false);
+          //   }
+          // };
+          return new Promise(resolve => {
+            const loginUser = async () => {
+              try {
+                const res = await fetch(`${BASE_URL}/users/login`, {
+                  body: JSON.stringify(action.payload),
+                  method: "POST",
+                  headers: {
+                    Accept: "application/json, plain/text, */*",
+                    "Content-Type": "application/json"
+                  }
                 });
+                const json = await res.json();
+                await new Promise(resolve => {
+                  return resolve(setUser(json));
+                })
+                  .then(setisAuthenticated(true))
+                  .catch(err => console.log(err))
+                  .finally(console.log(user));
+              } catch (err) {
+                console.error(err);
               }
-              setLoading(false);
+            };
+            if (!user.user) {
+              return reject(console.error("err"));
             }
-          };
+
+            return resolve(
+              dispatch({
+                type: "SET_USER",
+                id: user.user.id,
+                username: user.user.username,
+                token: user.token,
+                isAuthenticated
+              })
+            );
+          });
+
         default:
           return;
       }
     }
-    return () => {
-      console.log("cleanup");
-    };
   }, [action]);
 
   return [loading];
