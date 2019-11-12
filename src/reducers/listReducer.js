@@ -1,7 +1,7 @@
 import {} from "react";
 import dispatchItem from "./../reducers/listItemReducer";
-import uuid from "uuid";
-const initItem = {};
+
+
 
 const listReducer = (state, action) => {
   // const [listItem, dispatchItem] = useReducer(listItemReducer, initItem);
@@ -10,15 +10,16 @@ const listReducer = (state, action) => {
       return [
         ...state,
         {
-          id: uuid(),
+          id: action.id,
           userId: action.userId,
           title: action.title,
-          items: [
-            dispatchItem({
-              type: "ADD_ITEM",
-              item: action.item
-            })
-          ]
+          // items: [
+          //   dispatchItem({
+          //     id: uuid(),
+          //     type: "ADD_ITEM",
+          //     item: action.item
+          //   })
+          // ]
         }
       ];
     default:

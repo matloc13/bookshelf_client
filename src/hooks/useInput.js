@@ -5,8 +5,15 @@ const useInput = () => {
 
   const handleInput = e => {
     e.persist();
-    setValues({ ...values, [e.target.name]: e.target.value });
+    setValues({
+      ...values,
+      [e.target.name]: e.target.value
+    });
   };
+
+  // const clear = () => {
+  //   setValues("");
+  // };
 
   return [handleInput, values];
 };

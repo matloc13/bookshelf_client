@@ -28,8 +28,8 @@ const Hotlist = () => {
                     />
                     <span>RANK: {ele.rank}</span>
                   </div>
-                  <GameForm formType="ADDGAME" game={ele} />
-                  <NewListForm formType="NewList" game={ele} />
+                  <GameForm formType="ADDGAME" game={ele} i={index} />
+                  <NewListForm formType="NewList" game={ele} i={index} />
                 </div>
               );
             })

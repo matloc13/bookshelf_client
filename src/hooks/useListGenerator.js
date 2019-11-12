@@ -8,89 +8,80 @@ const useListGenerator = action => {
   const user = useContext(UserContext);
   const list = useContext(ListContext);
   const dispatch = useContext(DispatchContext);
-
-  const [showForm, setShowForm] = useState(false);
-  const [item, setItem] = useState({});
+  const [item, setItem] = useState();
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    if (action) {
-      // console.log(action);
+    if (action.payload) {
+      console.log(action.payload.title);
 
       switch (action.type) {
         case "ADDGAME":
-          return async function addGame() {
-            setLoading(true);
-            try {
-              const res = await fetch(
-                `${BASE_URL}/users/${user.id}/listanmes/${list.id}/games`,
-                {
-                  body: JSON.stringify(action.game),
-                  method: "POST",
-                  headers: {
-                    Accept: "application/json, text/plain",
-                    "Content-Type": "application/json"
-                  }
-                }
-              );
-              const json = await res.json();
-              setItem(json);
-            } catch (err) {
-              console.error(err);
-            } finally {
-              setShowForm(false);
-              setLoading(false);
-              dispatch({
-                type: "ADD_ITEM",
-                listid: list.id
-              });
-            }
-          };
+          return addGame(action.payload.game, user.id, action.payload.list_id);
         case "CREATE_LIST":
-          return async function listAndGame() {
-            setLoading(true);
-            try {
-              const res = await fetch(
-                `${BASE_URL}/users/${user.id}/listanmes/`,
-                {
-                  body: JSON.stringify({
-                    listname: {
-                      title: action.title,
-                      nu_game: action.game
-                    }
-                  }),
-                  method: "POST",
-                  headers: {
-                    Accept: "application/json, text/plain, */*",
-                    "Content-Type": "application/json"
-                  }
-                }
-              );
-              const json = await res.json();
-              setItem(json);
-              console.log(item);
-            } catch (err) {
-              console.error(err);
-            } finally {
-              dispatch({
-                type: "CREATE_LIST",
-                title: item.title,
-                userId: user.id,
-                item: item.nu_game
-              });
-              setShowForm(false);
-              setLoading(false);
-            }
-          };
+          return listAndGame(
+            action.payload.game,
+            user.id,
+            action.payload.title
+          );
         default:
           return;
       }
     }
-    return () => {
-      console.log("cleanup cleanup everybody do your share");
-    };
-  }, [action, list, list.id, user.id, dispatch, item]);
+  }, [action]);
 
-  return [showForm, setShowForm, item, loading];
+  const listAndGame = (game, uid, title) => {
+    setLoading(true);
+    fetch(`${BASE_URL}/users/${uid}/listnames`, {
+      method: "POST",
+      body: JSON.stringify({
+        listname: {
+          title: title,
+          nu_game: game
+        }
+      }),
+      headers: {
+        Accept: "application/json, text/plain, */*",
+        "Content-Type": "application/json"
+      }
+    })
+      .then(res => res.json())
+      .then(json => setItem(json))
+      .then(setLoading(false))
+      .catch(err => console.error(err))
+      .finally(
+        item &&
+          dispatch({
+            type: "CREATE_LIST",
+            title: item.title,
+            id: item.id,
+            userId: item.user_id
+          })
+      );
+  };
+
+  const addGame = (game, uid, lid) => {
+    setLoading(true);
+    fetch(`${BASE_URL}/users/${uid}/listnames/${lid}/games`, {
+      method: "POST",
+      body: JSON.stringify(game),
+      headers: {
+        Accept: "application/json, text/plain",
+        "Content-Type": "application/json"
+      }
+    })
+      .then(res => res.json())
+      .then(json => setItem(json))
+      .then(setLoading(false))
+      .catch(err => console.error(err))
+      .finally(
+        dispatch({
+          type: "ADD_ITEM",
+          listid: list.id
+        })
+      );
+  };
+
+  return [loading];
 };
 export default useListGenerator;

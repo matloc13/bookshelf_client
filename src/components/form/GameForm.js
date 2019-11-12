@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import UserContext from "./../../contexts/userContext";
 import ListContext from "./../../contexts/listContext";
 import useListGenerator from "./../../hooks/useListGenerator";
@@ -11,7 +11,7 @@ const initForm = {
   bggid: null
 };
 
-const GameForm = ({ formType, game }) => {
+const GameForm = ({ formType, game, i }) => {
   // console.log(game);
 
   const user = useContext(UserContext);
@@ -19,15 +19,21 @@ const GameForm = ({ formType, game }) => {
   const [formAcc, setFormAcc] = useState({});
   const [formInfo, setFormInfo] = useState(initForm);
   const [selectedOption, setSelectedOption] = useState(null);
-  const [showForm, setShowForm, item, loading] = useListGenerator(formAcc);
+  const [loading] = useListGenerator(formAcc);
+
+  useEffect(() => {
+    setFormInfo({
+      name: game.name.value,
+      img: game.thumbnail,
+      bggid: game.id
+    });
+    return () => {
+      setFormInfo({});
+    };
+  }, [game]);
 
   const handleSubmit = e => {
     e.preventDefault();
-    setFormInfo({
-      name: game.name.value,
-      img: game.thumbnail.value,
-      bggid: game.id
-    });
 
     if (formInfo.name === " ") {
       throw new Error("username cannot be empty");
@@ -63,7 +69,7 @@ const GameForm = ({ formType, game }) => {
               value={selectedOption}
             />
 
-            <Input type={"submit"} name="Add Game" />
+            <Input type={"submit"} name="Add Game" i={i} id={formType} />
           </fieldset>
         </form>
       )}

@@ -1,8 +1,4 @@
-import {
-  useEffect,
-  useState,
-  useContext
-} from "react";
+import { useEffect, useState, useContext } from "react";
 import BASE_URL from "./../constants";
 import DispatchContext from "../contexts/dispatchContext";
 
@@ -20,13 +16,13 @@ const useAuth = action => {
             try {
               setLoading(true);
               await fetch(`${BASE_URL}/users`, {
-                  body: JSON.stringify(action.payload),
-                  method: "POST",
-                  headers: {
-                    Accept: "application/json, plain/text, */*",
-                    "Content-Type": "application/json"
-                  }
-                })
+                body: JSON.stringify(action.payload),
+                method: "POST",
+                headers: {
+                  Accept: "application/json, plain/text, */*",
+                  "Content-Type": "application/json"
+                }
+              })
                 .then(res => res.json())
                 // .then(json => console.log(json.user))
                 .then(json => setUser(json))
@@ -48,8 +44,8 @@ const useAuth = action => {
               setLoading(false);
             }
             return () => {
-              console.log('cleanup cleanup everybody do your share');
-            }
+              console.log("cleanup cleanup everybody do your share");
+            };
           };
         case "LOGIN":
           return async function loginUser() {
@@ -62,19 +58,15 @@ const useAuth = action => {
                   Accept: "application/json, plain/text, */*",
                   "Content-Type": "application/json"
                 }
-              })
-              const json = await res.json()
-              // .then(json => console.log(json.user))
+              });
+              const json = await res.json();
 
               await new Promise((resolve, reject) => {
-
-                  return resolve(setUser(json))
-                })
+                return resolve(setUser(json));
+              })
                 .then(setisAuthenticated(true))
                 .then(console.log(user))
-                .catch((err) => console.error(err))
-
-
+                .catch(err => console.error(err));
             } catch (err) {
               console.error(err);
             } finally {

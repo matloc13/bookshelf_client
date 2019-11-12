@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import useInput from "../../hooks/useInput";
 import useAuth from "./../../hooks/useAuth";
 import Label from "./label/Label";
@@ -17,16 +17,18 @@ const Form = ({ formType }) => {
   const [formInfo, setFormInfo] = useState(initUser);
   const [loading] = useAuth(formAcc);
 
+  useEffect(() => {
+    setFormInfo({
+      user: {
+        username: values.username,
+        password: values.password
+      }
+    });
+  }, [values]);
+
   const handleSubmit = async e => {
     e.preventDefault();
     try {
-      setFormInfo({
-        user: {
-          username: values.username,
-          password: values.password
-        }
-      });
-
       if (formInfo.user.username === " ") {
         throw new Error("username cannot be empty");
       } else if (formInfo.user.password === " ") {
