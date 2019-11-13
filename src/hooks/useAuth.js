@@ -4,7 +4,7 @@ import DispatchContext from "../contexts/dispatchContext";
 
 const useAuth = action => {
   const dispatch = useContext(DispatchContext);
-  const [isAuthenticated, setisAuthenticated] = useState(false);
+  // const [isAuthenticated, setisAuthenticated] = useState(false);
   // const [user, setUser] = useState({});
   const [loading, setLoading] = useState(false);
 
@@ -31,6 +31,7 @@ const useAuth = action => {
                       type: "SET_USER",
                       id: user.user.id,
                       username: user.user.username,
+                      isAuthenticated: true,
                       token: user.token
                     })
                   );
@@ -39,7 +40,6 @@ const useAuth = action => {
             } catch (err) {
               console.error(err);
             } finally {
-              setisAuthenticated(true);
               setLoading(false);
             }
           };
@@ -64,6 +64,7 @@ const useAuth = action => {
                       type: "SET_USER",
                       id: user.user.id,
                       username: user.user.username,
+                      isAuthenticated: true,
                       token: user.token
                     })
                   );
@@ -72,7 +73,6 @@ const useAuth = action => {
             } catch (err) {
               console.error(err);
             } finally {
-              setisAuthenticated(true);
               setLoading(false);
             }
           };
@@ -84,6 +84,6 @@ const useAuth = action => {
     }
   }, [action]);
 
-  return [loading, isAuthenticated];
+  return [loading];
 };
 export default useAuth;

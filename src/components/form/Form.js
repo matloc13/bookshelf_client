@@ -15,7 +15,7 @@ const Form = ({ formType }) => {
   const [handleInput, values] = useInput();
   const [formAcc, setFormAcc] = useState({});
   const [formInfo, setFormInfo] = useState(initUser);
-  const [loading, isAuthenticated] = useAuth(formAcc);
+  const [loading] = useAuth(formAcc);
 
   useEffect(() => {
     setFormInfo({
@@ -43,6 +43,8 @@ const Form = ({ formType }) => {
             return setFormAcc({ type: "CREATE", payload: formInfo });
           case "LOGIN":
             return setFormAcc({ type: "LOGIN", payload: formInfo });
+          case "LOGOUT":
+            return setFormAcc({ type: "LOGOUT" });
           default:
             throw new Error();
         }
@@ -50,26 +52,33 @@ const Form = ({ formType }) => {
     }
   };
 
-  const handleLogout = async e => {
-    e.preventDefault();
-    try {
-      let confirmLogout = confirm("Are you sure you want to Logout?");
-      if (confirmLogout) {
-        return setFormAcc({ type: "LOGOUT" });
-      } else {
-        return;
-      }
-    } catch (err) {
-      console.error(err);
-    }
-  };
+  // const handleLogout = async e => {
+  //   e.preventDefault();
+  //   // const confirmLogout = confirm("Are you sure you want to Logout?");
+  //   try {
+  //     if (confirmLogout) {
+  //       return setFormAcc({ type: "LOGOUT" });
+  //     } else {
+  //       return;
+  //     }
+  //   } catch (err) {
+  //     console.error(err);
+  //   }
+  // };
 
   return (
     <>
       {loading && <h1>...Loading...</h1>}
-      {isAuthenticated ? (
-        <form onSubmit={handleLogout}>
-          <Input id="logout" type="submit" name="Logout" />
+      {formType === "LOGOUT" ? (
+        <form onSubmit={handleSubmit}>
+          <fieldset className={"fieldset-style"}>
+            <Input
+              id={formType}
+              type="submit"
+              name={formType}
+              handleInput={handleInput}
+            />
+          </fieldset>
         </form>
       ) : (
         <form onSubmit={handleSubmit} className={"form-style"}>

@@ -20,35 +20,43 @@ const Nav = () => {
   };
   return (
     <nav className={"nav-style"} data-testid={"nav"}>
-      {user && <h1>{user.username}</h1>}
-      <>
-        {login ? (
+      {user.isAuthenticated ? (
+        <div>
+          <h1>{user.username}</h1>
+          <Form formType="LOGOUT" />
+        </div>
+      ) : (
+        <div>
           <>
-            <Form formType="LOGIN" />
-            <span onClick={toggle} id="login">
-              X
-            </span>
+            {login ? (
+              <>
+                <Form formType="LOGIN" />
+                <span onClick={toggle} id="login">
+                  X
+                </span>
+              </>
+            ) : (
+              <span onClick={toggle} id="login">
+                Login
+              </span>
+            )}
           </>
-        ) : (
-          <span onClick={toggle} id="login">
-            Login
-          </span>
-        )}
-      </>
-      <>
-        {signup ? (
           <>
-            <Form formType="CREATE" />
-            <span onClick={toggle} id="signup">
-              X
-            </span>
+            {signup ? (
+              <>
+                <Form formType="CREATE" />
+                <span onClick={toggle} id="signup">
+                  X
+                </span>
+              </>
+            ) : (
+              <span onClick={toggle} id="signup">
+                Sign Up
+              </span>
+            )}
           </>
-        ) : (
-          <span onClick={toggle} id="signup">
-            Sign Up
-          </span>
-        )}
-      </>
+        </div>
+      )}
     </nav>
   );
 };

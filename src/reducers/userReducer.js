@@ -5,6 +5,7 @@ const userReducer = (state, action) => {
         ...state,
         id: action.id,
           username: action.username,
+          isAuthenticated: action.isAuthenticated,
           token: action.token
       }
       case "LOGOUT_USER":
