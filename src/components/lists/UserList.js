@@ -9,7 +9,7 @@ const UserList = () => {
       <h1>userlist</h1>
       <ul>
         {list &&
-          list.map((ele, index) => {
+          list.map(ele => {
             return (
               <li key={ele.id}>
                 <h1>{ele.title}</h1>

@@ -14,11 +14,12 @@ const useListGenerator = action => {
   useEffect(() => {
     if (action.payload) {
       console.log(action.payload.title);
-      setLoading(true);
+
       switch (action.type) {
         case "ADD_GAME":
           return async function addGame() {
             try {
+              setLoading(true);
               const res = await fetch(
                 `${BASE_URL}/users/${user.id}/listnames/${action.payload.id}/games`,
                 {
@@ -41,11 +42,16 @@ const useListGenerator = action => {
                   })
                 );
               });
-            } catch (err) {}
+            } catch (err) {
+              console.error(err);
+            } finally {
+              setLoading(false);
+            }
           };
         case "CREATE_LIST":
           return async function listAndGame() {
             try {
+              setLoading(true);
               const res = await fetch(
                 `${BASE_URL}/users/${user.id}/listnames`,
                 {
@@ -65,17 +71,21 @@ const useListGenerator = action => {
               const title = await res.json();
 
               await new Promise(resolve => {
+                console.log(title);
+
                 return resolve(
                   dispatch({
                     type: "CREATE_LIST",
-                    title: title.title,
                     id: title.id,
-                    userId: title.user_id
+                    userId: title.user_id,
+                    title: title.title
                   })
                 );
               });
             } catch (err) {
               console.error(err);
+            } finally {
+              setLoading(false);
             }
           };
         default:
