@@ -3,6 +3,9 @@ import ListContext from "./../../contexts/listContext";
 const UserList = () => {
   const list = useContext(ListContext);
   console.log(list);
+  useEffect(() => {
+    getLists();
+  }, []);
 
   return (
     <div>
