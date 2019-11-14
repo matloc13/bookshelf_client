@@ -1,14 +1,14 @@
 import { useState, useContext, useEffect } from "react";
 import BASE_URL from "./../constants";
 import UserContext from "./../contexts/userContext";
-import ListContext from "./../contexts/listContext";
+// import ListContext from "./../contexts/listContext";
 import DispatchContext from "./../contexts/dispatchContext";
 
 const useListGenerator = action => {
   const user = useContext(UserContext);
-  const list = useContext(ListContext);
+  // const list = useContext(ListContext);
   const dispatch = useContext(DispatchContext);
-  const [item, setItem] = useState();
+  // const [item, setItem] = useState();
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -94,17 +94,12 @@ const useListGenerator = action => {
     }
   }, [action]);
 
-  // const listAndGame = (game, uid, title) => {
-  //   fetch(`${BASE_URL}/users/${uid}/listnames`, {
+  // const addGame = (game, uid, lid) => {
+  //   fetch(`${BASE_URL}/users/${uid}/listnames/${lid}/games`, {
   //     method: "POST",
-  //     body: JSON.stringify({
-  //       listname: {
-  //         title: title,
-  //         nu_game: game
-  //       }
-  //     }),
+  //     body: JSON.stringify(game),
   //     headers: {
-  //       Accept: "application/json, text/plain, */*",
+  //       Accept: "application/json, text/plain",
   //       "Content-Type": "application/json"
   //     }
   //   })
@@ -113,36 +108,12 @@ const useListGenerator = action => {
   //     .then(setLoading(false))
   //     .catch(err => console.error(err))
   //     .finally(
-  //       item &&
-  //         dispatch({
-  //           type: "CREATE_LIST",
-  //           title: item.title,
-  //           id: item.id,
-  //           userId: item.user_id
-  //         })
+  //       dispatch({
+  //         type: "ADD_ITEM",
+  //         listid: list.id
+  //       })
   //     );
   // };
-
-  const addGame = (game, uid, lid) => {
-    fetch(`${BASE_URL}/users/${uid}/listnames/${lid}/games`, {
-      method: "POST",
-      body: JSON.stringify(game),
-      headers: {
-        Accept: "application/json, text/plain",
-        "Content-Type": "application/json"
-      }
-    })
-      .then(res => res.json())
-      .then(json => setItem(json))
-      .then(setLoading(false))
-      .catch(err => console.error(err))
-      .finally(
-        dispatch({
-          type: "ADD_ITEM",
-          listid: list.id
-        })
-      );
-  };
 
   return [loading];
 };

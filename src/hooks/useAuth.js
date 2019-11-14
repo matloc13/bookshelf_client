@@ -4,8 +4,6 @@ import DispatchContext from "../contexts/dispatchContext";
 
 const useAuth = action => {
   const dispatch = useContext(DispatchContext);
-  // const [isAuthenticated, setisAuthenticated] = useState(false);
-  // const [user, setUser] = useState({});
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {

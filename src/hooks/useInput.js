@@ -11,10 +11,6 @@ const useInput = () => {
     });
   };
 
-  // const clear = () => {
-  //   setValues("");
-  // };
-
   return [handleInput, values];
 };
 

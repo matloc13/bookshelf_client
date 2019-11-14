@@ -1,17 +1,9 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import BASE_URL from "./../constants";
 
-const useHotlist = get => {
+const useHotlist = () => {
   const [hotlist, setHotlist] = useState([]);
   const [loading, setLoading] = useState(false);
-  useEffect(() => {
-    if (get === true) {
-      getHotlist();
-    }
-    return () => {
-      setHotlist([]);
-    };
-  }, [get]);
 
   const getHotlist = async () => {
     setLoading(true);
@@ -26,6 +18,6 @@ const useHotlist = get => {
     }
   };
 
-  return [hotlist, loading];
+  return [hotlist, loading, getHotlist];
 };
 export default useHotlist;
