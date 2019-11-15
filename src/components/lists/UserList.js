@@ -26,6 +26,10 @@ const UserList = () => {
             return (
               <li key={ele.id}>
                 <h1>{ele.title}</h1>
+                <div>
+                  <span>update</span>
+                  <span>delete</span>
+                </div>
               </li>
             );
           })}
