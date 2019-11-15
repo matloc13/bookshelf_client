@@ -13,7 +13,7 @@ const useListGenerator = action => {
 
   useEffect(() => {
     if (action.payload) {
-      console.log(action.payload.title);
+      // console.log(action.payload.title);
 
       switch (action.type) {
         case "ADD_GAME":
@@ -88,32 +88,49 @@ const useListGenerator = action => {
               setLoading(false);
             }
           };
+        case "GET_LIST":
+          return async function getLists() {
+            setLoading(true);
+            try {
+              const res = await fetch(`${BASE_URL}/users/${user.id}/listnames`);
+              const listJSON = await res.json();
+              await new Promise(resolve => {
+                console.log(listJSON);
+
+                return resolve(
+                  dispatch({
+                    type: "SET_LIST",
+                    lists: listJSON
+                  })
+                );
+              });
+            } catch (err) {
+              console.error(err);
+            } finally {
+              setLoading(false);
+            }
+          };
+        // case "UPDATE_LIST":
+        //   return async function updateList() {
+        //     const res = await fetch(
+        //       `${BASE_URL}/users/${user.id}/listnames/${lid}`,
+        //       {
+        //         method: "PUT",
+        //         body: JSON.stringify(action.payload),
+        //         headers: {
+        //           Accept: "application/json, text/plain",
+        //           "Content-type": "application/json"
+        //         }
+        //       }
+        //     );
+        //     const updateJSON = await res.json();
+        //   };
+
         default:
           return;
       }
     }
   }, [action]);
-
-  // const addGame = (game, uid, lid) => {
-  //   fetch(`${BASE_URL}/users/${uid}/listnames/${lid}/games`, {
-  //     method: "POST",
-  //     body: JSON.stringify(game),
-  //     headers: {
-  //       Accept: "application/json, text/plain",
-  //       "Content-Type": "application/json"
-  //     }
-  //   })
-  //     .then(res => res.json())
-  //     .then(json => setItem(json))
-  //     .then(setLoading(false))
-  //     .catch(err => console.error(err))
-  //     .finally(
-  //       dispatch({
-  //         type: "ADD_ITEM",
-  //         listid: list.id
-  //       })
-  //     );
-  // };
 
   return [loading];
 };

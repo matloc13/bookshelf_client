@@ -48,7 +48,7 @@ const GameForm = ({ formType, game, i }) => {
   };
 
   const options = list.map(ele => {
-    return ele.userid === user.id && { value: ele.id, label: ele.title };
+    return ele.user_id === user.id && { value: ele.id, label: ele.title };
   });
 
   const handleSelect = selectedOption => {

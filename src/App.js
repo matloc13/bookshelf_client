@@ -10,6 +10,7 @@ import DispatchContext from "./contexts/dispatchContext";
 import "./App.css";
 import UserContext from "./contexts/userContext";
 import ListContext from "./contexts/listContext";
+
 const initUser = {
   id: null,
   username: "",

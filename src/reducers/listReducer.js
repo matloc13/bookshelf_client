@@ -22,6 +22,8 @@ const listReducer = (state, action) => {
           // ]
         }
       ];
+    case "SET_LIST":
+      return state = action.lists
     default:
       return state;
   }
