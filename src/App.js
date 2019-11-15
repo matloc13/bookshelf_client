@@ -3,7 +3,9 @@ import React, { useReducer } from "react";
 import Header from "./components/header/Header";
 import Hotlist from "./components/hotlist/Hotlist";
 import UserList from "./components/lists/UserList";
+import SingleList from "./components/lists/SingleList";
 import userReducer from "./reducers/userReducer";
+import singleListReducer from "./reducers/singleListRecuer";
 import listReducer from "./reducers/listReducer";
 import listItemReducer from "./reducers/listItemReducer";
 import DispatchContext from "./contexts/dispatchContext";
@@ -23,10 +25,16 @@ const initItem = {};
 const App = () => {
   const [user, dispatchUser] = useReducer(userReducer, initUser);
   const [list, dispatchList] = useReducer(listReducer, initState);
+  const [singleList, dispatchSingleList] = useReducer(singleListReducer, null);
   const [listItem, dispatchListItem] = useReducer(listItemReducer, initItem);
 
   const dispatch = action => {
-    [dispatchUser, dispatchList, dispatchListItem].forEach(fn => fn(action));
+    [
+      dispatchUser,
+      dispatchList,
+      dispatchListItem,
+      dispatchSingleList
+    ].forEach(fn => fn(action));
   };
 
   return (
@@ -38,6 +46,7 @@ const App = () => {
 
             <Header />
             <UserList />
+            <SingleList />
             <Hotlist />
           </div>
         </ListContext.Provider>
