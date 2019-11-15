@@ -169,6 +169,33 @@ const useListGenerator = action => {
               console.error(err);
             }
           };
+        case "GET_SINGLE_LIST":
+          return async function getList() {
+            try {
+              const res = await fetch(
+                `${BASE_URL}/users/${user.id}/listnames/${action.payload.listid}/games`
+              );
+              const listJSON = await res.json();
+              const format = await listJSON.filter(
+                ele => action.payload.listid === ele.listname_id
+              );
+              await new Promise(resolve => {
+                console.log(listJSON);
+
+                console.log(format);
+
+                return resolve(
+                  dispatch({
+                    type: "SET_SINGLE_LIST",
+                    list: format,
+                    listid: action.payload.listid
+                  })
+                );
+              });
+            } catch (err) {
+              console.error(err);
+            }
+          };
         default:
           return;
       }
