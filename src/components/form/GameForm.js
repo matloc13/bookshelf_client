@@ -27,6 +27,7 @@ const GameForm = ({ formType, game, i }) => {
       img: game.thumbnail,
       bggid: game.id
     });
+
     return () => {
       setFormInfo({});
     };
@@ -46,9 +47,10 @@ const GameForm = ({ formType, game, i }) => {
       throw new Error("did not submit");
     }
   };
+  const optionlist = list.filter(ele => ele.user_id === user.id);
 
-  const options = list.map(ele => {
-    return ele.user_id === user.id && { value: ele.id, label: ele.title };
+  const options = optionlist.map(ele => {
+    return { value: ele.id, label: ele.title };
   });
 
   const handleSelect = selectedOption => {

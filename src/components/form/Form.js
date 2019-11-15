@@ -52,23 +52,16 @@ const Form = ({ formType }) => {
     }
   };
 
-  // const handleLogout = async e => {
-  //   e.preventDefault();
-  //   // const confirmLogout = confirm("Are you sure you want to Logout?");
-  //   try {
-  //     if (confirmLogout) {
-  //       return setFormAcc({ type: "LOGOUT" });
-  //     } else {
-  //       return;
-  //     }
-  //   } catch (err) {
-  //     console.error(err);
-  //   }
-  // };
-
   return (
     <>
-      {loading && <h1>...Loading...</h1>}
+      {loading && (
+        <h1>
+          <img
+            src="https://media.giphy.com/media/5KX9jiNXkb3xK/giphy.gif"
+            alt="loading"
+          />
+        </h1>
+      )}
       {formType === "LOGOUT" ? (
         <form onSubmit={handleSubmit}>
           <fieldset className={"fieldset-style"}>

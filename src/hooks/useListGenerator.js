@@ -110,22 +110,65 @@ const useListGenerator = action => {
               setLoading(false);
             }
           };
-        // case "UPDATE_LIST":
-        //   return async function updateList() {
-        //     const res = await fetch(
-        //       `${BASE_URL}/users/${user.id}/listnames/${lid}`,
-        //       {
-        //         method: "PUT",
-        //         body: JSON.stringify(action.payload),
-        //         headers: {
-        //           Accept: "application/json, text/plain",
-        //           "Content-type": "application/json"
-        //         }
-        //       }
-        //     );
-        //     const updateJSON = await res.json();
-        //   };
+        case "UPDATE_LIST":
+          return async function updateList() {
+            try {
+              const res = await fetch(
+                `${BASE_URL}/users/${user.id}/listnames/${action.payload.listid}`,
+                {
+                  method: "PUT",
+                  body: JSON.stringify(action.payload.title),
+                  headers: {
+                    Accept: "application/json, text/plain",
+                    "Content-type": "application/json"
+                  }
+                }
+              );
+              const title = await res.json();
 
+              await new Promise(resolve => {
+                console.log(title);
+
+                return resolve(
+                  dispatch({
+                    type: "UPDATE_LIST",
+                    listid: action.payload.listid,
+                    title: title.title
+                  })
+                );
+              });
+            } catch (err) {
+              console.error(err);
+            }
+          };
+        case "DELETE_LIST":
+          return async function deleteList() {
+            try {
+              const res = await fetch(
+                `${BASE_URL}/users/${user.id}/listnames/${action.payload.listid}`,
+                {
+                  method: "DELETE",
+                  headers: {
+                    Accept: "application/json, text/plain",
+                    "Content-Type": "application/json"
+                  }
+                }
+              );
+              const status = res.json();
+              await new Promise(resolve => {
+                console.log(status);
+
+                return resolve(
+                  dispatch({
+                    type: "DELETE_LIST",
+                    listid: action.payload.listid
+                  })
+                );
+              });
+            } catch (err) {
+              console.error(err);
+            }
+          };
         default:
           return;
       }

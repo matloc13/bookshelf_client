@@ -11,7 +11,14 @@ const Hotlist = () => {
   return (
     <main className="hotlist-container">
       <h2>Hot 50</h2>
-      <div>{loading && <h1>...LOADING</h1>}</div>
+      <div>
+        {loading && (
+          <img
+            src="https://media.giphy.com/media/5KX9jiNXkb3xK/giphy.gif"
+            alt="loading.."
+          />
+        )}
+      </div>
       <>
         {hotlist.items &&
           hotlist.items.item.map((ele, index) => {
