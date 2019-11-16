@@ -31,7 +31,7 @@ const Hotlist = () => {
                     src={ele.thumbnail.value}
                     alt={ele.name.value}
                     onClick={() =>
-                      dispatch({ type: "SET_CURRENT_GAME", game: ele })
+                      dispatch({ type: "SET_CURRENT_GAME", game: ele.id })
                     }
                   />
                   <span>RANK: {ele.rank}</span>

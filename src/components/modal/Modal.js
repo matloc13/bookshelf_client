@@ -3,23 +3,18 @@ import ListContext from "./../../contexts/listContext";
 
 const Modal = () => {
   const allLists = useContext(ListContext);
+  console.log(allLists.current);
+  // api request needed to load game from id.
   return (
     <div>
-      <>
+      {/* <>
         {allLists.current && (
           <div>
             <div>{allLists.current.name}</div>
-            <img
-              src={
-                allLists.current.img
-                  ? allLists.current.img
-                  : allLists.current.thumbnail.value
-              }
-              alt="gameImg"
-            />
+            <img src="" alt="gameImg" />
           </div>
         )}
-      </>
+      </> */}
     </div>
   );
 };

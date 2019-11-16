@@ -14,7 +14,7 @@ const SingleList = () => {
             return (
               <li
                 onClick={() =>
-                  dispatch({ type: "SET_CURRENT_GAME", game: ele })
+                  dispatch({ type: "SET_CURRENT_GAME", game: ele.bggid })
                 }
               >
                 {ele.name}
