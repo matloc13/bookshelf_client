@@ -188,7 +188,8 @@ const useListGenerator = action => {
                   dispatch({
                     type: "SET_SINGLE_LIST",
                     list: format,
-                    listid: action.payload.listid
+                    listid: action.payload.listid,
+                    title: action.payload.title
                   })
                 );
               });

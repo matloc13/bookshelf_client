@@ -15,7 +15,7 @@ const GameForm = ({ formType, game, i }) => {
   // console.log(game);
 
   const user = useContext(UserContext);
-  const list = useContext(ListContext);
+  const allLists = useContext(ListContext);
   const [formAcc, setFormAcc] = useState({});
   const [formInfo, setFormInfo] = useState(initForm);
   const [selectedOption, setSelectedOption] = useState(null);
@@ -47,7 +47,7 @@ const GameForm = ({ formType, game, i }) => {
       throw new Error("did not submit");
     }
   };
-  const optionlist = list.filter(ele => ele.user_id === user.id);
+  const optionlist = allLists.list.filter(ele => ele.user_id === user.id);
 
   const options = optionlist.map(ele => {
     return { value: ele.id, label: ele.title };

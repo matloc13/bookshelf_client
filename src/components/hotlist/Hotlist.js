@@ -1,8 +1,10 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useContext } from "react";
+import DispatchContext from "./../../contexts/dispatchContext";
 import useHotlist from "./../../hooks/useHotlist";
 import GameForm from "./../form/GameForm";
 import NewListForm from "./../form/NewListForm";
 const Hotlist = () => {
+  const dispatch = useContext(DispatchContext);
   const [hotlist, loading, getHotlist] = useHotlist();
   useEffect(() => {
     getHotlist();
@@ -27,8 +29,10 @@ const Hotlist = () => {
                 <div key={`${index}${ele.name.value}`}>
                   <img
                     src={ele.thumbnail.value}
-                    alt="ele.name.value"
-                    onClick={() => {}}
+                    alt={ele.name.value}
+                    onClick={() =>
+                      dispatch({ type: "SET_CURRENT_GAME", game: ele })
+                    }
                   />
                   <span>RANK: {ele.rank}</span>
                 </div>

@@ -1,11 +1,27 @@
 import React, { useContext } from "react";
 import DispatchContext from "./../../contexts/dispatchContext";
+import ListContext from "./../../contexts/listContext";
 const SingleList = () => {
   const dispatch = useContext(DispatchContext);
+  const allLists = useContext(ListContext);
+  // console.log(allLists.sList);
+
   return (
     <>
-      <h2>List Title placeholder</h2>
-      <ul></ul>
+      <ul>
+        {allLists.sList &&
+          allLists.sList.map(ele => {
+            return (
+              <li
+                onClick={() =>
+                  dispatch({ type: "SET_CURRENT_GAME", game: ele })
+                }
+              >
+                {ele.name}
+              </li>
+            );
+          })}
+      </ul>
     </>
   );
 };

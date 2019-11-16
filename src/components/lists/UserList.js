@@ -1,16 +1,16 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import ListContext from "./../../contexts/listContext";
 import UserContext from "./../../contexts/userContext";
 import useListGenerator from "./../../hooks/useListGenerator";
 
 const UserList = () => {
   const user = useContext(UserContext);
-  const list = useContext(ListContext);
+  const allLists = useContext(ListContext);
   const [get, setGet] = useState({});
   const [loading] = useListGenerator(get);
-  console.log(list);
+  // console.log(list);
 
-  let formatList = list.filter(ele => ele.user_id === user.id);
+  let formatList = allLists.list.filter(ele => ele.user_id === user.id);
 
   return (
     <div>
@@ -32,7 +32,10 @@ const UserList = () => {
                   onClick={() =>
                     setGet({
                       type: "GET_SINGLE_LIST",
-                      payload: { listid: ele.id, userid: ele.user_id }
+                      payload: {
+                        listid: ele.id,
+                        userid: ele.user_id
+                      }
                     })
                   }
                 >
