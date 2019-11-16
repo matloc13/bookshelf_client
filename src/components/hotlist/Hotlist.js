@@ -1,17 +1,28 @@
-import React, { useEffect, useContext } from "react";
+import React, { useEffect, useContext, useState } from "react";
 import DispatchContext from "./../../contexts/dispatchContext";
 import useHotlist from "./../../hooks/useHotlist";
+import Modal from "./../modal/Modal";
 import GameForm from "./../form/GameForm";
 import NewListForm from "./../form/NewListForm";
+
 const Hotlist = () => {
   const dispatch = useContext(DispatchContext);
   const [hotlist, loading, getHotlist] = useHotlist();
+  const [show, setShow] = useState(false);
+
+  const handleClick = async ele => {
+    dispatch({ type: "SET_CURRENT_GAME", game: ele.id });
+    setShow(!show);
+  };
+
   useEffect(() => {
     getHotlist();
     return () => {};
   }, []);
   return (
     <main className="hotlist-container">
+      {show && <Modal />}
+
       <h2>Hot 50</h2>
       <div>
         {loading && (
@@ -30,9 +41,7 @@ const Hotlist = () => {
                   <img
                     src={ele.thumbnail.value}
                     alt={ele.name.value}
-                    onClick={() =>
-                      dispatch({ type: "SET_CURRENT_GAME", game: ele.id })
-                    }
+                    onClick={() => handleClick(ele)}
                   />
                   <span>RANK: {ele.rank}</span>
                 </div>
