@@ -1,22 +1,24 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
+import { navigate } from "@reach/router";
 import ListContext from "./../../contexts/listContext";
 import UserContext from "./../../contexts/userContext";
 import useListGenerator from "./../../hooks/useListGenerator";
 
 const UserList = () => {
   const user = useContext(UserContext);
+  useEffect(() => {
+    setGet({ type: "GET_LIST", payload: "getting" });
+  }, []);
+
   const allLists = useContext(ListContext);
   const [get, setGet] = useState({});
   const [loading] = useListGenerator(get);
-  // console.log(list);
 
   let formatList = allLists.list.filter(ele => ele.user_id === user.id);
 
   return (
     <div>
-      <h1 onClick={() => setGet({ type: "GET_LIST", payload: "getting" })}>
-        userlist
-      </h1>
+      <h1>{user.username}'s lists</h1>
       {loading && (
         <img
           src="https://media.giphy.com/media/5KX9jiNXkb3xK/giphy.gif"
@@ -28,19 +30,21 @@ const UserList = () => {
           formatList.map(ele => {
             return (
               <li key={ele.id}>
-                <h1
-                  onClick={() =>
+                <span
+                  onClick={async () => {
                     setGet({
                       type: "GET_SINGLE_LIST",
                       payload: {
                         listid: ele.id,
                         userid: ele.user_id
                       }
-                    })
-                  }
+                    });
+                    await navigate("/user/list");
+                  }}
                 >
                   {ele.title}
-                </h1>
+                </span>
+
                 <div>
                   <span>update</span>
                   <span>delete</span>

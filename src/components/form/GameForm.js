@@ -25,7 +25,8 @@ const GameForm = ({ formType, game, i }) => {
     setFormInfo({
       name: game.name.value,
       img: game.thumbnail,
-      bggid: game.id
+      bggid: game.id,
+      listname_id: selectedOption
     });
 
     return () => {
@@ -42,7 +43,7 @@ const GameForm = ({ formType, game, i }) => {
       throw new Error("password cannot be empty");
     }
     if (formInfo.name !== " " && formInfo.bggid !== " ") {
-      return setFormAcc({ type: "ADDGAME", payload: formInfo });
+      return setFormAcc({ type: "ADD_GAME", payload: formInfo });
     } else {
       throw new Error("did not submit");
     }

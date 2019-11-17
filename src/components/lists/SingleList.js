@@ -7,8 +7,9 @@ import Modal from "./../modal/Modal";
 const SingleList = () => {
   const dispatch = useContext(DispatchContext);
   const allLists = useContext(ListContext);
-  const [game, loading, getItem, deleteItem] = useManageItem();
+  const [deleteItem] = useManageItem();
   const [show, setShow] = useState(false);
+  console.log(allLists.sList);
 
   const handleClick = (ele, type) => {
     console.log(ele);
@@ -32,7 +33,7 @@ const SingleList = () => {
   return (
     <>
       {show && <Modal />}
-
+      <h1>hello</h1>
       <ul>
         {allLists.sList &&
           allLists.sList.map(ele => {

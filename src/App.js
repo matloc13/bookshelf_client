@@ -1,8 +1,9 @@
-import React, {
-  useReducer
-} from "react";
+import React, { useReducer } from "react";
+import { Router } from "@reach/router";
 import Header from "./components/header/Header";
 import Hotlist from "./components/hotlist/Hotlist";
+import User from "./pages/User";
+import UserHome from "./pages/UserHome";
 import UserList from "./components/lists/UserList";
 import SingleList from "./components/lists/SingleList";
 import userReducer from "./reducers/userReducer";
@@ -24,14 +25,15 @@ const initState = [];
 const initSingle = [];
 const currentItem = {
   gameid: null,
-  listid: null,
-}
+  listid: null
+};
 
 const App = () => {
   const [user, dispatchUser] = useReducer(userReducer, initUser);
   const [list, dispatchList] = useReducer(listReducer, initState);
   const [sList, dispatchSList] = useReducer(singleListReducer, initSingle);
   const [current, dispatchCurrent] = useReducer(currentReducer, currentItem);
+  console.log(sList);
 
   const dispatch = action => {
     [dispatchUser, dispatchList, dispatchSList, dispatchCurrent].forEach(fn =>
@@ -39,40 +41,26 @@ const App = () => {
     );
   };
 
-  const allLists = {
-    list,
-    sList,
-    current
-  };
+  const allLists = { list, sList, current };
 
-  return ( <
-    DispatchContext.Provider value = {
-      dispatch
-    } >
-    <
-    UserContext.Provider value = {
-      user
-    } >
-    <
-    ListContext.Provider value = {
-      allLists
-    } >
-    <
-    div className = "App" >
-    <
-    h1 > BGG - Lister < /h1> <
-    Header / >
-    <
-    UserList / >
-    <
-    SingleList / >
-    <
-    Hotlist / >
-    <
-    /div> <
-    /ListContext.Provider> <
-    /UserContext.Provider> <
-    /DispatchContext.Provider>
+  return (
+    <DispatchContext.Provider value={dispatch}>
+      <UserContext.Provider value={user}>
+        <ListContext.Provider value={allLists}>
+          <div className="App">
+            <Header />
+            <Router>
+              <Hotlist path="hotlist" />
+              <User path="user">
+                <UserHome path="/" />
+                <UserList path="userlists" />
+                <SingleList path="list" />
+              </User>
+            </Router>
+          </div>
+        </ListContext.Provider>
+      </UserContext.Provider>
+    </DispatchContext.Provider>
   );
 };
 

@@ -1,4 +1,8 @@
-import { useState, useContext, useEffect } from "react";
+import {
+  useState,
+  useContext,
+  useEffect
+} from "react";
 import BASE_URL from "./../constants";
 import UserContext from "./../contexts/userContext";
 // import ListContext from "./../contexts/listContext";
@@ -8,7 +12,7 @@ const useListGenerator = action => {
   const user = useContext(UserContext);
   // const list = useContext(ListContext);
   const dispatch = useContext(DispatchContext);
-  // const [item, setItem] = useState();
+
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -21,8 +25,7 @@ const useListGenerator = action => {
             try {
               setLoading(true);
               const res = await fetch(
-                `${BASE_URL}/users/${user.id}/listnames/${action.payload.id}/games`,
-                {
+                `${BASE_URL}/users/${user.id}/listnames/${action.payload.listname_id}/games`, {
                   method: "POST",
                   body: JSON.stringify(action.payload),
                   headers: {
@@ -32,13 +35,18 @@ const useListGenerator = action => {
                 }
               );
 
-              const game = res.json();
+              const game = await res.json();
 
               await new Promise(resolve => {
+                console.log(game);
+
                 return resolve(
                   dispatch({
                     type: "ADD_ITEM",
-                    name: game.name.value
+                    name: game.name.value,
+                    bggid: game.id,
+                    img: game.thumbnail.value,
+                    listname_id: game.listname_id
                   })
                 );
               });
@@ -53,8 +61,7 @@ const useListGenerator = action => {
             try {
               setLoading(true);
               const res = await fetch(
-                `${BASE_URL}/users/${user.id}/listnames`,
-                {
+                `${BASE_URL}/users/${user.id}/listnames`, {
                   method: "POST",
                   body: JSON.stringify({
                     listname: {
@@ -114,8 +121,7 @@ const useListGenerator = action => {
           return async function updateList() {
             try {
               const res = await fetch(
-                `${BASE_URL}/users/${user.id}/listnames/${action.payload.listid}`,
-                {
+                `${BASE_URL}/users/${user.id}/listnames/${action.payload.listid}`, {
                   method: "PUT",
                   body: JSON.stringify(action.payload.title),
                   headers: {
@@ -145,8 +151,7 @@ const useListGenerator = action => {
           return async function deleteList() {
             try {
               const res = await fetch(
-                `${BASE_URL}/users/${user.id}/listnames/${action.payload.listid}`,
-                {
+                `${BASE_URL}/users/${user.id}/listnames/${action.payload.listid}`, {
                   method: "DELETE",
                   headers: {
                     Accept: "application/json, text/plain",
