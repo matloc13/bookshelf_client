@@ -44,7 +44,6 @@ const UserList = () => {
                 >
                   {ele.title}
                 </span>
-
                 <div>
                   <span>update</span>
                   <span>delete</span>

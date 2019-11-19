@@ -25,7 +25,8 @@ const initState = [];
 const initSingle = [];
 const currentItem = {
   gameid: null,
-  listid: null
+  listid: null,
+  gameuserid: null
 };
 
 const App = () => {

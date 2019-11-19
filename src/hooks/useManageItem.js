@@ -1,13 +1,30 @@
-import { useState, useContext } from "react";
+import {
+  useState,
+  useContext,
+  useEffect
+} from "react";
 import BASE_URL from "./../constants";
 import ListContext from "./../contexts/listContext";
 import UserContext from "./../contexts/userContext";
 
-const useManageItem = () => {
+const useManageItem = (del) => {
   const allLists = useContext(ListContext);
   const user = useContext(UserContext);
   const [game, setGame] = useState(null);
+  const [response, setResponse] = useState({})
   const [loading, setLoading] = useState(false);
+
+
+  useEffect(() => {
+    if (del === "true") {
+      deleteItem()
+    }
+
+    return () => {
+      console.log('deleting');
+
+    };
+  }, [del])
 
   const getItem = async () => {
     try {
@@ -28,21 +45,33 @@ const useManageItem = () => {
   const deleteItem = async () => {
     try {
       const deleted = await allLists.current;
-      const res = await fetch(
-        `${BASE_URL}/users/$${user.id}/listnames/${deleted.listid}/games/${deleted.gameid}`,
-        {
-          method: "DELETE",
-          headers: {
-            Accept: "application/json, text/plain",
-            "Content-Type": "application/json"
+      if (deleted) {
+        console.log(deleted);
+
+        const res = await fetch(
+          `${BASE_URL}/users/${user.id}/listnames/${deleted.listid}/games/${deleted.gameuserid}`, {
+            method: "DELETE",
+            headers: {
+              Accept: "application/json, text/plain",
+              "Content-Type": "application/json"
+            }
           }
-        }
-      );
-      // const gameItem = res.filter
+        );
+        const statusResponse = await res.json();
+        await new Promise(resolve => {
+          return resolve(setResponse(statusResponse));
+        })
+        // Notify goes here
+        // const gameItem = res.filter
+      }
     } catch (err) {
       console.error(err);
+
     }
-  };
-  return [game, loading, getItem, deleteItem];
+  }
+
+
+
+  return [game, loading, getItem, deleteItem, response];
 };
 export default useManageItem;

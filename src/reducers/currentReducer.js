@@ -6,7 +6,7 @@ const currentReducer = (state, action) => {
       };
     case 'DELETE_ITEM':
       return {
-        ...state, listid: action.list, gameid: action.id
+        ...state, listid: action.list, gameuserid: action.id, gameid: action.game
       }
       default:
         return;
