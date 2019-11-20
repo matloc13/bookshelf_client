@@ -23,11 +23,13 @@ const UserList = () => {
           type: "DELETE_LIST",
           payload: {
             listid: ele.id,
-            userid: ele.user_id
+            userid: ele.user_id,
+            lists: allLists.list
           }
         })
       );
     });
+    await navigate("/user");
   };
 
   return (
@@ -60,7 +62,9 @@ const UserList = () => {
                 </span>
                 <div>
                   <span>update</span>
-                  <span onClick={() => deleteItem(ele)}>delete</span>
+                  <span onClick={() => deleteItem(ele, formatList)}>
+                    delete
+                  </span>
                 </div>
               </li>
             );

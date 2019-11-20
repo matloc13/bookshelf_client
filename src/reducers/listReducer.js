@@ -14,7 +14,10 @@ const listReducer = (state, action) => {
     case "UPDATE_LIST":
       return;
     case "DELETE_LIST":
-      return;
+      const newList = action.lists.filter(
+        ele => ele.listname_id === action.listid
+      );
+      return [...state, newList];
     default:
       return state;
   }

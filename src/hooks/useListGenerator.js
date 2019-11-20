@@ -164,7 +164,8 @@ const useListGenerator = action => {
                 return resolve(
                   dispatch({
                     type: "DELETE_LIST",
-                    listid: action.payload.listid
+                    listid: action.payload.listid,
+                    lists: action.payload.lists
                   })
                 );
               });

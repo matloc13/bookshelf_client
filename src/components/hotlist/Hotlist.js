@@ -6,6 +6,7 @@ import Modal from "./../modal/Modal";
 import GameForm from "./../form/GameForm";
 import NewListForm from "./../form/NewListForm";
 import useListGenerator from "../../hooks/useListGenerator";
+import { returnStatement } from "@babel/types";
 
 const Hotlist = () => {
   const dispatch = useContext(DispatchContext);
@@ -14,11 +15,24 @@ const Hotlist = () => {
   const [hotlist, loading, getHotlist] = useHotlist();
   const [get, setGet] = useState({});
   const [show, setShow] = useState(false);
+  const [gameForm, setGameForm] = useState(false);
+  const [newList, setNewList] = useState(false);
   const [] = useListGenerator(get);
-  const handleClick = async ele => {
-    dispatch({ type: "SET_CURRENT_GAME", game: ele.id });
-    setShow(!show);
+  const handleClick = async (e, ele) => {
+    switch (e.target.id) {
+      case "img":
+        dispatch({ type: "SET_CURRENT_GAME", game: ele.id });
+        setShow(!show);
+        break;
+      case "addtolist":
+        return setGameForm(!gameForm);
+      case "newlist":
+        return setNewList(!newList);
+      default:
+        return;
+    }
   };
+  const handleFormReveal = e => {};
 
   useEffect(() => {
     getHotlist();
@@ -54,14 +68,31 @@ const Hotlist = () => {
               <div key={`${index}${ele.name.value}`}>
                 <div key={`${index}${ele.name.value}`}>
                   <img
+                    id="img"
                     src={ele.thumbnail.value}
                     alt={ele.name.value}
-                    onClick={() => handleClick(ele)}
+                    onClick={e => handleClick(e, ele)}
                   />
                   <span>RANK: {ele.rank}</span>
                 </div>
-                <GameForm formType="ADDGAME" game={ele} i={index} />
-                <NewListForm formType="NewList" game={ele} i={index} />
+                <div>
+                  <span id="addtolist" onClick={e => handleClick(e)}>
+                    {gameForm ? "close" : " add to list"}
+                  </span>
+                  <span id="newlist" onClick={e => handleClick(e)}>
+                    {newList ? "close" : "new list"}
+                  </span>
+                </div>
+                <>
+                  {gameForm && (
+                    <GameForm formType="ADDGAME" game={ele} i={index} />
+                  )}
+                </>
+                <>
+                  {newList && (
+                    <NewListForm formType="NewList" game={ele} i={index} />
+                  )}
+                </>
               </div>
             );
           })}

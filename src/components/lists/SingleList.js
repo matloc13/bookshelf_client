@@ -44,6 +44,7 @@ const SingleList = () => {
             return (
               <li>
                 <h3 onClick={() => handleClick(ele, "cur")}>{ele.name}</h3>
+                <img src={ele.img} alt={ele.name} />
                 <span onClick={() => handleClick(ele, "del")}>X</span>
               </li>
             );

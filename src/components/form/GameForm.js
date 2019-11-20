@@ -1,4 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
+import { toast } from "react-toastify";
 import UserContext from "./../../contexts/userContext";
 import ListContext from "./../../contexts/listContext";
 import useListGenerator from "./../../hooks/useListGenerator";
@@ -22,7 +23,6 @@ const GameForm = ({ formType, game, i }) => {
   const [loading] = useListGenerator(formAcc);
 
   useEffect(() => {
-    console.log(selectedOption);
     if (selectedOption) {
       setFormInfo({
         name: game.name.value,
@@ -37,6 +37,10 @@ const GameForm = ({ formType, game, i }) => {
     };
   }, [game, selectedOption]);
 
+  const notify = item => {
+    toast(`${item}`);
+  };
+
   const handleSubmit = e => {
     e.preventDefault();
 
@@ -46,6 +50,7 @@ const GameForm = ({ formType, game, i }) => {
       throw new Error("password cannot be empty");
     }
     if (formInfo.name !== " " && formInfo.bggid !== " ") {
+      notify(`${formInfo.name} added to ${selectedOption.label}`);
       return setFormAcc({ type: "ADD_GAME", payload: formInfo });
     } else {
       throw new Error("did not submit");
