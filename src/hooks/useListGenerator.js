@@ -1,8 +1,4 @@
-import {
-  useState,
-  useContext,
-  useEffect
-} from "react";
+import { useState, useContext, useEffect } from "react";
 import BASE_URL from "./../constants";
 import UserContext from "./../contexts/userContext";
 // import ListContext from "./../contexts/listContext";
@@ -12,20 +8,19 @@ const useListGenerator = action => {
   const user = useContext(UserContext);
   // const list = useContext(ListContext);
   const dispatch = useContext(DispatchContext);
-
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (action.payload) {
       // console.log(action.payload.title);
-
       switch (action.type) {
         case "ADD_GAME":
           return async function addGame() {
             try {
               setLoading(true);
               const res = await fetch(
-                `${BASE_URL}/users/${user.id}/listnames/${action.payload.listname_id}/games`, {
+                `${BASE_URL}/users/${user.id}/listnames/${action.payload.listname_id}/games`,
+                {
                   method: "POST",
                   body: JSON.stringify(action.payload),
                   headers: {
@@ -43,9 +38,9 @@ const useListGenerator = action => {
                 return resolve(
                   dispatch({
                     type: "ADD_ITEM",
-                    name: game.name.value,
+                    name: game.name,
                     bggid: game.id,
-                    img: game.thumbnail.value,
+                    img: game.img,
                     listname_id: game.listname_id
                   })
                 );
@@ -61,7 +56,8 @@ const useListGenerator = action => {
             try {
               setLoading(true);
               const res = await fetch(
-                `${BASE_URL}/users/${user.id}/listnames`, {
+                `${BASE_URL}/users/${user.id}/listnames`,
+                {
                   method: "POST",
                   body: JSON.stringify({
                     listname: {
@@ -79,7 +75,6 @@ const useListGenerator = action => {
 
               await new Promise(resolve => {
                 console.log(title);
-
                 return resolve(
                   dispatch({
                     type: "CREATE_LIST",
@@ -121,7 +116,8 @@ const useListGenerator = action => {
           return async function updateList() {
             try {
               const res = await fetch(
-                `${BASE_URL}/users/${user.id}/listnames/${action.payload.listid}`, {
+                `${BASE_URL}/users/${user.id}/listnames/${action.payload.listid}`,
+                {
                   method: "PUT",
                   body: JSON.stringify(action.payload.title),
                   headers: {
@@ -149,9 +145,11 @@ const useListGenerator = action => {
           };
         case "DELETE_LIST":
           return async function deleteList() {
+            console.log("arrived");
             try {
               const res = await fetch(
-                `${BASE_URL}/users/${user.id}/listnames/${action.payload.listid}`, {
+                `${BASE_URL}/users/${user.id}/listnames/${action.payload.listid}`,
+                {
                   method: "DELETE",
                   headers: {
                     Accept: "application/json, text/plain",
@@ -159,7 +157,7 @@ const useListGenerator = action => {
                   }
                 }
               );
-              const status = res.json();
+              const status = res;
               await new Promise(resolve => {
                 console.log(status);
 

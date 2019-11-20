@@ -7,11 +7,9 @@ import Modal from "./../modal/Modal";
 const SingleList = () => {
   const dispatch = useContext(DispatchContext);
   const allLists = useContext(ListContext);
-  const [del, setDel] = useState("waiting");
-  const [response] = useManageItem(del);
-
+  const [del, setDel] = useState(false);
+  const [] = useManageItem(del);
   const [show, setShow] = useState(false);
-  const [jsonResponse, setJsonResponse] = useState();
   console.log(allLists.sList);
 
   const handleClick = (ele, type) => {
@@ -29,9 +27,8 @@ const SingleList = () => {
             id: ele.id,
             game: ele.bggid
           });
-          return resolve(setDel("true"));
+          return resolve(setDel(true));
         });
-        promise.then(alert(response)).finally(setDel("waiting"));
         break;
       default:
         return;
@@ -41,7 +38,6 @@ const SingleList = () => {
   return (
     <>
       {show && <Modal />}
-      <h1>hello</h1>
       <ul>
         {allLists.sList &&
           allLists.sList.map(ele => {

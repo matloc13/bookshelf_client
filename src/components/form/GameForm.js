@@ -22,17 +22,20 @@ const GameForm = ({ formType, game, i }) => {
   const [loading] = useListGenerator(formAcc);
 
   useEffect(() => {
-    setFormInfo({
-      name: game.name.value,
-      img: game.thumbnail,
-      bggid: game.id,
-      listname_id: selectedOption
-    });
+    console.log(selectedOption);
+    if (selectedOption) {
+      setFormInfo({
+        name: game.name.value,
+        img: game.thumbnail.value,
+        bggid: game.id,
+        listname_id: selectedOption.value
+      });
+    }
 
     return () => {
       setFormInfo({});
     };
-  }, [game]);
+  }, [game, selectedOption]);
 
   const handleSubmit = e => {
     e.preventDefault();

@@ -1,30 +1,29 @@
-import {
-  useState,
-  useContext,
-  useEffect
-} from "react";
+import { useState, useContext, useEffect } from "react";
+import { toast } from "react-toastify";
 import BASE_URL from "./../constants";
 import ListContext from "./../contexts/listContext";
 import UserContext from "./../contexts/userContext";
 
-const useManageItem = (del) => {
+const useManageItem = del => {
   const allLists = useContext(ListContext);
   const user = useContext(UserContext);
   const [game, setGame] = useState(null);
-  const [response, setResponse] = useState({})
+  const [response, setResponse] = useState({});
   const [loading, setLoading] = useState(false);
 
-
   useEffect(() => {
-    if (del === "true") {
-      deleteItem()
+    if (del) {
+      deleteItem();
     }
 
     return () => {
-      console.log('deleting');
-
+      console.log("deleting");
     };
-  }, [del])
+  }, [del]);
+
+  const notify = item => {
+    toast(`${item}`);
+  };
 
   const getItem = async () => {
     try {
@@ -49,7 +48,8 @@ const useManageItem = (del) => {
         console.log(deleted);
 
         const res = await fetch(
-          `${BASE_URL}/users/${user.id}/listnames/${deleted.listid}/games/${deleted.gameuserid}`, {
+          `${BASE_URL}/users/${user.id}/listnames/${deleted.listid}/games/${deleted.gameuserid}`,
+          {
             method: "DELETE",
             headers: {
               Accept: "application/json, text/plain",
@@ -57,20 +57,16 @@ const useManageItem = (del) => {
             }
           }
         );
-        const statusResponse = await res.json();
         await new Promise(resolve => {
-          return resolve(setResponse(statusResponse));
-        })
+          return resolve(setResponse(res));
+        });
         // Notify goes here
         // const gameItem = res.filter
       }
     } catch (err) {
       console.error(err);
-
     }
-  }
-
-
+  };
 
   return [game, loading, getItem, deleteItem, response];
 };

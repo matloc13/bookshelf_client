@@ -16,6 +16,20 @@ const UserList = () => {
 
   let formatList = allLists.list.filter(ele => ele.user_id === user.id);
 
+  const deleteItem = async ele => {
+    await new Promise(resolve => {
+      return resolve(
+        setGet({
+          type: "DELETE_LIST",
+          payload: {
+            listid: ele.id,
+            userid: ele.user_id
+          }
+        })
+      );
+    });
+  };
+
   return (
     <div>
       <h1>{user.username}'s lists</h1>
@@ -46,7 +60,7 @@ const UserList = () => {
                 </span>
                 <div>
                   <span>update</span>
-                  <span>delete</span>
+                  <span onClick={() => deleteItem(ele)}>delete</span>
                 </div>
               </li>
             );

@@ -1,5 +1,6 @@
 import React, { useReducer } from "react";
 import { Router } from "@reach/router";
+import { toast } from "react-toastify";
 import Header from "./components/header/Header";
 import Hotlist from "./components/hotlist/Hotlist";
 import User from "./pages/User";
@@ -14,6 +15,11 @@ import DispatchContext from "./contexts/dispatchContext";
 import "./App.css";
 import UserContext from "./contexts/userContext";
 import ListContext from "./contexts/listContext";
+
+toast.configure({
+  autoClose: 3200,
+  draggable: false
+});
 
 const initUser = {
   id: null,
