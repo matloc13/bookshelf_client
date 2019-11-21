@@ -1,6 +1,7 @@
 import React, { useReducer } from "react";
 import { Router } from "@reach/router";
 import { toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.min.css'
 import Header from "./components/header/Header";
 import Hotlist from "./components/hotlist/Hotlist";
 import User from "./pages/User";
@@ -16,11 +17,6 @@ import "./App.css";
 import UserContext from "./contexts/userContext";
 import ListContext from "./contexts/listContext";
 
-toast.configure({
-  autoClose: 3200,
-  draggable: false
-});
-
 const initUser = {
   id: null,
   username: "",
@@ -34,6 +30,11 @@ const currentItem = {
   listid: null,
   gameuserid: null
 };
+
+toast.configure({
+  autoClose: 3200,
+  draggable: false
+});
 
 const App = () => {
   const [user, dispatchUser] = useReducer(userReducer, initUser);
@@ -50,10 +51,15 @@ const App = () => {
 
   const allLists = { list, sList, current };
 
+  const notify = (item) => {
+    toast(`${item}`)
+  }
+
   return (
     <DispatchContext.Provider value={dispatch}>
       <UserContext.Provider value={user}>
         <ListContext.Provider value={allLists}>
+        
           <div className="App">
             <Header />
             <Router>
@@ -65,6 +71,7 @@ const App = () => {
               </User>
             </Router>
           </div>
+         
         </ListContext.Provider>
       </UserContext.Provider>
     </DispatchContext.Provider>

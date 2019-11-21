@@ -12,9 +12,8 @@ const initForm = {
   bggid: null
 };
 
-const GameForm = ({ formType, game, i }) => {
+const GameForm = ({ formType, game, i}) => {
   // console.log(game);
-
   const user = useContext(UserContext);
   const allLists = useContext(ListContext);
   const [formAcc, setFormAcc] = useState({});

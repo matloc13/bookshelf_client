@@ -3,10 +3,12 @@ import { toast } from "react-toastify";
 import BASE_URL from "./../constants";
 import ListContext from "./../contexts/listContext";
 import UserContext from "./../contexts/userContext";
+import DispatchContext from './../contexts/dispatchContext';
 
 const useManageItem = del => {
   const allLists = useContext(ListContext);
   const user = useContext(UserContext);
+  const dispatch = useContext(DispatchContext);
   const [game, setGame] = useState(null);
   const [response, setResponse] = useState({});
   const [loading, setLoading] = useState(false);
@@ -15,7 +17,6 @@ const useManageItem = del => {
     if (del) {
       deleteItem();
     }
-
     return () => {
       console.log("deleting");
     };

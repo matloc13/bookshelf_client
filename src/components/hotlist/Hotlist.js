@@ -6,7 +6,7 @@ import Modal from "./../modal/Modal";
 import GameForm from "./../form/GameForm";
 import NewListForm from "./../form/NewListForm";
 import useListGenerator from "../../hooks/useListGenerator";
-import { returnStatement } from "@babel/types";
+import { toast } from "react-toastify";
 
 const Hotlist = () => {
   const dispatch = useContext(DispatchContext);
@@ -18,6 +18,9 @@ const Hotlist = () => {
   const [gameForm, setGameForm] = useState(false);
   const [newList, setNewList] = useState(false);
   const [] = useListGenerator(get);
+  const notify = (item) => {
+    toast(item)
+  }
   const handleClick = async (e, ele) => {
     switch (e.target.id) {
       case "img":
@@ -25,27 +28,32 @@ const Hotlist = () => {
         setShow(!show);
         break;
       case "addtolist":
-        return setGameForm(!gameForm);
+        if (user.isAuthenticated) {
+          return setGameForm(!gameForm);
+        } else {
+          return notify('Please Login')
+        }
+    
       case "newlist":
-        return setNewList(!newList);
+          if (user.isAuthenticated) {
+            return setNewList(!newList);
+          } else {
+            return notify('Please Login')
+          }
+               
       default:
         return;
     }
   };
-  const handleFormReveal = e => {};
 
   useEffect(() => {
     getHotlist();
-
-    return () => {};
   }, []);
 
   useEffect(() => {
     if (user) {
       setGet({ type: "GET_LIST", payload: "getting" });
     }
-
-    return () => {};
   }, [user]);
 
   return (
@@ -83,14 +91,23 @@ const Hotlist = () => {
                     {newList ? "close" : "new list"}
                   </span>
                 </div>
+                
                 <>
                   {gameForm && (
-                    <GameForm formType="ADDGAME" game={ele} i={index} />
+                    <GameForm 
+                    formType="ADDGAME" 
+                    game={ele} 
+                    i={index} 
+                     />
                   )}
                 </>
                 <>
                   {newList && (
-                    <NewListForm formType="NewList" game={ele} i={index} />
+                    <NewListForm 
+                    formType="NewList"
+                     game={ele} 
+                     i={index}
+                />
                   )}
                 </>
               </div>
