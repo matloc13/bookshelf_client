@@ -58,7 +58,7 @@ const Hotlist = () => {
 
   return (
     <main className="hotlist-container">
-      {show && <Modal />}
+      {show && <Modal setShow={setShow} show={show}/>}
 
       <h2>Hot 50</h2>
       <div>

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import useManageItem from "./../../hooks/useManageItem";
 
-const Modal = () => {
+const Modal = ({setShow, show}) => {
   const [game, loading, getItem] = useManageItem();
   const [showPub, setShowPub] = useState(false);
   const [showDesc, setShowDesc] = useState(false);
@@ -13,6 +13,9 @@ const Modal = () => {
   // api request needed to load game from id.
   return (
     <div className={"gameContainer"}>
+      <>
+      <button onClick={()=> {setShow(!show)}}>close</button>
+      </>
       {loading && (
         <img
           src="https://media.giphy.com/media/5KX9jiNXkb3xK/giphy.gif"

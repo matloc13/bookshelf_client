@@ -37,7 +37,7 @@ const SingleList = () => {
 
   return (
     <>
-      {show && <Modal />}
+      {show && <Modal setShow={setShow} show={show}/>}
       <ul>
         {allLists.sList &&
           allLists.sList.map(ele => {
@@ -51,7 +51,7 @@ const SingleList = () => {
               </li>
             );
           })}
-      </ul>
+      </ul>     
     </>
   );
 };
