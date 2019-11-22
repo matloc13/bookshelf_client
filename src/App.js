@@ -61,15 +61,18 @@ const App = () => {
         <ListContext.Provider value={allLists}>
         
           <div className="App">
+
             <Header />
+          
             <Router>
-              <Hotlist path="hotlist" />
-              <User path="user">
-                <UserHome path="/" />
-                <UserList path="userlists" />
-                <SingleList path="list" />
-              </User>
+                <Hotlist path="hotlist" />
+                <User path="user">
+                  <UserHome path="/" />
+                  <UserList path="userlists" />
+                  <SingleList path="list" />
+                </User>            
             </Router>
+            
           </div>
          
         </ListContext.Provider>

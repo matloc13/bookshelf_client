@@ -43,8 +43,10 @@ const SingleList = () => {
           allLists.sList.map(ele => {
             return (
               <li>
-                <h3 onClick={() => handleClick(ele, "cur")}>{ele.name}</h3>
-                <img src={ele.img} alt={ele.name} />
+                <div  className="game-containter" onClick={() => handleClick(ele, "cur")}>
+                  <h3>{ele.name}</h3>
+                  <img src={ele.img} alt={ele.name}/>
+                </div>
                 <span onClick={() => handleClick(ele, "del")}>X</span>
               </li>
             );

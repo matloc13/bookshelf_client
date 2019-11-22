@@ -12,7 +12,7 @@ const NavList = () => {
       setGet({type: 'GET_LIST', payload: 'getting'});
     }
   }, [user])
-
+  
   return (
     <nav>
       <NavLink to="userlists">lists</NavLink>

@@ -112,6 +112,7 @@ const useListGenerator = action => {
               setLoading(false);
             }
           };
+          return;
         case "UPDATE_LIST":
           return async function updateList() {
             try {
@@ -204,6 +205,8 @@ const useListGenerator = action => {
         default:
           return;
       }
+    } else {
+      
     }
   }, [action]);
 

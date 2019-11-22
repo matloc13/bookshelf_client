@@ -34,7 +34,12 @@ const UserList = () => {
 
   return (
     <div>
-      <h1>{user.username}'s lists</h1>
+      {
+        user.isAuthenticated ?
+        <h1>{user.username}'s lists</h1>
+        : <p>Please login in to see your a lists</p>
+      }
+      
       {loading && (
         <img
           src="https://media.giphy.com/media/5KX9jiNXkb3xK/giphy.gif"
