@@ -6,15 +6,21 @@ import useListGenerator from "./../../hooks/useListGenerator";
 
 const UserList = () => {
   const user = useContext(UserContext);
+  const allLists = useContext(ListContext);
   useEffect(() => {
     setGet({ type: "GET_LIST", payload: "getting" });
   }, []);
 
-  const allLists = useContext(ListContext);
+  // useEffect(() => {
+  //   setGet({ type: "GET_LIST", payload: "getting" });
+  
+  // }, [])
+
+
   const [get, setGet] = useState({});
   const [loading] = useListGenerator(get);
 
-  let formatList = allLists.list.filter(ele => ele.user_id === user.id);
+  let formatList = allLists.list[0].filter(ele => ele.user_id === user.id);
 
   const deleteItem = async ele => {
     await new Promise(resolve => {

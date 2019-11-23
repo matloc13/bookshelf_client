@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import {toast} from 'react-toastify';
 import Input from "./inputs/Input";
 import Label from "./../form/label/Label";
 import useInput from "../../hooks/useInput";
@@ -8,7 +9,7 @@ const initList = {
   game: {}
 };
 
-const NewListForm = ({ formType, game, i }) => {
+const NewListForm = ({ formType, game, i, set, newList }) => {
   const [handleInput, values] = useInput();
   const [formInfo, setFormInfo] = useState(initList);
   const [formAcc, setFormAcc] = useState({});
@@ -33,12 +34,21 @@ const NewListForm = ({ formType, game, i }) => {
       throw new Error("username cannot be empty");
     }
     if (formInfo.title !== " ") {
-      // console.log(formInfo);
+      console.log(formInfo);
+      notify(` ${formInfo.game.name} added to new list ${formInfo.title}`)
       return setFormAcc({ type: "CREATE_LIST", payload: formInfo });
+     
+      // set(!newList);
+
     } else {
       throw new Error("did not submit");
     }
   };
+
+  const notify = item => {
+    toast(`${item}`);
+  };
+
   return (
     <>
       {loading && (

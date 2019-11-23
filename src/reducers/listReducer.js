@@ -10,7 +10,7 @@ const listReducer = (state, action) => {
         }
       ];
     case "SET_LIST":
-      return (state = action.lists);
+      return [action.lists, ...state];
     case "UPDATE_LIST":
       return;
     case "DELETE_LIST":

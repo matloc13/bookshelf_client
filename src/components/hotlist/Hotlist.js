@@ -17,6 +17,7 @@ const Hotlist = () => {
   const [show, setShow] = useState(false);
   const [gameForm, setGameForm] = useState(false);
   const [newList, setNewList] = useState(false);
+  const [focusCurrent, setFocusCurrent] = useState({id:null})
   const [] = useListGenerator(get);
   const notify = (item) => {
     toast(item)
@@ -28,19 +29,20 @@ const Hotlist = () => {
         setShow(!show);
         break;
       case "addtolist":
-        if (user.isAuthenticated) {
+        if (user.isAuthenticated && ele.id) {
+          setFocusCurrent({id: ele.id})
           return setGameForm(!gameForm);
         } else {
           return notify('Please Login')
         }
     
       case "newlist":
-          if (user.isAuthenticated) {
+          if (user.isAuthenticated && ele.id) {
+            setFocusCurrent({id: ele.id})
             return setNewList(!newList);
           } else {
             return notify('Please Login')
-          }
-               
+          }              
       default:
         return;
     }
@@ -84,29 +86,33 @@ const Hotlist = () => {
                   <span>RANK: {ele.rank}</span>
                 </div>
                 <div>
-                  <span id="addtolist" onClick={e => handleClick(e)}>
+                  <span id="addtolist" onClick={e => handleClick(e,ele)}>
                     {gameForm ? "close" : " add to list"}
                   </span>
-                  <span id="newlist" onClick={e => handleClick(e)}>
+                  <span id="newlist" onClick={e => handleClick(e,ele)}>
                     {newList ? "close" : "new list"}
                   </span>
                 </div>
                 
                 <>
-                  {gameForm && (
+                  {gameForm && focusCurrent.id === ele.id && (
                     <GameForm 
                     formType="ADDGAME" 
                     game={ele} 
                     i={index} 
+                    set={setGameForm}
+                    gameForm={gameForm}
                      />
                   )}
                 </>
                 <>
-                  {newList && (
+                  {newList && focusCurrent.id === ele.id &&  (
                     <NewListForm 
                     formType="NewList"
                      game={ele} 
                      i={index}
+                     set={setNewList}
+                     newList={newList}
                 />
                   )}
                 </>

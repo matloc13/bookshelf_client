@@ -6,6 +6,28 @@ const useAuth = action => {
   const dispatch = useContext(DispatchContext);
   const [loading, setLoading] = useState(false);
 
+  // useEffect(() => {
+  //   if (!localStorage.getItem("user")) {
+  //     console.log('storage empty')
+  //   } else {
+  //     console.log('storage in use')
+  //     try {
+  //       dispatch({type: "SET_USER",
+  //       id: user.user.id,
+  //       username: user.user.username,
+  //       isAuthenticated: true,
+  //       token: user.token
+  //     })
+  //     } catch (err) {
+  //       console.error(err);
+        
+  //     }
+  //   }
+  //   return () => {
+  //     cleanup
+  //   };
+  // }, [input])
+
   useEffect(() => {
     if (action) {
       switch (action.type) {

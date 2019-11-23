@@ -15,9 +15,8 @@ const NavList = () => {
   
   return (
     <nav>
-      <NavLink to="userlists">lists</NavLink>
-      {/* <NavLink to="list">list</NavLink> */}
       <NavLink to="/hotlist">hotlist</NavLink>
+      <NavLink to="userlists">lists</NavLink>
     </nav>
   );
 };

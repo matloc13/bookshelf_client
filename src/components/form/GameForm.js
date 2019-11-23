@@ -12,7 +12,7 @@ const initForm = {
   bggid: null
 };
 
-const GameForm = ({ formType, game, i}) => {
+const GameForm = ({ formType, game, i, set, gameForm}) => {
   // console.log(game);
   const user = useContext(UserContext);
   const allLists = useContext(ListContext);
@@ -42,18 +42,19 @@ const GameForm = ({ formType, game, i}) => {
 
   const handleSubmit = e => {
     e.preventDefault();
-
+    notify(`${formInfo.name} added to ${selectedOption.label}`);
+    // set(!gameForm);
     if (formInfo.name === " ") {
       throw new Error("username cannot be empty");
     } else if (formInfo.bggid === " ") {
       throw new Error("password cannot be empty");
     }
     if (formInfo.name !== " " && formInfo.bggid !== " ") {
-      notify(`${formInfo.name} added to ${selectedOption.label}`);
-      return setFormAcc({ type: "ADD_GAME", payload: formInfo });
+       return setFormAcc({ type: "ADD_GAME", payload: formInfo });
     } else {
       throw new Error("did not submit");
     }
+    
   };
   const optionlist = allLists.list.filter(ele => ele.user_id === user.id);
 

@@ -1,4 +1,4 @@
-import React, { useReducer } from "react";
+import React, { useReducer, useEffect } from "react";
 import { Router } from "@reach/router";
 import { toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.min.css'
@@ -23,7 +23,7 @@ const initUser = {
   token: null,
   isAuthenticated: false
 };
-const initState = [];
+const initState = [[]];
 const initSingle = [];
 const currentItem = {
   gameid: null,
@@ -41,7 +41,15 @@ const App = () => {
   const [list, dispatchList] = useReducer(listReducer, initState);
   const [sList, dispatchSList] = useReducer(singleListReducer, initSingle);
   const [current, dispatchCurrent] = useReducer(currentReducer, currentItem);
-  console.log(sList);
+  // console.log(sList);
+
+  useEffect(() => {
+    if (user.username) {
+      notify(`${user.username} has logged in successfully`)
+    } else {
+      notify(`You have successfully logged out.`)
+    }
+  }, [user])
 
   const dispatch = action => {
     [dispatchUser, dispatchList, dispatchSList, dispatchCurrent].forEach(fn =>
@@ -72,7 +80,7 @@ const App = () => {
                   <SingleList path="list" />
                 </User>            
             </Router>
-            
+
           </div>
          
         </ListContext.Provider>

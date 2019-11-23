@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import {navigate} from '@reach/router';
 import useManageItem from "./../../hooks/useManageItem";
 
 const Modal = ({setShow, show}) => {
@@ -14,7 +15,10 @@ const Modal = ({setShow, show}) => {
   return (
     <div className={"gameContainer"}>
       <>
-      <button onClick={()=> {setShow(!show)}}>close</button>
+      <button onClick={()=> {
+        setShow(!show);
+      }
+        }>close</button>
       </>
       {loading && (
         <img

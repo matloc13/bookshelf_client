@@ -10,7 +10,10 @@ const SingleList = () => {
   const [del, setDel] = useState(false);
   const [] = useManageItem(del);
   const [show, setShow] = useState(false);
+
   console.log(allLists.sList);
+
+
 
   const handleClick = (ele, type) => {
     console.log(ele);
