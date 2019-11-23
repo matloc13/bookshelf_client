@@ -1,8 +1,15 @@
-import React, { useEffect, useState } from "react";
-import {navigate} from '@reach/router';
+import React, { useEffect, useState, useRef } from "react";
+import {createPortal}from 'react-dom';
+// import {navigate} from '@reach/router';
 import useManageItem from "./../../hooks/useManageItem";
 
 const Modal = ({setShow, show}) => {
+  const modalRef = useRef(null);
+
+  if (!modalRef.current) {
+    const div = document.createElement('div');
+    modalRef.current = div;
+  }
   const [game, loading, getItem] = useManageItem();
   const [showPub, setShowPub] = useState(false);
   const [showDesc, setShowDesc] = useState(false);
@@ -10,9 +17,14 @@ const Modal = ({setShow, show}) => {
   useEffect(() => {
     getItem();
   }, []);
+  useEffect(() => {
+    const modalRoot = document.getElementById("modal");
+    modalRoot.appendChild(modalRef.current);
+    return () => modalRoot.removeChild(modalRef.current);
+  }, []);
 
   // api request needed to load game from id.
-  return (
+  return (createPortal(
     <div className={"gameContainer"}>
       <>
       <button onClick={()=> {
@@ -123,7 +135,7 @@ const Modal = ({setShow, show}) => {
       ) : (
         ""
       )}
-    </div>
+    </div>, modalRef.current)
   );
 };
 
