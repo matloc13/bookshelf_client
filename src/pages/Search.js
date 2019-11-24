@@ -12,7 +12,7 @@ const Search = () => {
   const [page, setPage] = useState(1);
   const [loading, outputResult, setOutputResult] = useSearch(currentQuery, page);
   console.log(outputResult);
-  console.log(allLists.search);
+  console.log(allLists.search.searchLength);
   
 
   useEffect(() => {
@@ -67,7 +67,7 @@ const pagination = (e)=> {
           </label>
       </form>
       { 
-      allLists.search.searchResults.length > 50 &&
+      allLists.search.searchLength > 50 &&
      <div className="pagination">
         <h3>Results</h3>
         <button id="prev" onClick={pagination} disabled={page === 1 ? true: false}>previous</button>

@@ -26,8 +26,9 @@ const initUser = {
   isAuthenticated: false
 };
 const initSearch = {
-  searchResults: []
-}
+  searchResults: [],
+  searchLength: 1
+};
 const initState = [[]];
 const initSingle = [];
 const currentItem = {
@@ -47,7 +48,7 @@ const App = () => {
   const [sList, dispatchSList] = useReducer(singleListReducer, initSingle);
   const [current, dispatchCurrent] = useReducer(currentReducer, currentItem);
   const [search, dispatchSearch] = useReducer(searchReducer, initSearch)
-  // console.log(sList);
+  console.log(search.searchLength);
 
   useEffect(() => {
     if (user.username) {

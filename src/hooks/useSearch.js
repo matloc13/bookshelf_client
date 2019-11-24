@@ -1,21 +1,23 @@
 import { useState, useEffect, useContext } from 'react';
 import  BASE_URL from './../constants';
 import DispatchContext from './../contexts/dispatchContext';
-// import ListContext from './../contexts/listContext';
+import ListContext from './../contexts/listContext';
 
 
 const useSearch = (query,paginate) => {
 console.log(query);
   const dispatch = useContext(DispatchContext);
-  // const allLists = useContext(ListContext);
+  const allLists = useContext(ListContext);
+  const LENGTH = allLists.search.searchLength;
   const [outputResult, setOutputResult] = useState([])
   const [loading, setLoading] = useState(false);
-const [curQuery, setCurQuery] = useState('')
+const [curQuery, setCurQuery] = useState('');
+
   useEffect(() => {
     const ac = new AbortController();
     const signal = ac.signal;  
     if (query !== '' && query !== curQuery) {
-      setOutputResult(...outputResult,[])
+      // setOutputResult(...outputResult,[])
       getSearch(query)
         setCurQuery(query);
         
@@ -27,8 +29,16 @@ const [curQuery, setCurQuery] = useState('')
       ac.abort();
     }
   },[query, paginate]);
+// current position
+  const currentPosition = (pagelength,page) => {
+    const c = pagelength * page;
+    console.log( c);
+    
+    return c;
+  }
 
   const getSearch = async (query ) => {
+    const pageLength = 25;
     try {
       setLoading(true);
       const res = await fetch(`${BASE_URL}/searchlists/${query}`);
@@ -41,66 +51,34 @@ const [curQuery, setCurQuery] = useState('')
   
       dispatch({
         type: 'CURRENT_SEARCH',
-        search: newArr
+        search: newArr,
+        length: newArr.length
       })
-        if (json.items.item.length > 50 ) {
+        if (json.items.item.length > pageLength ) {
 
-          const newArr = []
-          switch (paginate) {
-            case 1:
-           json.items.item.forEach((ele,i) => {
-                if (i < 50 ) {
-                 newArr.push(ele)
-                } else if (i > 49) {
-                  return;
-                }
-              })
-              setOutputResult([...outputResult, newArr]);  
-              break;
-            case 2:
-                json.items.item.forEach((ele,i) => {
-                  if (i < 100 && i > 50 ) {
-                   newArr.push(ele)
-                  } else if (i > 99) {
-                    return;
-                  }
-                })
-                setOutputResult([...outputResult, newArr]);  
-                break;
-            case 3:
-                json.items.item.forEach((ele,i) => {
-                  if (i < 150 && i > 100 ) {
-                   newArr.push(ele)
-                  } else if (i > 149) {
-                    return;
-                  }
-                })
-                setOutputResult([...outputResult, newArr]);  
-                break;
-            case 4:
-                json.items.item.forEach((ele,i) => {
-                  if (i < 200 && i > 150 ) {
-                   newArr.push(ele)
-                  } else if (i > 199) {
-                    return;
-                  }
-                })
-                setOutputResult([...outputResult, newArr]);  
-                break;
-            case 5:
-                json.items.item.forEach((ele,i) => {
-                  if (i < 250 && i > 199 ) {
-                   newArr.push(ele)
-                  } else if (i > 249) {
-                    return;
-                  }
-                })
-                setOutputResult([...outputResult, newArr]);  
-                break;
-            default: 
+          const newArray = []
+          let cp = currentPosition(pageLength, paginate)
+          
+            if (paginate === 1) {
+              json.items.item.forEach((ele,i) => {
+                if (i <= cp - 1 ) {
+                newArray.push(ele)
+            } else if (i >= cp) {
               return;
-          }
-                 
+            }
+              })     
+              setOutputResult([...outputResult, newArray]);  
+            } else {                
+                json.items.item.forEach((ele,i) => {            
+                  if (i < cp && i >= cp - pageLength ) {
+                  newArray.push(ele)
+                  } else if (i >= cp ) {
+                    return;
+                    }
+                 })
+              setOutputResult([...outputResult, newArray]);  
+            } 
+
          }  else {
           setOutputResult([...outputResult, json.items.item])   
          }

@@ -19,7 +19,7 @@ const NavList = () => {
   
   return (
     <nav>
-      <NavLink to="/hotlist">hotlist</NavLink>
+      <NavLink to="/hotlist">main</NavLink>
       <NavLink to="userlists">lists</NavLink>
     </nav>
   );
