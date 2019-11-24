@@ -12,6 +12,7 @@ const Search = () => {
   const [query, setQuery] = useState({query: ''});
   const [currentQuery, setcurrentQuery] = useState()
   const [page, setPage] = useState(1);
+  const [searchClick, setSearchClick] = useState(false);
   const [loading, outputResult, setOutputResult] = useSearch(currentQuery, page);
   // console.log(outputResult);
   // console.log(allLists.search.searchLength);
@@ -27,6 +28,7 @@ const Search = () => {
 
   const handleSearch = (e) => {
     e.preventDefault();
+    setSearchClick(true);
     setOutputResult([])
     if (query.query) {
       return setcurrentQuery(query.query)
@@ -87,6 +89,7 @@ const pagination = (e)=> {
         <SearchResults 
           array={outputResult}
           page={page}
+          status={searchClick}
         />
       }
       

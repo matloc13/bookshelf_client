@@ -4,7 +4,7 @@ import DispatchContext from './../contexts/dispatchContext';
 
 
 const useSearch = (query,paginate) => {
-  console.log(query);
+  // console.log(query);
   const dispatch = useContext(DispatchContext);
   const [outputResult, setOutputResult] = useState([])
   const [loading, setLoading] = useState(false);
@@ -12,9 +12,7 @@ const useSearch = (query,paginate) => {
 
   useEffect(() => {
     const ac = new AbortController();
-    // const signal = ac.signal;  
     if (query !== '' && query !== curQuery) {
-      // setOutputResult(...outputResult,[])
       getSearch(query)
         setCurQuery(query);
         
@@ -31,7 +29,7 @@ const useSearch = (query,paginate) => {
 
   const currentPosition = (pagelength,page) => {
     const c = pagelength * page;
-    console.log( c);
+    // console.log( c);
     return c;
   }
 
