@@ -1,21 +1,18 @@
 import { useState, useEffect, useContext } from 'react';
 import  BASE_URL from './../constants';
 import DispatchContext from './../contexts/dispatchContext';
-import ListContext from './../contexts/listContext';
 
 
 const useSearch = (query,paginate) => {
-console.log(query);
+  console.log(query);
   const dispatch = useContext(DispatchContext);
-  const allLists = useContext(ListContext);
-  const LENGTH = allLists.search.searchLength;
   const [outputResult, setOutputResult] = useState([])
   const [loading, setLoading] = useState(false);
-const [curQuery, setCurQuery] = useState('');
+  const [curQuery, setCurQuery] = useState('');
 
   useEffect(() => {
     const ac = new AbortController();
-    const signal = ac.signal;  
+    // const signal = ac.signal;  
     if (query !== '' && query !== curQuery) {
       // setOutputResult(...outputResult,[])
       getSearch(query)
@@ -28,12 +25,13 @@ const [curQuery, setCurQuery] = useState('');
     return () => {
       ac.abort();
     }
-  },[query, paginate]);
-// current position
+  },[query, paginate]);//eslint-disable-line
+
+// current position of pagination
+
   const currentPosition = (pagelength,page) => {
     const c = pagelength * page;
     console.log( c);
-    
     return c;
   }
 
@@ -47,7 +45,6 @@ const [curQuery, setCurQuery] = useState('');
      if (json.items.item) {
       const newArr = json.items.item.filter(ele => ele.type !== 'videogame');
      await new Promise((resolve) => {
-      //  console.log(currentResult);
   
       dispatch({
         type: 'CURRENT_SEARCH',
@@ -58,7 +55,7 @@ const [curQuery, setCurQuery] = useState('');
 
           const newArray = []
           let cp = currentPosition(pageLength, paginate)
-          
+
             if (paginate === 1) {
               json.items.item.forEach((ele,i) => {
                 if (i <= cp - 1 ) {
@@ -82,10 +79,9 @@ const [curQuery, setCurQuery] = useState('');
          }  else {
           setOutputResult([...outputResult, json.items.item])   
          }
-
-
        return resolve(outputResult)
      })  }   
+
     } catch (error) {
       console.error(error);
       
@@ -94,7 +90,6 @@ const [curQuery, setCurQuery] = useState('');
       setLoading(false)
     }
   }
-  // const handleSearch = () => {}
   
   return [loading, outputResult, setOutputResult]
 }

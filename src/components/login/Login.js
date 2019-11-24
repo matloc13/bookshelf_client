@@ -21,7 +21,7 @@ const Login = () => {
     <div>
       {user.isAuthenticated ? (
         <div>
-          <h1>{user.username}</h1>
+          {/* <h1>{user.username}</h1> */}
           <Form formType="LOGOUT" />
         </div>
       ) : (

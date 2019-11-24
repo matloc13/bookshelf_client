@@ -4,36 +4,35 @@ import useInput from './../hooks/useInput';
 import useSearch from './../hooks/useSearch';
 import Input from './../components/form/inputs/Input';
 import SearchResults from './../components/SearchResults';
+
 const Search = () => {
   const allLists = useContext(ListContext);
+  const searchList = allLists.search;
   const [ handleInput, values] = useInput();
   const [query, setQuery] = useState({query: ''});
   const [currentQuery, setcurrentQuery] = useState()
   const [page, setPage] = useState(1);
   const [loading, outputResult, setOutputResult] = useSearch(currentQuery, page);
-  console.log(outputResult);
-  console.log(allLists.search.searchLength);
+  // console.log(outputResult);
+  // console.log(allLists.search.searchLength);
   
-
   useEffect(() => {
     if(values.query) {
       setQuery({...query, query: values.query})
     }
-  
     return () => {
-      setQuery('')
+        setQuery('')
     };
-  }, [values])
+  }, [values]); //eslint-disable-line
+
   const handleSearch = (e) => {
     e.preventDefault();
-    console.log(query.query);
     setOutputResult([])
-    
     if (query.query) {
       return setcurrentQuery(query.query)
     }
-   
   }
+
 const pagination = (e)=> {
   switch (e.target.id) {
     case "prev":
@@ -44,7 +43,6 @@ const pagination = (e)=> {
       return;
   }
 }
-
   return (
     <div>
       <form onSubmit={handleSearch}>
@@ -67,12 +65,18 @@ const pagination = (e)=> {
           </label>
       </form>
       { 
-      allLists.search.searchLength > 50 &&
+      searchList &&
+      searchList.searchLength > 50 &&
      <div className="pagination">
         <h3>Results</h3>
         <button id="prev" onClick={pagination} disabled={page === 1 ? true: false}>previous</button>
         <span id="current"> .. {page} .. </span>
-        <button id="next" onClick={pagination}>next</button>
+        <button 
+          id="next" 
+          onClick={pagination} 
+          //still not showing remainder
+          disabled={(page * 25) > allLists.search.searchLength ? true :false}
+        >next</button>
       </div>
       }
  

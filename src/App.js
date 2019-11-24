@@ -48,7 +48,7 @@ const App = () => {
   const [sList, dispatchSList] = useReducer(singleListReducer, initSingle);
   const [current, dispatchCurrent] = useReducer(currentReducer, currentItem);
   const [search, dispatchSearch] = useReducer(searchReducer, initSearch)
-  console.log(search.searchLength);
+  // console.log(search.searchLength);
 
   useEffect(() => {
     if (user.username) {
