@@ -10,7 +10,7 @@ const Search = () => {
   const [query, setQuery] = useState({query: ''});
   const [currentQuery, setcurrentQuery] = useState()
   const [page, setPage] = useState(1);
-  const [loading, outputResult] = useSearch(currentQuery, page);
+  const [loading, outputResult, setOutputResult] = useSearch(currentQuery, page);
   console.log(outputResult);
   console.log(allLists.search);
   
@@ -27,6 +27,7 @@ const Search = () => {
   const handleSearch = (e) => {
     e.preventDefault();
     console.log(query.query);
+    setOutputResult([])
     
     if (query.query) {
       return setcurrentQuery(query.query)

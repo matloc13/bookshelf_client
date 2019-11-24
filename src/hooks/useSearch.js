@@ -5,44 +5,43 @@ import DispatchContext from './../contexts/dispatchContext';
 
 
 const useSearch = (query,paginate) => {
-// console.log(query);
+console.log(query);
   const dispatch = useContext(DispatchContext);
   // const allLists = useContext(ListContext);
   const [outputResult, setOutputResult] = useState([])
   const [loading, setLoading] = useState(false);
-  // const [page, setPage] = useState(null)
+const [curQuery, setCurQuery] = useState('')
   useEffect(() => {
     const ac = new AbortController();
     const signal = ac.signal;  
-    if (query !== '') {
-        getSearch(query)    
+    if (query !== '' && query !== curQuery) {
+      setOutputResult(...outputResult,[])
+      getSearch(query)
+        setCurQuery(query);
+        
+    } else if (query === curQuery && query !== ''){
+      getSearch(curQuery)
     }
+
     return () => {
       ac.abort();
     }
   },[query, paginate]);
 
-  useEffect(() => {
-//  setPage(paginate)
-    return () => {
-
-    }
-  }, [paginate]);
-
-
-
-  const getSearch = async (query, ) => {
+  const getSearch = async (query ) => {
     try {
       setLoading(true);
       const res = await fetch(`${BASE_URL}/searchlists/${query}`);
       const json = await res.json();
    
      if (json.items.item) {
+      const newArr = json.items.item.filter(ele => ele.type !== 'videogame');
      await new Promise((resolve) => {
       //  console.log(currentResult);
+  
       dispatch({
         type: 'CURRENT_SEARCH',
-        search: json.items.item
+        search: newArr
       })
         if (json.items.item.length > 50 ) {
 
@@ -50,9 +49,9 @@ const useSearch = (query,paginate) => {
           switch (paginate) {
             case 1:
            json.items.item.forEach((ele,i) => {
-                if (i < 51 ) {
+                if (i < 50 ) {
                  newArr.push(ele)
-                } else if (i > 50) {
+                } else if (i > 49) {
                   return;
                 }
               })
@@ -60,9 +59,9 @@ const useSearch = (query,paginate) => {
               break;
             case 2:
                 json.items.item.forEach((ele,i) => {
-                  if (i < 101 && i > 50 ) {
+                  if (i < 100 && i > 50 ) {
                    newArr.push(ele)
-                  } else if (i > 100) {
+                  } else if (i > 99) {
                     return;
                   }
                 })
@@ -70,9 +69,9 @@ const useSearch = (query,paginate) => {
                 break;
             case 3:
                 json.items.item.forEach((ele,i) => {
-                  if (i < 151 && i > 100 ) {
+                  if (i < 150 && i > 100 ) {
                    newArr.push(ele)
-                  } else if (i > 150) {
+                  } else if (i > 149) {
                     return;
                   }
                 })
@@ -82,7 +81,7 @@ const useSearch = (query,paginate) => {
                 json.items.item.forEach((ele,i) => {
                   if (i < 200 && i > 150 ) {
                    newArr.push(ele)
-                  } else if (i > 200) {
+                  } else if (i > 199) {
                     return;
                   }
                 })
@@ -90,9 +89,9 @@ const useSearch = (query,paginate) => {
                 break;
             case 5:
                 json.items.item.forEach((ele,i) => {
-                  if (i < 251 && i > 200 ) {
+                  if (i < 250 && i > 199 ) {
                    newArr.push(ele)
-                  } else if (i > 250) {
+                  } else if (i > 249) {
                     return;
                   }
                 })
@@ -119,6 +118,6 @@ const useSearch = (query,paginate) => {
   }
   // const handleSearch = () => {}
   
-  return [loading, outputResult]
+  return [loading, outputResult, setOutputResult]
 }
 export default useSearch;

@@ -6,8 +6,8 @@ const SearchResults = ({array, page}) => {
     <div>
       <ul>
         {
-          array[page] ?
-          array[page].map((ele, i) => {
+          array[page - 1] ?
+          array[page - 1].map((ele, i) => {
             return (
               <li key={i}>{ele.name.value}</li>
             )})
