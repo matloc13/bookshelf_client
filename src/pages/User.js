@@ -14,8 +14,7 @@ const User = () => {
     if (user.username) {
       notify(`${user.username} has ${formatList.length} lists`);
     }
-
-  }, [])
+  }, []) //eslint-disable-line
 const notify = (item) => {
   toast(`${item}`)
 }

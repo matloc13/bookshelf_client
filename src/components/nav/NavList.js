@@ -6,10 +6,14 @@ import useListGenerator from './../../hooks/useListGenerator';
 const NavList = () => {
   const user = useContext(UserContext);
   const [get, setGet] = useState({});
-  const [] = useListGenerator(get);
+  const [] = useListGenerator(get); //eslint-disable-line
   useEffect(() => {
+    const ac = new AbortController();
     if (user) {
       setGet({type: 'GET_LIST', payload: 'getting'});
+    }
+    return () => {
+     ac.abort();
     }
   }, [user])
   

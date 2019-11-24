@@ -11,6 +11,8 @@ const useListGenerator = action => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    const ac = new AbortController();
+    const signal = ac.signal;
     if (action.payload) {
       // console.log(action.payload.title);
       switch (action.type) {
@@ -21,6 +23,7 @@ const useListGenerator = action => {
               const res = await fetch(
                 `${BASE_URL}/users/${user.id}/listnames/${action.payload.listname_id}/games`,
                 {
+                  signal: signal,
                   method: "POST",
                   body: JSON.stringify(action.payload),
                   headers: {
@@ -58,6 +61,7 @@ const useListGenerator = action => {
               const res = await fetch(
                 `${BASE_URL}/users/${user.id}/listnames`,
                 {
+                  signal: signal,
                   method: "POST",
                   body: JSON.stringify({
                     listname: {
@@ -94,7 +98,7 @@ const useListGenerator = action => {
           return async function getLists() {
             setLoading(true);
             try {
-              const res = await fetch(`${BASE_URL}/users/${user.id}/listnames`);
+              const res = await fetch(`${BASE_URL}/users/${user.id}/listnames`,{signal: signal});
               const listJSON = await res.json();
               await new Promise(resolve => {
                 console.log(listJSON);
@@ -119,6 +123,7 @@ const useListGenerator = action => {
               const res = await fetch(
                 `${BASE_URL}/users/${user.id}/listnames/${action.payload.listid}`,
                 {
+                  signal:signal,
                   method: "PUT",
                   body: JSON.stringify(action.payload.title),
                   headers: {
@@ -151,6 +156,7 @@ const useListGenerator = action => {
               const res = await fetch(
                 `${BASE_URL}/users/${user.id}/listnames/${action.payload.listid}`,
                 {
+                  signal:signal,
                   method: "DELETE",
                   headers: {
                     Accept: "application/json, text/plain",
@@ -178,7 +184,7 @@ const useListGenerator = action => {
           return async function getList() {
             try {
               const res = await fetch(
-                `${BASE_URL}/users/${user.id}/listnames/${action.payload.listid}/games`
+                `${BASE_URL}/users/${user.id}/listnames/${action.payload.listid}/games`, {signal: signal}
               );
               const listJSON = await res.json();
               const format = await listJSON.filter(
@@ -208,7 +214,8 @@ const useListGenerator = action => {
     } else {
       
     }
-  }, [action]);
+    return ac.abort();
+  }, [action, user.id]); //eslint-disable-line
 
   return [loading];
 };

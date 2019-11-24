@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.min.css'
 import Header from "./components/header/Header";
 import Hotlist from "./components/hotlist/Hotlist";
+import Search from './pages/Search';
 import User from "./pages/User";
 import UserHome from "./pages/UserHome";
 import UserList from "./components/lists/UserList";
@@ -12,6 +13,7 @@ import userReducer from "./reducers/userReducer";
 import singleListReducer from "./reducers/singleListReducer";
 import listReducer from "./reducers/listReducer";
 import currentReducer from "./reducers/currentReducer";
+import searchReducer from "./reducers/searchReducer";
 import DispatchContext from "./contexts/dispatchContext";
 import "./App.css";
 import UserContext from "./contexts/userContext";
@@ -23,6 +25,9 @@ const initUser = {
   token: null,
   isAuthenticated: false
 };
+const initSearch = {
+  searchResults: []
+}
 const initState = [[]];
 const initSingle = [];
 const currentItem = {
@@ -41,6 +46,7 @@ const App = () => {
   const [list, dispatchList] = useReducer(listReducer, initState);
   const [sList, dispatchSList] = useReducer(singleListReducer, initSingle);
   const [current, dispatchCurrent] = useReducer(currentReducer, currentItem);
+  const [search, dispatchSearch] = useReducer(searchReducer, initSearch)
   // console.log(sList);
 
   useEffect(() => {
@@ -52,12 +58,12 @@ const App = () => {
   }, [user])
 
   const dispatch = action => {
-    [dispatchUser, dispatchList, dispatchSList, dispatchCurrent].forEach(fn =>
+    [dispatchUser, dispatchList, dispatchSList, dispatchCurrent, dispatchSearch].forEach(fn =>
       fn(action)
     );
   };
 
-  const allLists = { list, sList, current };
+  const allLists = { list, sList, current, search };
 
   const notify = (item) => {
     toast(`${item}`)
@@ -74,6 +80,7 @@ const App = () => {
           
             <Router>
                 <Hotlist path="hotlist" />
+                <Search path="search"/>
                 <User path="user">
                   <UserHome path="/" />
                   <UserList path="userlists" />

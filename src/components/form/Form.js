@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import useInput from "../../hooks/useInput";
 import useAuth from "./../../hooks/useAuth";
 import Label from "./label/Label";
@@ -16,14 +16,21 @@ const Form = ({ formType }) => {
   const [formAcc, setFormAcc] = useState({});
   const [formInfo, setFormInfo] = useState(initUser);
   const [loading] = useAuth(formAcc);
+  const isMounted = useRef(null)
 
   useEffect(() => {
+    isMounted.current = true;
     setFormInfo({
       user: {
         username: values.username,
         password: values.password
       }
     });
+    return ()=> {
+      setFormAcc({})
+      setFormInfo({})
+      isMounted.current = false;
+    }
   }, [values]);
 
   const handleSubmit = async e => {
@@ -37,18 +44,21 @@ const Form = ({ formType }) => {
     } catch (err) {
       console.error(err);
     } finally {
-      if (formInfo.user.username !== " " && formInfo.user.passowrd !== " ") {
-        switch (formType) {
-          case "CREATE":
-            return setFormAcc({ type: "CREATE", payload: formInfo });
-          case "LOGIN":
-            return setFormAcc({ type: "LOGIN", payload: formInfo });
-          case "LOGOUT":
-            return setFormAcc({ type: "LOGOUT" });
-          default:
-            throw new Error();
+      if (isMounted.current) {
+        if (formInfo.user.username !== " " && formInfo.user.passowrd !== " ") {
+          switch (formType) {
+            case "CREATE":
+              return setFormAcc({ type: "CREATE", payload: formInfo });
+            case "LOGIN":
+              return setFormAcc({ type: "LOGIN", payload: formInfo });
+            case "LOGOUT":
+              return setFormAcc({ type: "LOGOUT" });
+            default:
+              throw new Error();
+          }
         }
       }
+     
     }
   };
 

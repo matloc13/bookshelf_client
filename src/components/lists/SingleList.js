@@ -8,7 +8,7 @@ const SingleList = () => {
   const dispatch = useContext(DispatchContext);
   const allLists = useContext(ListContext);
   const [del, setDel] = useState(false);
-  const [] = useManageItem(del);
+  const [] = useManageItem(del); //eslint-disable-line no-empty-pattern
   const [show, setShow] = useState(false);
 
   console.log(allLists.sList);
@@ -32,6 +32,7 @@ const SingleList = () => {
           });
           return resolve(setDel(true));
         });
+        console.log(promise)
         break;
       default:
         return;
@@ -45,7 +46,7 @@ const SingleList = () => {
         {allLists.sList &&
           allLists.sList.map(ele => {
             return (
-              <li>
+              <li key={ele.id}>
                 <div  className="game-containter" onClick={() => handleClick(ele, "cur")}>
                   <h3>{ele.name}</h3>
                   <img src={ele.img} alt={ele.name}/>

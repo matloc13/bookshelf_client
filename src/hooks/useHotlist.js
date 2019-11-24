@@ -6,6 +6,8 @@ const useHotlist = () => {
   const [loading, setLoading] = useState(false);
 
   const getHotlist = async () => {
+    
+    setHotlist([])
     setLoading(true);
     try {
       const res = await fetch(`${BASE_URL}/hotlists`);
@@ -15,6 +17,7 @@ const useHotlist = () => {
       console.error(err);
     } finally {
       setLoading(false);
+    
     }
   };
 

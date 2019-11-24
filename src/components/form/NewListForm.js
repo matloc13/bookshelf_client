@@ -25,7 +25,7 @@ const NewListForm = ({ formType, game, i, set, newList }) => {
         bggid: game.id
       }
     });
-  }, [values]);
+  }, [values, game]); //eslint-disable-line
 
   const handleSubmit = e => {
     e.preventDefault();

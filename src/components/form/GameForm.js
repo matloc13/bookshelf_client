@@ -56,7 +56,7 @@ const GameForm = ({ formType, game, i, set, gameForm}) => {
     }
     
   };
-  const optionlist = allLists.list.filter(ele => ele.user_id === user.id);
+  const optionlist = allLists.list[0].filter(ele => ele.user_id === user.id);
 
   const options = optionlist.map(ele => {
     return { value: ele.id, label: ele.title };

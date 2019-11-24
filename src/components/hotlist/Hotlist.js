@@ -18,11 +18,11 @@ const Hotlist = () => {
   const [gameForm, setGameForm] = useState(false);
   const [newList, setNewList] = useState(false);
   const [focusCurrent, setFocusCurrent] = useState({id:null})
-  const [] = useListGenerator(get);
+  const [] = useListGenerator(get); //eslint-disable-line
   const notify = (item) => {
     toast(item)
   }
-  const handleClick = async (e, ele) => {
+  const handleClick = (e, ele) => {
     switch (e.target.id) {
       case "img":
         dispatch({ type: "SET_CURRENT_GAME", game: ele.id });
@@ -49,8 +49,8 @@ const Hotlist = () => {
   };
 
   useEffect(() => {
-    getHotlist();
-  }, []);
+      getHotlist();
+  }, []); //eslint-disable-line
 
   useEffect(() => {
     if (user) {

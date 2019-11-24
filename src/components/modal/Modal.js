@@ -16,7 +16,7 @@ const Modal = ({setShow, show}) => {
 
   useEffect(() => {
     getItem();
-  }, []);
+  }, []); //eslint-disable-line
   useEffect(() => {
     const modalRoot = document.getElementById("modal");
     modalRoot.appendChild(modalRef.current);

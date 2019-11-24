@@ -3,12 +3,12 @@ import { toast } from "react-toastify";
 import BASE_URL from "./../constants";
 import ListContext from "./../contexts/listContext";
 import UserContext from "./../contexts/userContext";
-import DispatchContext from './../contexts/dispatchContext';
+// import DispatchContext from './../contexts/dispatchContext';
 
 const useManageItem = del => {
   const allLists = useContext(ListContext);
   const user = useContext(UserContext);
-  const dispatch = useContext(DispatchContext);
+  // const dispatch = useContext(DispatchContext);
   const [game, setGame] = useState(null);
   const [response, setResponse] = useState({});
   const [loading, setLoading] = useState(false);
@@ -20,7 +20,7 @@ const useManageItem = del => {
     return () => {
       console.log("deleting");
     };
-  }, [del]);
+  }, [del]); //eslint-disable-line
 
   const notify = item => {
     toast(`${item}`);
@@ -61,6 +61,7 @@ const useManageItem = del => {
         await new Promise(resolve => {
           return resolve(setResponse(res));
         });
+        notify(`Item deleted`)
         // Notify goes here
         // const gameItem = res.filter
       }

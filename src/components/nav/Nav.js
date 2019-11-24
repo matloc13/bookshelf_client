@@ -5,6 +5,7 @@ const Nav = () => {
   return (
     <nav className={"nav-style"} data-testid={"nav"}>
       <NavLink to="hotlist">Hot 50</NavLink>
+      <NavLink to="search">Search</NavLink>
       <NavLink to="user/">users stuff</NavLink>
     </nav>
   );

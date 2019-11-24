@@ -2,33 +2,16 @@ import { useEffect, useState, useContext } from "react";
 import BASE_URL from "./../constants";
 import DispatchContext from "../contexts/dispatchContext";
 
+
 const useAuth = action => {
   const dispatch = useContext(DispatchContext);
   const [loading, setLoading] = useState(false);
 
-  // useEffect(() => {
-  //   if (!localStorage.getItem("user")) {
-  //     console.log('storage empty')
-  //   } else {
-  //     console.log('storage in use')
-  //     try {
-  //       dispatch({type: "SET_USER",
-  //       id: user.user.id,
-  //       username: user.user.username,
-  //       isAuthenticated: true,
-  //       token: user.token
-  //     })
-  //     } catch (err) {
-  //       console.error(err);
-        
-  //     }
-  //   }
-  //   return () => {
-  //     cleanup
-  //   };
-  // }, [input])
 
   useEffect(() => {
+    const abortController= new AbortController();
+    const signal = abortController.signal;
+
     if (action) {
       switch (action.type) {
         case "CREATE":
@@ -36,6 +19,7 @@ const useAuth = action => {
             try {
               setLoading(true);
               const res = await fetch(`${BASE_URL}/users`, {
+                signal: signal,
                 body: JSON.stringify(action.payload),
                 method: "POST",
                 headers: {
@@ -68,6 +52,7 @@ const useAuth = action => {
             try {
               setLoading(true);
               const res = await fetch(`${BASE_URL}/users/login`, {
+                signal: signal,
                 body: JSON.stringify(action.payload),
                 method: "POST",
                 headers: {
@@ -102,7 +87,10 @@ const useAuth = action => {
           return;
       }
     }
-  }, [action]);
+    return () => {
+      abortController.abort();
+    }
+  }, [action, dispatch]);
 
   return [loading];
 };
