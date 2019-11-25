@@ -1,0 +1,93 @@
+.header-style {
+  display: grid;
+  grid-template-columns: 1fr 3fr 150px 150px;
+  grid-template-areas: "logo space user logout";
+  width: 100%;
+  min-height: 12vh;
+  place-items: center;
+  grid-gap: 1%;
+  font-family: 'Bree Serif', serif;
+  background-color: $boardgameblue;
+  grid-area: nav;
+  color: $boardgameorange;
+
+  .logo {
+    grid-area: logo;
+
+    @extend .link;
+    // color: $boardgameorange;
+  }
+
+  // a {
+  //   @extend .link;
+  // }
+
+  b {
+    grid-area: space;
+  }
+
+  .logout {
+    grid-area: logout;
+    text-decoration: none;
+  }
+
+  .user {
+    grid-area: user;
+  }
+
+  span {
+    font-weight: 400;
+    color: white;
+
+    &:hover {
+      color: $boardgameorange;
+    }
+  }
+}
+
+
+
+
+
+
+
+.dropNav {
+  display: grid;
+  grid-template-columns: 1fr 3fr 150px 150px;
+  grid-gap: 1%;
+  place-items: center;
+  width: 100%;
+  background-color: $boardgameblue;
+
+  .listNames {
+    grid-column: 3;
+    display: flex;
+    flex-flow: column;
+    z-index: 2;
+
+    a {
+      color: $green;
+      text-decoration: none;
+    }
+  }
+
+  span {
+    width: 100%;
+    display: block;
+  }
+
+  ;
+
+  b {
+    grid-column: 1;
+  }
+
+  .big {
+    grid-column: 2;
+  }
+
+  .link {
+    font-family: 'Lora', serif;
+    text-decoration: none;
+  }
+}

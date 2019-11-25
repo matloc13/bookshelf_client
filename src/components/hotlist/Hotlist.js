@@ -63,7 +63,7 @@ const Hotlist = () => {
       {show && <Modal setShow={setShow} show={show}/>}
 
       <h2>Hot 50</h2>
-      <div>
+      <div className="loading-div">
         {loading && (
           <img
             src="https://media.giphy.com/media/5KX9jiNXkb3xK/giphy.gif"
@@ -75,7 +75,7 @@ const Hotlist = () => {
         {hotlist.items &&
           hotlist.items.item.map((ele, index) => {
             return (
-              <div key={`${index}${ele.name.value}`}>
+              <div key={`${index}${ele.name.value}`} className="hotlist-item">
                 <div key={`${index}${ele.name.value}`}>
                   <img
                     id="img"
@@ -85,11 +85,18 @@ const Hotlist = () => {
                   />
                   <span>RANK: {ele.rank}</span>
                 </div>
-                <div>
-                  <span id="addtolist" onClick={e => handleClick(e,ele)}>
+                <b></b>
+                <div className="add-button-container">
+                  <span 
+                  id="addtolist" 
+                  className="add-button"
+                  onClick={e => handleClick(e,ele)}>
                     {gameForm ? "close" : " add to list"}
                   </span>
-                  <span id="newlist" onClick={e => handleClick(e,ele)}>
+                  <span 
+                  id="newlist" 
+                  className="add-button"
+                  onClick={e => handleClick(e,ele)}>
                     {newList ? "close" : "new list"}
                   </span>
                 </div>

@@ -25,29 +25,35 @@ const Modal = ({setShow, show}) => {
 
   // api request needed to load game from id.
   return (createPortal(
-    <div className={"gameContainer"}>
-      <>
-      <button onClick={()=> {
-        setShow(!show);
-      }
-        }>close</button>
-      </>
+    <div className={"game-container modal-container"}>
+   
       {loading && (
         <img
+          className="modal-img"
           src="https://media.giphy.com/media/5KX9jiNXkb3xK/giphy.gif"
           alt="loading"
         />
       )}
 
       {game ? (
-        <>
+                   
+        <div className="game-modal">
+          <span 
+            className="button"  
+            onClick={()=> {
+            setShow(!show);
+            }
+             }>
+          close
+          </span>
           {game.items && game.items.item.name.value ? (
-            <div>
+            <div className="modal-top">
               <img
+                className="modal-img"
                 src={game.items.item.thumbnail}
                 alt={game.items.item.name.value}
               />
-              <h3>
+              <h3 className="game-title">
                 {game.items.item.image && game.items.item.image ? (
                   <a href={game.items.item.image} target={"_blank"}>
                     {game.items.item.name.value}
@@ -59,12 +65,13 @@ const Modal = ({setShow, show}) => {
             </div>
           ) : (
             game.items.item.name[0].value && (
-              <div>
+              <div className="modal-top">
                 <img
+                  className="modal-img"
                   src={game.items.item.thumbnail}
                   alt={game.items.item.name[0].value}
                 />
-                <h3>
+                <h3 className="game-title">
                   {game.items.item.image && game.items.item.image ? (
                     <a href={game.items.item.image} target={"_blank"}>
                       {game.items.item.name[0].value}
@@ -76,43 +83,48 @@ const Modal = ({setShow, show}) => {
               </div>
             )
           )}
+          <div className="modal-info">
           {game.items.item.link.map(ele => {
             return ele.type === "boardgamedesigner" ? (
-              <p>Designer: {ele.value}</p>
+              <h6 className="info-designer">Designer: {ele.value}</h6>
             ) : (
               ""
             );
           })}
-          <h5
-            onClick={() => {
-              setShowPub(!showPub);
-            }}
-          >
-            {!showPub ? "Publishers" : "hide"}
-          </h5>
-          {showPub &&
-            game.items.item.link.map(ele => {
-              return ele.type === "boardgamepublisher" ? (
-                <p>Publisher: {ele.value}</p>
-              ) : (
-                ""
-              );
-            })}
-
-          <h6>
+          <h6 className="info-year">
             Year Published:
             {game.items.item.yearpublished &&
             game.items.item.yearpublished.value
               ? game.items.item.yearpublished.value
               : ""}
           </h6>
-          <span
+       
+          <h6
+            className="info-publisher"
+            onClick={() => {
+              setShowPub(!showPub);
+            }}
+          >
+            {!showPub ? "Publishers" : "hide"}
+          </h6>
+          {showPub &&
+            game.items.item.link.map(ele => {
+              return ele.type === "boardgamepublisher" ? (
+                <p className="info-publisher">Publisher: {ele.value}</p>
+              ) : (
+                ""
+              );
+            })}
+
+        
+          <h6
+            className="description-button"
             onClick={() => {
               setShowDesc(!showDesc);
             }}
           >
             {!showDesc ? "description" : "close"}
-          </span>
+          </h6>
 
           {showDesc && (
             <p className={"description"}>
@@ -130,8 +142,11 @@ const Modal = ({setShow, show}) => {
                 .replace(/&bull;/g, "~")
                 .replace(/&ouml;/g, "ö")}
             </p>
+        
           )}
-        </>
+          </div>
+        </div>
+
       ) : (
         ""
       )}

@@ -1,0 +1,28 @@
+.form-style {
+  box-sizing: border-box;
+
+  fieldset {
+    border: none;
+    width: 100%;
+  }
+
+  .label-style {
+    border-bottom: 1px solid $boardgameorange;
+  }
+}
+
+.input-style {
+  width: 100%;
+  border: none;
+  color: $boardgameblue;
+  background-color: $backgroundWhite;
+
+}
+
+input[type=submit] {
+  background-color: transparent;
+  color: $boardgameorange;
+  box-shadow: none;
+  font-family: 'Bree serif', serif;
+  font-size: 1em;
+}

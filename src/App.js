@@ -7,6 +7,8 @@ import Hotlist from "./components/hotlist/Hotlist";
 import Search from './pages/Search';
 import User from "./pages/User";
 import UserHome from "./pages/UserHome";
+import Home from "./pages/Home";
+import Footer from './components/footer/Footer';
 import UserList from "./components/lists/UserList";
 import SingleList from "./components/lists/SingleList";
 import userReducer from "./reducers/userReducer";
@@ -15,7 +17,7 @@ import listReducer from "./reducers/listReducer";
 import currentReducer from "./reducers/currentReducer";
 import searchReducer from "./reducers/searchReducer";
 import DispatchContext from "./contexts/dispatchContext";
-import "./App.css";
+import "./scss/App.scss";
 import UserContext from "./contexts/userContext";
 import ListContext from "./contexts/listContext";
 
@@ -75,11 +77,12 @@ const App = () => {
       <UserContext.Provider value={user}>
         <ListContext.Provider value={allLists}>
         
-          <div className="App">
+          <div className="App home">
 
             <Header />
           
             <Router>
+                <Home path="/"/>
                 <Hotlist path="hotlist" />
                 <Search path="search"/>
                 <User path="user">
@@ -88,6 +91,8 @@ const App = () => {
                   <SingleList path="list" />
                 </User>            
             </Router>
+
+            <Footer />
 
           </div>
          

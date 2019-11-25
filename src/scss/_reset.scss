@@ -1,0 +1,48 @@
+.clearfix:after {
+  visibility: hidden;
+  display: block;
+  font-size: 0;
+  content: " ";
+  clear: both;
+  height: 0;
+}
+
+// .App {
+//   text-align: center;
+// }
+
+.text {
+  text-align: center;
+  font-family: 'Bree serif', serif;
+  color: $boardgameblue
+}
+
+h1 {
+  @extend .text;
+}
+
+h2 {
+  color: $boardgameblue;
+}
+
+.link {
+  color: $boardgameorange;
+  text-decoration: none;
+  box-shadow: none;
+}
+
+.home {
+  height: 96vh;
+}
+
+.searchContainer {
+  min-height: 90vh;
+}
+
+// * {
+//   border: 1px solid gold;
+// }
+
+// .hidden {
+//   display: none;
+// }

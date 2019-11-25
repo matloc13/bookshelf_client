@@ -39,7 +39,7 @@ const UserList = () => {
   };
 
   return (
-    <div>
+    <div className="user-lists-container">
       {
         user.isAuthenticated ?
         <h1>{user.username}'s lists</h1>
@@ -52,11 +52,11 @@ const UserList = () => {
           alt="loading..."
         />
       )}
-      <ul>
+      <ul className="user-lists">
         {formatList &&
           formatList.map(ele => {
             return (
-              <li key={ele.id}>
+              <li key={ele.id} className="user-list-item">
                 <span
                   onClick={async () => {
                     setGet({

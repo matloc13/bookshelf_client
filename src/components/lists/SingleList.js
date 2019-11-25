@@ -40,13 +40,13 @@ const SingleList = () => {
   };
 
   return (
-    <>
+    <div className="single-list-container">
       {show && <Modal setShow={setShow} show={show}/>}
-      <ul>
+      <ul className="single-list">
         {allLists.sList &&
           allLists.sList.map(ele => {
             return (
-              <li key={ele.id}>
+              <li key={ele.id} className="single-item">
                 <div  className="game-containter" onClick={() => handleClick(ele, "cur")}>
                   <h3>{ele.name}</h3>
                   <img src={ele.img} alt={ele.name}/>
@@ -56,7 +56,7 @@ const SingleList = () => {
             );
           })}
       </ul>     
-    </>
+    </div>
   );
 };
 export default SingleList;

@@ -19,7 +19,7 @@ const notify = (item) => {
   toast(`${item}`)
 }
   return (
-    <main>
+    <main className="user-main">
       <Router>
         <UserHome path="/" />
         <UserList path="userlists/" />

@@ -73,7 +73,7 @@ const Form = ({ formType }) => {
         </h1>
       )}
       {formType === "LOGOUT" ? (
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className="form-style">
           <fieldset className={"fieldset-style"}>
             <Input
               id={formType}
@@ -87,13 +87,14 @@ const Form = ({ formType }) => {
         <form onSubmit={handleSubmit} className={"form-style"}>
           <fieldset className={"fieldset-style"}>
             <Label name={"username"} />
-            <Input
-              id={formType}
-              type={"text"}
-              name={"username"}
-              value={values.username}
-              handleInput={handleInput}
-            />
+              <Input
+                id={formType}
+                type={"text"}
+                name={"username"}
+                value={values.username}
+                handleInput={handleInput}
+              />
+
           </fieldset>
 
           <fieldset className={"fieldset-style"}>
@@ -105,6 +106,7 @@ const Form = ({ formType }) => {
               value={values.password}
               handleInput={handleInput}
             />
+
           </fieldset>
           <Input type={"submit"} name={formType} />
         </form>

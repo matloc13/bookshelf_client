@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import {toast} from 'react-toastify';
 import Input from "./inputs/Input";
-import Label from "./../form/label/Label";
 import useInput from "../../hooks/useInput";
 import useListGenerator from "./../../hooks/useListGenerator";
 const initList = {
@@ -56,9 +55,10 @@ const NewListForm = ({ formType, game, i, set, newList }) => {
           <h2>...LOADING...</h2>
         </div>
       )}
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="form-style">
         <fieldset>
-          <Label name="title" />
+          {/* <Label name="title"> */}
+          <label htmlFor="title" className="label-style">title
           <Input
             id={formType}
             i={i}
@@ -66,6 +66,7 @@ const NewListForm = ({ formType, game, i, set, newList }) => {
             value={values.title}
             handleInput={handleInput}
           />
+          </label>
           <Input type="submit" name="New List" id={formType} i={i} />
         </fieldset>
       </form>

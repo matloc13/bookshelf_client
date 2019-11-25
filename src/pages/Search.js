@@ -3,7 +3,8 @@ import ListContext from './../contexts/listContext';
 import useInput from './../hooks/useInput';
 import useSearch from './../hooks/useSearch';
 import Input from './../components/form/inputs/Input';
-import SearchResults from './../components/SearchResults';
+import SearchResults from '../components/searchResults/SearchResults';
+import SearchPagination from '../components/searchResults/SearchPagination';
 
 const Search = () => {
   const allLists = useContext(ListContext);
@@ -29,7 +30,8 @@ const Search = () => {
   const handleSearch = (e) => {
     e.preventDefault();
     setSearchClick(true);
-    setOutputResult([])
+    setPage(1);
+    setOutputResult([]);
     if (query.query) {
       return setcurrentQuery(query.query)
     }
@@ -46,8 +48,8 @@ const pagination = (e)=> {
   }
 }
   return (
-    <div>
-      <form onSubmit={handleSearch}>
+    <div className="search-container">
+      <form onSubmit={handleSearch} className="form-style search">
         <label htmlFor="query">
           <Input
             type="text"
@@ -69,27 +71,31 @@ const pagination = (e)=> {
       { 
       searchList &&
       searchList.searchLength > 50 &&
-     <div className="pagination">
-        <h3>Results</h3>
-        <button id="prev" onClick={pagination} disabled={page === 1 ? true: false}>previous</button>
-        <span id="current"> .. {page} .. </span>
-        <button 
-          id="next" 
-          onClick={pagination} 
-          //still not showing remainder
-          disabled={(page * 25) > allLists.search.searchLength ? true :false}
-        >next</button>
-      </div>
+        <SearchPagination 
+          pagination={pagination}
+          page={page}
+        />
       }
  
       {
         loading ? 
         <div>getting results</div>
         : 
-        <SearchResults 
-          array={outputResult}
+
+          <SearchResults 
+            array={outputResult}
+            page={page}
+            status={searchClick}
+          />
+
+      }
+
+{ 
+      searchList &&
+      searchList.searchLength > 50 &&
+        <SearchPagination 
+          pagination={pagination}
           page={page}
-          status={searchClick}
         />
       }
       

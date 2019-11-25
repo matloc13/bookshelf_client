@@ -1,0 +1,59 @@
+.search-container {
+  min-height: 96vh;
+  height: auto;
+}
+
+.search {
+  width: 92%;
+  margin: 2% auto;
+  align-items: center;
+
+
+
+  .input-style {
+    width: 70%;
+    height: 60px;
+    align-items: center;
+    font-size: 2em;
+    font-weight: 700;
+    font-family: 'Lora', serif;
+    box-shadow: 0 0 2px $boardgameblue;
+
+  }
+
+  input[type=submit] {
+    font-family: 'Bree serif', serif;
+    display: inline-block;
+    width: 28%;
+    border: none;
+    // box-shadow: 0 0 2px $boardgameblue;
+
+
+
+
+    &:focus {
+      outline-color: $lightgreen;
+    }
+  }
+}
+
+.pagination {
+  width: 96%;
+  margin: 0 auto;
+  font-size: 26px;
+
+  .button {
+    border: none;
+    font-family: 'Bree serif', serif;
+
+  }
+
+  #current {
+    font-family: 'Bree serif', serif;
+  }
+}
+
+.search-results-container {
+  width: 90%;
+  margin: 0 auto;
+}

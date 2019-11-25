@@ -1,0 +1,11 @@
+footer {
+  background-color: $boardgameblue;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  min-height: 10vh;
+  max-height: 40vh;
+  align-items: center;
+  color: $boardgameorange;
+  font-size: 0.9em;
+}
