@@ -1,7 +1,11 @@
 import React from 'react';
 
 
-const SearchPagination = ({pagination, page, setPG}) => {
+const SearchPagination = ({pagination, page, setPG, pl}) => {
+  console.log(setPG.pages);
+  console.log(page);
+  
+  
   return (
     <div className="pagination">
 
@@ -17,7 +21,7 @@ const SearchPagination = ({pagination, page, setPG}) => {
       className="button"
       onClick={pagination} 
       //still not showing remainder
-      disabled={page < setPG.pages ? true :false}
+      disabled={page >=  setPG.pages  ? true : false}
     >next</button>
     
     <h5>{`results ${setPG.currentRange} of ${setPG.total}`}</h5>

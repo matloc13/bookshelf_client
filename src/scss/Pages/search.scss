@@ -51,3 +51,14 @@
   width: 90%;
   margin: 0 auto;
 }
+
+.search-result-item {
+  display: flex;
+  // flex-direction: row;
+  justify-content: space-between;
+
+  span {
+    display: inline-flex
+  }
+
+}

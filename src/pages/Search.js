@@ -13,9 +13,12 @@ const Search = () => {
   const [query, setQuery] = useState({query: ''});
   const [currentQuery, setcurrentQuery] = useState()
   const [page, setPage] = useState(1);
+  const [searchTotal, setSearchTotal] = useState(0);
   const [searchPageInfo, setSearchPageInfo] = useState({
-    total: 1,
-    pages: 1
+    total: null,
+    pages: null,
+    currentRange: null,
+
   })
   const [searchClick, setSearchClick] = useState(false);
   const [loading, outputResult, setOutputResult, setPageLength, pageLength] = useSearch(currentQuery, page);
@@ -33,34 +36,38 @@ const Search = () => {
     };
   }, [values]); //eslint-disable-line
 
-  // search lenght
-
+  
   const findRange = () => {
+   console.log(pageLength)
     const lastPage = page * pageLength;
-    const firstPage = lastPage - (pageLength-1);
-    const range = `${firstPage} of ${lastPage}`;
-    return range;
+    const firstPage = lastPage - (pageLength - 1 );
+    console.log(lastPage);
+       const range = `${firstPage} of ${lastPage}`;
+       return range;
   }
 
-  const numberOfPages = (t) => {
- const pageInfo = {
-   total: t,
-   pages: () => t/pageLength,
-   currentRange: findRange()
- }
-    return pageInfo
-
- 
+  const findPages = () => {
+    console.log(searchTotal)
+    const totalPages = ( searchTotal/pageLength);
+    return totalPages
   }
+
+  useEffect(() => {
+    if (searchList.searchLength) {
+      const catchTotal = searchList.searchLength;
+      setSearchTotal(catchTotal);
+    }
+  }, [ searchList.searchLength]); //eslint-disable-line
+
   useEffect(() => {
    
-   if (searchList.searchLength ) {
-    const total = searchList.searchLength;
-    setSearchPageInfo(numberOfPages(total))
-   }
-
-
-  }, [searchList.searchLength, page ]); //eslint-disable-line
+    setSearchPageInfo({...searchPageInfo,  
+      total: searchTotal,
+      pages: findPages(),
+      currentRange: findRange()
+    });
+   
+  }, [searchTotal, page])
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -124,6 +131,7 @@ const pagination = (e)=> {
       searchList &&
       searchList.searchLength > pageLength &&
         <SearchPagination 
+          pl={pageLength}
           setPG={searchPageInfo}
           pagination={pagination}
           page={page}
@@ -136,6 +144,7 @@ const pagination = (e)=> {
         : 
 
           <SearchResults 
+            pl={pageLength}
             array={outputResult}
             page={page}
             status={searchClick}
@@ -147,6 +156,7 @@ const pagination = (e)=> {
       searchList &&
       searchList.searchLength > pageLength &&
         <SearchPagination 
+          pl={pageLength}
           setPG={searchPageInfo}
           pagination={pagination}
           page={page}

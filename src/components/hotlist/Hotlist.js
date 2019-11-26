@@ -84,7 +84,7 @@ const Hotlist = () => {
           hotlist.items.item.map((ele, index) => {
             return (
               <>
-              <div key={`${index}${ele.name.value}`} className="hotlist-item">
+              <div key={`${ele.rank}`} className="hotlist-item">
                 <div key={`${index}${ele.name.value}`}>
                   <img
                     id="img"
@@ -140,10 +140,6 @@ const Hotlist = () => {
                 </>
                 
               </div>
-
-            
-
-  
               </>
             );
           })}

@@ -1,5 +1,5 @@
 import React from 'react';
-const SearchResults = ({array, page, status}) => {
+const SearchResults = ({array, page, status, pl}) => {
   // console.log(array);
   return (
     <div className="search-results-container">
@@ -9,7 +9,8 @@ const SearchResults = ({array, page, status}) => {
           array[page - 1].map((ele, i) => {
             return (
               <li key={`${ele.id}n${i}`} className="search-result-item">
-                {ele.name.value}
+                <span>#{ page > 1 ? i + pl * (page - 1 ) + 1: i +1 }</span>
+                <span>{ele.name.value}</span>
               </li>
             )})
             : ""

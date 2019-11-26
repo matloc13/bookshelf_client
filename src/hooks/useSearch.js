@@ -28,22 +28,23 @@ const useSearch = (query,paginate ) => {
 
 // current position of pagination
 
-  const currentPosition = (pagelength,page) => {
-    const c = pagelength * page;
+  const currentPosition = (page) => {
+    const c = pageLength * page;
     // console.log( c);
     return c;
   }
 
 
-  const getSearch = async (query,pageLength ) => {
+  const getSearch = async (query, pl ) => {
     // const pageLength = 25;
     try {
       setLoading(true);
       const res = await fetch(`${BASE_URL}/searchlists/${query}`);
       const json = await res.json();
-   
+      console.log(json);
+      
      if (json.items.item) {
-      const newArr = json.items.item.filter(ele => ele.type !== 'videogame');
+      const newArr = json.items.item.filter(ele => ele.type === 'boardgame' || ele.type === 'boardgameexpansion');
      await new Promise((resolve) => {
   
       dispatch({
@@ -51,23 +52,25 @@ const useSearch = (query,paginate ) => {
         search: newArr,
         length: newArr.length
       })
-        if (json.items.item.length > pageLength ) {
+        if (newArr.length > pl ) {
 
           const newArray = []
-          let cp = currentPosition(pageLength, paginate)
+          let cp = currentPosition( paginate)
 
             if (paginate === 1) {
-              json.items.item.forEach((ele,i) => {
+              newArr.forEach((ele,i) => {
                 if (i <= cp - 1 ) {
                 newArray.push(ele)
             } else if (i >= cp) {
+              console.log(newArray);
+              
               return;
             }
               })     
               setOutputResult([...outputResult, newArray]);  
             } else {                
-                json.items.item.forEach((ele,i) => {            
-                  if (i < cp && i >= cp - pageLength ) {
+                newArr.forEach((ele,i) => {            
+                  if (i < cp && i >= cp - pl ) {
                   newArray.push(ele)
                   } else if (i >= cp ) {
                     return;
@@ -77,7 +80,7 @@ const useSearch = (query,paginate ) => {
             } 
 
          }  else {
-          setOutputResult([...outputResult, json.items.item])   
+          setOutputResult([...outputResult, newArr])   
          }
        return resolve(outputResult)
      })  }   
@@ -86,6 +89,8 @@ const useSearch = (query,paginate ) => {
       console.error(error);
       
     }finally {
+      // console.log(newArr);
+      
       // console.log(allLists.search);      
       setLoading(false)
     }
