@@ -38,12 +38,17 @@ const Search = () => {
 
   
   const findRange = () => {
+    
    console.log(pageLength)
     const lastPage = page * pageLength;
     const firstPage = lastPage - (pageLength - 1 );
-    console.log(lastPage);
-       const range = `${firstPage} of ${lastPage}`;
-       return range;
+   if (lastPage > searchTotal) {
+     return `${firstPage} of ${searchTotal}`
+   } else {
+    return `${firstPage} of ${lastPage}`;
+   }
+ 
+      
   }
 
   const findPages = () => {
