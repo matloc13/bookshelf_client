@@ -53,11 +53,14 @@ const Search = () => {
   }
 
   useEffect(() => {
-    if (searchList.searchLength) {
-      const catchTotal = searchList.searchLength;
-      setSearchTotal(catchTotal);
+    if (searchList) {
+      if (searchList.searchLength) {
+        const catchTotal = searchList.searchLength;
+        setSearchTotal(catchTotal);
+      }
     }
-  }, [ searchList.searchLength]); //eslint-disable-line
+    
+  }, [!loading, searchList]); //eslint-disable-line
 
   useEffect(() => {
    
@@ -85,6 +88,8 @@ const pagination = (e)=> {
       return setPage(page - 1);    
     case "next":
       return setPage(page + 1);
+    case "clear":
+      return setOutputResult([]);
     default:
       return;
   }
@@ -110,6 +115,7 @@ const pagination = (e)=> {
             />
           </label>
           <fieldset className="advanced-search-box">
+            <label htmlFor="pageLength"> results per page
           <select name="pageLength" id="pageLength" value={pageLength.pageLength} onChange={handleInput}>
          
             {
@@ -125,6 +131,7 @@ const pagination = (e)=> {
               ))
             }
           </select>
+          </label>
           </fieldset>
       </form>
       { 
