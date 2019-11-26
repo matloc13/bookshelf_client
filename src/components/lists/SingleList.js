@@ -11,7 +11,7 @@ const SingleList = () => {
   const [] = useManageItem(del); //eslint-disable-line no-empty-pattern
   const [show, setShow] = useState(false);
 
-  console.log(allLists.sList);
+  // console.log(allLists.sList);
 
 
 

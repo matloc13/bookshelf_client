@@ -8,8 +8,6 @@
   margin: 2% auto;
   align-items: center;
 
-
-
   .input-style {
     width: 70%;
     height: 60px;
@@ -18,7 +16,6 @@
     font-weight: 700;
     font-family: 'Lora', serif;
     box-shadow: 0 0 2px $boardgameblue;
-
   }
 
   input[type=submit] {
@@ -27,9 +24,6 @@
     width: 28%;
     border: none;
     // box-shadow: 0 0 2px $boardgameblue;
-
-
-
 
     &:focus {
       outline-color: $lightgreen;

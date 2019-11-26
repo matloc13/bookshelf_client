@@ -2,7 +2,8 @@ import React, { useEffect, useContext, useState } from "react";
 import DispatchContext from "./../../contexts/dispatchContext";
 import UserContext from "./../../contexts/userContext";
 import useHotlist from "./../../hooks/useHotlist";
-import Modal from "./../modal/Modal";
+// import Modal from "./../modal/Modal";
+import GameInfo from './../modal/gameInfo';
 import GameForm from "./../form/GameForm";
 import NewListForm from "./../form/NewListForm";
 import useListGenerator from "../../hooks/useListGenerator";
@@ -14,9 +15,10 @@ const Hotlist = () => {
 
   const [hotlist, loading, getHotlist] = useHotlist();
   const [get, setGet] = useState({});
-  const [show, setShow] = useState(false);
+  // const [show, setShow] = useState(false);
   const [gameForm, setGameForm] = useState(false);
   const [newList, setNewList] = useState(false);
+  const [gameInfo, setGameInfo] = useState(false);
   const [focusCurrent, setFocusCurrent] = useState({id:null})
   const [] = useListGenerator(get); //eslint-disable-line
   const notify = (item) => {
@@ -26,7 +28,9 @@ const Hotlist = () => {
     switch (e.target.id) {
       case "img":
         dispatch({ type: "SET_CURRENT_GAME", game: ele.id });
-        setShow(!show);
+        // setShow(!show);
+        setFocusCurrent({id: ele.id})
+        setGameInfo(true);
         break;
       case "addtolist":
         if (user.isAuthenticated && ele.id) {
@@ -42,7 +46,7 @@ const Hotlist = () => {
             return setNewList(!newList);
           } else {
             return notify('Please Login')
-          }              
+          }     
       default:
         return;
     }
@@ -50,6 +54,10 @@ const Hotlist = () => {
 
   useEffect(() => {
       getHotlist();
+     
+      return () => {
+
+      }
   }, []); //eslint-disable-line
 
   useEffect(() => {
@@ -60,7 +68,7 @@ const Hotlist = () => {
 
   return (
     <main className="hotlist-container">
-      {show && <Modal setShow={setShow} show={show}/>}
+      {/* {show && <Modal setShow={setShow} show={show}/>} */}
 
       <h2>Hot 50</h2>
       <div className="loading-div">
@@ -75,6 +83,7 @@ const Hotlist = () => {
         {hotlist.items &&
           hotlist.items.item.map((ele, index) => {
             return (
+              <>
               <div key={`${index}${ele.name.value}`} className="hotlist-item">
                 <div key={`${index}${ele.name.value}`}>
                   <img
@@ -83,7 +92,7 @@ const Hotlist = () => {
                     alt={ele.name.value}
                     onClick={e => handleClick(e, ele)}
                   />
-                  <span>RANK: {ele.rank}</span>
+                  <span className="rank">RANK: {ele.rank}</span>
                 </div>
                 <b></b>
                 <div className="add-button-container">
@@ -100,7 +109,7 @@ const Hotlist = () => {
                     {newList ? "close" : "new list"}
                   </span>
                 </div>
-                
+           <div>    
                 <>
                   {gameForm && focusCurrent.id === ele.id && (
                     <GameForm 
@@ -114,6 +123,7 @@ const Hotlist = () => {
                 </>
                 <>
                   {newList && focusCurrent.id === ele.id &&  (
+
                     <NewListForm 
                     formType="NewList"
                      game={ele} 
@@ -123,10 +133,22 @@ const Hotlist = () => {
                 />
                   )}
                 </>
+                </div> 
+                <>
+                    {gameInfo && ele.id === focusCurrent.id && 
+                   gameInfo && <GameInfo set={setGameInfo} gameInfo={gameInfo}/>}
+                </>
+                
               </div>
+
+            
+
+  
+              </>
             );
           })}
       </>
+
     </main>
   );
 };

@@ -8,7 +8,7 @@ const SearchResults = ({array, page, status}) => {
           array[page - 1] ?
           array[page - 1].map((ele, i) => {
             return (
-              <li key={ele.id} className="search-result-item">
+              <li key={`${ele.id}n${i}`} className="search-result-item">
                 {ele.name.value}
               </li>
             )})

@@ -13,19 +13,54 @@ const Search = () => {
   const [query, setQuery] = useState({query: ''});
   const [currentQuery, setcurrentQuery] = useState()
   const [page, setPage] = useState(1);
+  const [searchPageInfo, setSearchPageInfo] = useState({
+    total: 1,
+    pages: 1
+  })
   const [searchClick, setSearchClick] = useState(false);
-  const [loading, outputResult, setOutputResult] = useSearch(currentQuery, page);
+  const [loading, outputResult, setOutputResult, setPageLength, pageLength] = useSearch(currentQuery, page);
   // console.log(outputResult);
   // console.log(allLists.search.searchLength);
-  
   useEffect(() => {
     if(values.query) {
       setQuery({...query, query: values.query})
+    }
+    if(values.pageLength) {
+      setPageLength(values.pageLength)
     }
     return () => {
         setQuery('')
     };
   }, [values]); //eslint-disable-line
+
+  // search lenght
+
+  const findRange = () => {
+    const lastPage = page * pageLength;
+    const firstPage = lastPage - (pageLength-1);
+    const range = `${firstPage} of ${lastPage}`;
+    return range;
+  }
+
+  const numberOfPages = (t) => {
+ const pageInfo = {
+   total: t,
+   pages: () => t/pageLength,
+   currentRange: findRange()
+ }
+    return pageInfo
+
+ 
+  }
+  useEffect(() => {
+   
+   if (searchList.searchLength ) {
+    const total = searchList.searchLength;
+    setSearchPageInfo(numberOfPages(total))
+   }
+
+
+  }, [searchList.searchLength, page ]); //eslint-disable-line
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -67,11 +102,29 @@ const pagination = (e)=> {
               name="Search"
             />
           </label>
+          <fieldset className="advanced-search-box">
+          <select name="pageLength" id="pageLength" value={pageLength.pageLength} onChange={handleInput}>
+         
+            {
+              [15, 25, 35, 50, ].map(pl =>(
+                <>
+                {
+                  pl === 25 ?
+                  <option value={pl} selected>{pl}</option>
+                  :
+                  <option value={pl}>{pl}</option>
+                }
+               </>
+              ))
+            }
+          </select>
+          </fieldset>
       </form>
       { 
       searchList &&
-      searchList.searchLength > 50 &&
+      searchList.searchLength > pageLength &&
         <SearchPagination 
+          setPG={searchPageInfo}
           pagination={pagination}
           page={page}
         />
@@ -92,8 +145,9 @@ const pagination = (e)=> {
 
 { 
       searchList &&
-      searchList.searchLength > 50 &&
+      searchList.searchLength > pageLength &&
         <SearchPagination 
+          setPG={searchPageInfo}
           pagination={pagination}
           page={page}
         />

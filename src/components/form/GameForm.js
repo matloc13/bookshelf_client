@@ -71,7 +71,7 @@ const GameForm = ({ formType, game, i, set, gameForm}) => {
       {loading ? (
         <h1>...Loading...</h1>
       ) : (
-        <form onSubmit={handleSubmit} className={"form-style"}>
+        <form onSubmit={handleSubmit} className={"form-style add-game-form"}>
           <fieldset className={"fieldset-style"}>
             <Select
               className={`select-${formType}`}

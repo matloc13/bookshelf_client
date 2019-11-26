@@ -1,10 +1,10 @@
-import React, {useContext} from 'react';
-import ListContext from './../../contexts/userContext';
+import React from 'react';
 
-const SearchPagination = ({pagination, page,}) => {
-  const allLists = useContext(ListContext);
+
+const SearchPagination = ({pagination, page, setPG}) => {
   return (
     <div className="pagination">
+
     <button 
     id="prev" 
     className="button"
@@ -17,8 +17,10 @@ const SearchPagination = ({pagination, page,}) => {
       className="button"
       onClick={pagination} 
       //still not showing remainder
-      disabled={(page * 25) > allLists.search && allLists.search.searchLength ? true :false}
+      disabled={page < setPG.pages ? true :false}
     >next</button>
+    
+    <h5>{`results ${setPG.currentRange} of ${setPG.total}`}</h5>
   </div>
   )
 }

@@ -1,61 +1,57 @@
-import React, { useEffect, useState, useRef } from "react";
-import {createPortal}from 'react-dom';
-// import {navigate} from '@reach/router';
-import useManageItem from "./../../hooks/useManageItem";
+import React, { useEffect, useState } from 'react';
+import useManageItem from './../../hooks/useManageItem';
 
-const Modal = ({setShow, show}) => {
-  const modalRef = useRef(null);
 
-  if (!modalRef.current) {
-    const div = document.createElement('div');
-    modalRef.current = div;
-  }
+const GameInfo = ({ set, gameInfo}) => {
+
   const [game, loading, getItem] = useManageItem();
   const [showPub, setShowPub] = useState(false);
   const [showDesc, setShowDesc] = useState(false);
-
   useEffect(() => {
-    getItem();
-  }, []); //eslint-disable-line
-  useEffect(() => {
-    const modalRoot = document.getElementById("modal");
-    modalRoot.appendChild(modalRef.current);
-    return () => modalRoot.removeChild(modalRef.current);
-  }, []);
-
-  // api request needed to load game from id.
-  return (createPortal(
-    <div className={"game-container modal-container"}>
    
-      {loading && (
+      getItem();
+    console.log(game);
+    
+    return () => {
+     console.log(game);
+     
+    };
+  }, [gameInfo])
+
+  return (
+    
+
+
+<main className="game-info-container">
+    <div className="loading-container">
+       {loading && (
+  
         <img
           className="modal-img"
           src="https://media.giphy.com/media/5KX9jiNXkb3xK/giphy.gif"
           alt="loading"
         />
+       
       )}
+      </div>
+    
 
-      {game ? (
-                   
-        <div className="game-modal">
-          {/* button */}
+     {game ? (
+      <section  id={game.items.item.id} >        
+        <div className="game-info-box">
           <span 
-            className="button"  
+            className="button icon-button"  
             onClick={()=> {
-            setShow(!show);
+            set(!gameInfo);
             }
-             }>
-          close
+             }> 
+             <h6 className="icon-text"> 
+               close
+             </h6>        
           </span>
-          {/* thumbnail */}
           {game.items && game.items.item.name.value ? (
-            <div className="modal-top">
-              <img
-                className="modal-img"
-                src={game.items.item.thumbnail}
-                alt={game.items.item.name.value}
-              />
-              {/* title and link */}
+            <div className="info-top">
+             
               <h3 className="game-title">
                 {game.items.item.image && game.items.item.image ? (
                   <a href={game.items.item.image} target={"_blank"}>
@@ -67,17 +63,9 @@ const Modal = ({setShow, show}) => {
               </h3>
             </div>
           ) : (
-            // thumbnail alternate result form api
-       
             game.items.item.name[0].value && (
-              <div className="modal-top">
-                      {/* thumbnail alternate */}
-                <img
-                  className="modal-img"
-                  src={game.items.item.thumbnail}
-                  alt={game.items.item.name[0].value}
-                />
-                {/* title alternate */}
+              <div className="info-top">
+             
                 <h3 className="game-title">
                   {game.items.item.image && game.items.item.image ? (
                     <a href={game.items.item.image} target={"_blank"}>
@@ -154,11 +142,12 @@ const Modal = ({setShow, show}) => {
           </div>
         </div>
 
+        </section>  
       ) : (
-        ""
-      )}
-    </div>, modalRef.current)
-  );
-};
-
-export default Modal;
+    ""
+      )
+  }
+</main>
+)
+}
+export default GameInfo;    

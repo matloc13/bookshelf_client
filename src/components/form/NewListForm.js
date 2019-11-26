@@ -55,7 +55,7 @@ const NewListForm = ({ formType, game, i, set, newList }) => {
           <h2>...LOADING...</h2>
         </div>
       )}
-      <form onSubmit={handleSubmit} className="form-style">
+      <form onSubmit={handleSubmit} className="form-style new-list-form">
         <fieldset>
           {/* <Label name="title"> */}
           <label htmlFor="title" className="label-style">title

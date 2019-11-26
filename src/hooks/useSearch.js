@@ -3,21 +3,22 @@ import  BASE_URL from './../constants';
 import DispatchContext from './../contexts/dispatchContext';
 
 
-const useSearch = (query,paginate) => {
+const useSearch = (query,paginate ) => {
   // console.log(query);
   const dispatch = useContext(DispatchContext);
   const [outputResult, setOutputResult] = useState([])
   const [loading, setLoading] = useState(false);
   const [curQuery, setCurQuery] = useState('');
+  const [pageLength, setPageLength] = useState(25)
 
   useEffect(() => {
     const ac = new AbortController();
     if (query !== '' && query !== curQuery) {
-      getSearch(query)
+      getSearch(query, pageLength)
         setCurQuery(query);
         
     } else if (query === curQuery && query !== ''){
-      getSearch(curQuery)
+      getSearch(curQuery, pageLength)
     }
 
     return () => {
@@ -33,8 +34,9 @@ const useSearch = (query,paginate) => {
     return c;
   }
 
-  const getSearch = async (query ) => {
-    const pageLength = 25;
+
+  const getSearch = async (query,pageLength ) => {
+    // const pageLength = 25;
     try {
       setLoading(true);
       const res = await fetch(`${BASE_URL}/searchlists/${query}`);
@@ -89,6 +91,6 @@ const useSearch = (query,paginate) => {
     }
   }
   
-  return [loading, outputResult, setOutputResult]
+  return [loading, outputResult, setOutputResult, setPageLength, pageLength]
 }
 export default useSearch;
