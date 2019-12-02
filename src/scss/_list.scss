@@ -12,4 +12,20 @@ ul {
       background-color: $green;
     }
   }
+
+
+}
+
+
+
+.arrow {
+  height: 1px;
+  border: solid $boardgameorange;
+  border-width: 0 1px 1px 0;
+  display: inline-block;
+  padding: 3px;
+}
+
+.down {
+  transform: rotate(45deg);
 }

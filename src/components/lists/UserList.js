@@ -7,14 +7,11 @@ import useListGenerator from "./../../hooks/useListGenerator";
 const UserList = () => {
   const user = useContext(UserContext);
   const allLists = useContext(ListContext);
+  
   useEffect(() => {
     setGet({ type: "GET_LIST", payload: "getting" });
   }, []);
 
-  // useEffect(() => {
-  //   setGet({ type: "GET_LIST", payload: "getting" });
-  
-  // }, [])
 
 
   const [get, setGet] = useState({});

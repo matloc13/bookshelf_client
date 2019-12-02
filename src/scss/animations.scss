@@ -1,1 +1,15 @@
 //.game-info-container
+
+@keyframes slide-to-right {
+
+  from {
+    transform: translateX(250px);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+
+}

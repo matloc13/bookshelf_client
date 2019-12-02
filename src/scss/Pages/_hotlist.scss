@@ -29,7 +29,7 @@
 
 
     &:hover {
-      box-shadow: 0 4px 8px -2px rgba(255, 81, 0, 30%) inset;
+      box-shadow: 0 4px 8px -2px rgba(255, 81, 0, 30%) inset, 0 -78px 208px 0 $green inset;
     }
 
 
@@ -148,10 +148,14 @@
     // width: 80%;
     background-color: $backgroundWhite;
     color: $boardgameblue;
-    box-shadow: 1px 6px 6px -2px $lightgreen inset;
+    box-shadow: -1px 6px 6px -2px $green inset, 2px -6px 8px -2px $boardgameblue inset;
 
     .button {
       padding: 2%;
+    }
+
+    h6 {
+      margin: 1% auto;
     }
 
     .icon-button:hover>.icon-text {
@@ -231,7 +235,7 @@
       }
     }
 
-    .description,
+    .decription,
     .description-button {
       grid-column: 2;
       grid-row: 1;

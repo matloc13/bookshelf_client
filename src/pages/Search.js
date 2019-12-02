@@ -13,17 +13,15 @@ const Search = () => {
   const [query, setQuery] = useState({query: ''});
   const [currentQuery, setcurrentQuery] = useState()
   const [page, setPage] = useState(1);
-  const [searchTotal, setSearchTotal] = useState(0);
+  const [searchTotal, setSearchTotal] = useState(null);
   const [searchPageInfo, setSearchPageInfo] = useState({
     total: null,
     pages: null,
     currentRange: null,
-
   })
   const [searchClick, setSearchClick] = useState(false);
   const [loading, outputResult, setOutputResult, setPageLength, pageLength] = useSearch(currentQuery, page);
-  // console.log(outputResult);
-  // console.log(allLists.search.searchLength);
+
   useEffect(() => {
     if(values.query) {
       setQuery({...query, query: values.query})
@@ -37,23 +35,20 @@ const Search = () => {
   }, [values]); //eslint-disable-line
 
   
-  const findRange = () => {
-    
-   console.log(pageLength)
-    const lastPage = page * pageLength;
-    const firstPage = lastPage - (pageLength - 1 );
-   if (lastPage > searchTotal) {
-     return `${firstPage} of ${searchTotal}`
-   } else {
-    return `${firstPage} of ${lastPage}`;
-   }
- 
-      
+  const findRange = (st, pl, p) => {
+    // console.log(pageLength)
+    const lastPage = p * pl;
+    const firstPage = lastPage - (pl - 1 );
+      if (lastPage > st) {
+        return `${firstPage} of ${st}`
+      } else {
+          return `${firstPage} of ${lastPage}`;
+      }      
   }
 
-  const findPages = () => {
-    console.log(searchTotal)
-    const totalPages = ( searchTotal/pageLength);
+   const findPages = (st, pl) => {
+    // console.log(st)
+    const totalPages = ( st/pl);
     return totalPages
   }
 
@@ -63,19 +58,18 @@ const Search = () => {
         const catchTotal = searchList.searchLength;
         setSearchTotal(catchTotal);
       }
-    }
-    
+    }   
   }, [!loading, searchList]); //eslint-disable-line
 
   useEffect(() => {
    
     setSearchPageInfo({...searchPageInfo,  
       total: searchTotal,
-      pages: findPages(),
-      currentRange: findRange()
+      pages: findPages(searchTotal, pageLength),
+      currentRange: findRange(searchTotal, pageLength, page)
     });
    
-  }, [searchTotal, page])
+  }, [searchTotal, page, pageLength])
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -88,6 +82,7 @@ const Search = () => {
   }
 
 const pagination = (e)=> {
+  e.preventDefault();
   switch (e.target.id) {
     case "prev":
       return setPage(page - 1);    
@@ -121,38 +116,41 @@ const pagination = (e)=> {
           </label>
           <fieldset className="advanced-search-box">
             <label htmlFor="pageLength"> results per page
-          <select name="pageLength" id="pageLength" value={pageLength.pageLength} onChange={handleInput}>
+          <select name="pageLength" id="pageLength" value={pageLength} onChange={handleInput}>
          
             {
-              [15, 25, 35, 50, ].map(pl =>(
-                <>
-                {
-                  pl === 25 ?
-                  <option value={pl} selected>{pl}</option>
-                  :
-                  <option value={pl}>{pl}</option>
-                }
+              [15, 25, 35, 50 ].map((pl, i )=>(
+                <> 
+                  <option key={i} value={pl}>{pl}</option>
                </>
               ))
             }
           </select>
           </label>
           </fieldset>
+          <button onClick={pagination}>clear</button>
       </form>
       { 
-      searchList &&
-      searchList.searchLength > pageLength &&
+      searchTotal &&
+      searchTotal > pageLength &&
         <SearchPagination 
-          pl={pageLength}
           setPG={searchPageInfo}
           pagination={pagination}
           page={page}
+          show={false}
         />
       }
  
       {
         loading ? 
-        <div>getting results</div>
+        <div className="loading-div">
+            
+          <img
+            src="https://media.giphy.com/media/5KX9jiNXkb3xK/giphy.gif"
+            alt="loading.."
+          />
+     
+        </div>
         : 
 
           <SearchResults 
@@ -160,18 +158,19 @@ const pagination = (e)=> {
             array={outputResult}
             page={page}
             status={searchClick}
+  
           />
 
       }
 
 { 
-      searchList &&
-      searchList.searchLength > pageLength &&
+      searchTotal &&
+      searchTotal > pageLength &&
         <SearchPagination 
-          pl={pageLength}
           setPG={searchPageInfo}
           pagination={pagination}
           page={page}
+          show={true}
         />
       }
       

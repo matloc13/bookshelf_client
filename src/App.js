@@ -2,6 +2,7 @@ import React, { useReducer, useEffect } from "react";
 import { Router } from "@reach/router";
 import { toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.min.css'
+import ErrorBoundary from './errorboundaries/ErrorBoundary';
 import Header from "./components/header/Header";
 import Hotlist from "./components/hotlist/Hotlist";
 import Search from './pages/Search';
@@ -11,12 +12,15 @@ import Home from "./pages/Home";
 import Footer from './components/footer/Footer';
 import UserList from "./components/lists/UserList";
 import SingleList from "./components/lists/SingleList";
+// import StoreContext from './contexts/index';
 import userReducer from "./reducers/userReducer";
 import singleListReducer from "./reducers/singleListReducer";
 import listReducer from "./reducers/listReducer";
 import currentReducer from "./reducers/currentReducer";
 import searchReducer from "./reducers/searchReducer";
 import DispatchContext from "./contexts/dispatchContext";
+// import storeReducer from "./reducers/index";
+// import DispatchProvider from './reducers/index';
 import "./scss/App.scss";
 import UserContext from "./contexts/userContext";
 import ListContext from "./contexts/listContext";
@@ -41,7 +45,8 @@ const currentItem = {
 
 toast.configure({
   autoClose: 3200,
-  draggable: false
+  draggable: false,
+  position: 'bottom-right'
 });
 
 const App = () => {
@@ -51,6 +56,7 @@ const App = () => {
   const [current, dispatchCurrent] = useReducer(currentReducer, currentItem);
   const [search, dispatchSearch] = useReducer(searchReducer, initSearch)
   // console.log(search.searchLength);
+  // const [store, dispatchStore] = useReducer(storeReducer,)
 
   useEffect(() => {
     if (user.username) {
@@ -76,10 +82,10 @@ const App = () => {
     <DispatchContext.Provider value={dispatch}>
       <UserContext.Provider value={user}>
         <ListContext.Provider value={allLists}>
-        
-          <div className="App home">
-
+          <div className="App home" id="modal">
+          <ErrorBoundary>
             <Header />
+          </ErrorBoundary>
           
             <Router>
                 <Home path="/"/>
@@ -95,11 +101,11 @@ const App = () => {
             <Footer />
 
           </div>
-         
         </ListContext.Provider>
       </UserContext.Provider>
     </DispatchContext.Provider>
-  );
+  )
 };
 
 export default App;
+

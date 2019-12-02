@@ -1,11 +1,11 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import Form from "./../form/Form";
 import UserContext from "./../../contexts/userContext";
 const Login = () => {
   const user = useContext(UserContext);
   const [signup, setSignUp] = useState(false);
   const [login, setLogin] = useState(false);
-
+  
   const toggle = e => {
     e.persist();
     switch (e.target.id) {

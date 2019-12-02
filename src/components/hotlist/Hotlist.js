@@ -13,7 +13,7 @@ const Hotlist = () => {
   const dispatch = useContext(DispatchContext);
   const user = useContext(UserContext);
 
-  const [hotlist, loading, getHotlist] = useHotlist();
+  const [hotlist, loading, getHotlist, setHotlist] = useHotlist();
   const [get, setGet] = useState({});
   // const [show, setShow] = useState(false);
   const [gameForm, setGameForm] = useState(false);
@@ -56,13 +56,17 @@ const Hotlist = () => {
       getHotlist();
      
       return () => {
-
+        setHotlist([]);
       }
   }, []); //eslint-disable-line
 
   useEffect(() => {
     if (user) {
       setGet({ type: "GET_LIST", payload: "getting" });
+    }
+    return () => {
+      console.log('checked for user');
+      
     }
   }, [user]);
 
@@ -83,7 +87,7 @@ const Hotlist = () => {
         {hotlist.items &&
           hotlist.items.item.map((ele, index) => {
             return (
-              <>
+            
               <div key={`${ele.rank}`} className="hotlist-item">
                 <div key={`${index}${ele.name.value}`}>
                   <img
@@ -95,7 +99,7 @@ const Hotlist = () => {
                   <span className="rank">RANK: {ele.rank}</span>
                 </div>
                 <b></b>
-                <div className="add-button-container">
+                <div className="add-button-container" key={index + "button" }>
                   <span 
                   id="addtolist" 
                   className="add-button"
@@ -109,7 +113,7 @@ const Hotlist = () => {
                     {newList ? "close" : "new list"}
                   </span>
                 </div>
-           <div>    
+           <div key={index + "form"}>    
                 <>
                   {gameForm && focusCurrent.id === ele.id && (
                     <GameForm 
@@ -140,7 +144,7 @@ const Hotlist = () => {
                 </>
                 
               </div>
-              </>
+            
             );
           })}
       </>

@@ -1,5 +1,4 @@
 const searchReducer = (state, action) => {
-  console.log(action.search);
   
   switch (action.type) {
     case 'CURRENT_SEARCH':

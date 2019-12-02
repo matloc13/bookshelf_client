@@ -3,8 +3,24 @@
   height: auto;
 
 
+
   .single-list {
     height: 100%;
+  }
+
+  .single-item {
+    display: flex;
+    flex-flow: row;
+    justify-content: space-around;
+
+    .game-container {
+      display: flex;
+      width: 90%;
+
+      h3 {
+        margin: auto 2%;
+      }
+    }
   }
 
 }

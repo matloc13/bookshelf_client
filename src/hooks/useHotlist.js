@@ -21,6 +21,6 @@ const useHotlist = () => {
     }
   };
 
-  return [hotlist, loading, getHotlist];
+  return [hotlist, loading, getHotlist, setHotlist];
 };
 export default useHotlist;
