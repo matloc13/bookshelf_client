@@ -1,8 +1,7 @@
-import React, { useEffect, useContext, useState } from "react";
+import React, { useEffect, useContext, useState, useRef } from "react";
 import DispatchContext from "./../../contexts/dispatchContext";
 import UserContext from "./../../contexts/userContext";
 import useHotlist from "./../../hooks/useHotlist";
-// import Modal from "./../modal/Modal";
 import GameInfo from './../modal/gameInfo';
 import GameForm from "./../form/GameForm";
 import NewListForm from "./../form/NewListForm";
@@ -10,6 +9,7 @@ import useListGenerator from "../../hooks/useListGenerator";
 import { toast } from "react-toastify";
 
 const Hotlist = () => {
+  const isMounted = useRef(null);
   const dispatch = useContext(DispatchContext);
   const user = useContext(UserContext);
 
@@ -24,6 +24,12 @@ const Hotlist = () => {
   const notify = (item) => {
     toast(item)
   }
+  isMounted.current = true;
+  useEffect(() => {
+    return () => {
+      isMounted.current = false;
+    };
+  }, [])
   const handleClick = (e, ele) => {
     switch (e.target.id) {
       case "img":
@@ -56,7 +62,7 @@ const Hotlist = () => {
       getHotlist();
      
       return () => {
-        setHotlist([]);
+  
       }
   }, []); //eslint-disable-line
 

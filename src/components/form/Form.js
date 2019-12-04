@@ -14,25 +14,34 @@ const initUser = {
 };
 
 const Form = ({ formType }) => {
-  const [handleInput, values] = useInput();
+ 
   const [formAcc, setFormAcc] = useState({});
   const [formInfo, setFormInfo] = useState(initUser);
   const [loading] = useAuth(formAcc);
-    const isMounted = useRef(null)
-    // const isMounted = useIsMounted();
+  const isMounted = useRef(null);
+  const [handleInput, values] = useInput();
+  
+  isMounted.current = true;
+  useEffect(() => {
+    
+    return () => {
+      isMounted.current = false;
+    };
+  }, [])
 
   useEffect(() => {
-    isMounted.current = true;
-    setFormInfo({
-      user: {
-        username: values.username,
-        password: values.password
-      }
-    });
+      if (isMounted) {
+      setFormInfo({
+        user: {
+          username: values.username,
+          password: values.password
+        }
+      });
+    }
+  
     return ()=> {
-      setFormAcc({})
-      setFormInfo(initUser)
-      isMounted.current = false;
+      setFormInfo(initUser);
+      setFormAcc({});
     }
   }, [values]);
 
@@ -119,3 +128,4 @@ const Form = ({ formType }) => {
 };
 
 export default Form;
+

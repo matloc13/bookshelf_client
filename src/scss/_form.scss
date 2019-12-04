@@ -17,6 +17,10 @@
   color: $boardgameblue;
   background-color: $backgroundWhite;
 
+  &:focus {
+    outline-color: $lightgreen;
+  }
+
 }
 
 input[type=submit] {

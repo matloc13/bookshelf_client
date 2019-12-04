@@ -187,11 +187,7 @@
       margin: 0 auto;
       place-items: center;
     }
-
-
   }
-
-
 
   .info-top {
     display: grid;
@@ -201,6 +197,10 @@
     .info-img {
       grid-column: 1;
       padding: 2%;
+    }
+
+    h6 {
+      width: 100%;
     }
 
     .game-title {

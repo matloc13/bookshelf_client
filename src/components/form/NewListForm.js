@@ -8,7 +8,7 @@ const initList = {
   game: {}
 };
 
-const NewListForm = ({ formType, game, i, set, newList }) => {
+const NewListForm = ({ formType, game, i,  }) => {
   const [handleInput, values] = useInput();
   const [formInfo, setFormInfo] = useState(initList);
   const [formAcc, setFormAcc] = useState({});

@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import useManageItem from './../../hooks/useManageItem';
+// import usePlayerParse from './../../hooks/usePlayerParse';
 
 
 const GameInfo = ({ set, gameInfo}) => {
+  const [game, loading, getItem, deleteItem, response, topPlayerCount] = useManageItem();
 
-  const [game, loading, getItem] = useManageItem();
   const [show, setShow] = useState({
     pub: false,
     art: false,
@@ -18,14 +19,21 @@ const GameInfo = ({ set, gameInfo}) => {
   useEffect(() => {
       getItem();
     console.log(game);
+    console.log(topPlayerCount);
     
+    // findPlayerCount();
+ 
     return () => {
       
-     
     };
   }, [gameInfo])
 
-
+useEffect(() => {
+  console.log(topPlayerCount);
+  
+  return () => {   
+  };
+}, [topPlayerCount])
  
   return (
     
@@ -68,6 +76,7 @@ const GameInfo = ({ set, gameInfo}) => {
                   ""
                 )}
               </h3>
+                <h6>Preferred Player Count {topPlayerCount.playercount}</h6>
             </div>
           ) : (
             game.items.item.name[0].value && (
@@ -82,6 +91,7 @@ const GameInfo = ({ set, gameInfo}) => {
                     ""
                   )}
                 </h3>
+                <h6>Preferred Player Count {topPlayerCount.playercount}</h6>
               </div>
             )
           )}

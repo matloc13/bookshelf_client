@@ -13,21 +13,7 @@ const useInput = () => {
   };
  
 
-  //  const handleInput = useCallback(
-  //    (e) => {
-  //     e.persist();
-  //     setValues({
-  //       ...values,
-  //       [e.target.name]: e.target.value
-  //     });
-  //    },
-  //    [values]
-  //  )
- 
-
- 
-
-  return [handleInput, values];
+  return [handleInput, values ];
 };
 
 export default useInput;

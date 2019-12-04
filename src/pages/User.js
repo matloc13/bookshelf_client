@@ -11,21 +11,33 @@ const User = () => {
   const allLists = useContext(ListContext);
   useEffect(() => {
     let formatList = allLists.list[0].filter(ele => ele.user_id === user.id); 
-    if (user.username) {
+    if (user.isAuthenticated) {
       notify(`${user.username} has ${formatList.length} lists`);
     }
   }, []) //eslint-disable-line
 const notify = (item) => {
   toast(`${item}`)
 }
-  return (
+
+return (
+  <>
+{
+  user && user.isAuthenticated ?
     <main className="user-main">
       <Router>
         <UserHome path="/" />
         <UserList path="userlists/" />
         <SingleList path="list" />
       </Router>
+    </main> :
+    <main>
+      <Router>
+        <UserHome path="/" />
+      </Router>
     </main>
-  );
+}
+</>
+  )
+
 };
 export default User;

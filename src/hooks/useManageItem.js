@@ -4,7 +4,7 @@ import BASE_URL from "./../constants";
 import ListContext from "./../contexts/listContext";
 import UserContext from "./../contexts/userContext";
 // import DispatchContext from './../contexts/dispatchContext';
-
+import usePlayerParse from "./../hooks/usePlayerParse";
 const useManageItem = del => {
   const allLists = useContext(ListContext);
   const user = useContext(UserContext);
@@ -12,6 +12,8 @@ const useManageItem = del => {
   const [game, setGame] = useState(null);
   const [response, setResponse] = useState({});
   const [loading, setLoading] = useState(false);
+  const [topPlayerCount, setTopPlayerCount] = useState()
+  const [topVote] = usePlayerParse(game);
 
   useEffect(() => {
     if (del) {
@@ -21,6 +23,17 @@ const useManageItem = del => {
       console.log("deleting");
     };
   }, [del]); //eslint-disable-line
+
+  useEffect(() => {
+    console.log(topVote );
+    
+    setTopPlayerCount({...topPlayerCount, playercount: topVote.playercount, best: topVote.best})
+    
+    
+    return () => {
+    
+    };
+  }, [topVote])
 
   const notify = item => {
     toast(`${item}`);
@@ -76,6 +89,6 @@ const useManageItem = del => {
     }
   };
 
-  return [game, loading, getItem, deleteItem, response];
+  return [game, loading, getItem, deleteItem, response, topPlayerCount];
 };
 export default useManageItem;
