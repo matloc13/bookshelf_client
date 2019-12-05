@@ -12,7 +12,7 @@ const initForm = {
   bggid: null
 };
 
-const GameForm = ({ formType, game, i, set, gameForm}) => {
+const GameForm = ({ formType, game, i, set, gameForm, page}) => {
   // console.log(game);
   const user = useContext(UserContext);
   const allLists = useContext(ListContext);

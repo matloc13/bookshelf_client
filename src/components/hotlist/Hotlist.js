@@ -13,7 +13,7 @@ const Hotlist = () => {
   const dispatch = useContext(DispatchContext);
   const user = useContext(UserContext);
 
-  const [hotlist, loading, getHotlist, setHotlist] = useHotlist();
+  const [hotlist, loading, getHotlist] = useHotlist();
   const [get, setGet] = useState({});
   // const [show, setShow] = useState(false);
   const [gameForm, setGameForm] = useState(false);
@@ -30,6 +30,7 @@ const Hotlist = () => {
       isMounted.current = false;
     };
   }, [])
+  
   const handleClick = (e, ele) => {
     switch (e.target.id) {
       case "img":
@@ -60,9 +61,7 @@ const Hotlist = () => {
 
   useEffect(() => {
       getHotlist();
-     
       return () => {
-  
       }
   }, []); //eslint-disable-line
 
@@ -72,13 +71,11 @@ const Hotlist = () => {
     }
     return () => {
       console.log('checked for user');
-      
     }
   }, [user]);
 
   return (
     <main className="hotlist-container">
-      {/* {show && <Modal setShow={setShow} show={show}/>} */}
 
       <h2>Hot 50</h2>
       <div className="loading-div">

@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import useManageItem from './../../hooks/useManageItem';
-// import usePlayerParse from './../../hooks/usePlayerParse';
-
 
 const GameInfo = ({ set, gameInfo}) => {
   const [game, loading, getItem, deleteItem, response, topPlayerCount] = useManageItem();
@@ -18,23 +16,11 @@ const GameInfo = ({ set, gameInfo}) => {
 
   useEffect(() => {
       getItem();
-    console.log(game);
-    console.log(topPlayerCount);
-    
-    // findPlayerCount();
- 
     return () => {
       
     };
   }, [gameInfo])
 
-useEffect(() => {
-  console.log(topPlayerCount);
-  
-  return () => {   
-  };
-}, [topPlayerCount])
- 
   return (
     
 <main className="game-info-container " key={game ? game.items.item.id: ""}>
@@ -96,9 +82,9 @@ useEffect(() => {
             )
           )}
           <div className="modal-info">
-          {game.items.item.link.map(ele => {
+          {game.items.item.link.map((ele, i) => {
             return ele.type === "boardgamedesigner" ? (
-              <h6 className="info-designer">Designer: {ele.value}</h6>
+              <h6 key={i} className="info-designer">Designer: {ele.value}</h6>
             ) : (
               ""
             );
@@ -136,9 +122,9 @@ useEffect(() => {
             {!show.art ? "Artists" : "hide"}
           </h6>
           {show.art &&
-            game.items.item.link.map(ele => {
+            game.items.item.link.map((ele, i) => {
               return ele.type === "boardgameartist" ? (
-                <p className="info-artist">Artist: {ele.value}</p>
+                <p key={i} className="info-artist">Artist: {ele.value}</p>
               ) : (
                 ""
               );
@@ -153,9 +139,9 @@ useEffect(() => {
             {!show.pub ? "Publishers" : "hide"}
           </h6>
           {show.pub &&
-            game.items.item.link.map(ele => {
+            game.items.item.link.map((ele, i) => {
               return ele.type === "boardgamepublisher" ? (
-                <p className="info-publisher">Publisher: {ele.value}</p>
+                <p key={i} className="info-publisher">Publisher: {ele.value}</p>
               ) : (
                 ""
               );
@@ -168,9 +154,9 @@ useEffect(() => {
                 {!show.cat ? "Categories" : "hide"}
               </h6>
               {show.cat &&
-            game.items.item.link.map(ele => {
+            game.items.item.link.map((ele, i) => {
               return ele.type === "boardgamecategory" ? (
-                <p className="info-cat"> Category: {ele.value}</p>
+                <p key={i} className="info-cat"> Category: {ele.value}</p>
               ) : (
                 ""
               );
@@ -185,9 +171,9 @@ useEffect(() => {
           {!show.mech ? "Mechanicisms": "hide"}
         </h6>
         {show.mech &&
-            game.items.item.link.map(ele => {
+            game.items.item.link.map((ele, i) => {
               return ele.type === "boardgamemechanic" ? (
-                <p className="info-mech"> Category: {ele.value}</p>
+                <p key={i} className="info-mech"> Category: {ele.value}</p>
               ) : (
                 ""
               );
@@ -201,9 +187,9 @@ useEffect(() => {
           {!show.ex ? "Expansions": "hide"}
         </h6>
         {show.ex &&
-            game.items.item.link.map(ele => {
+            game.items.item.link.map((ele, i) => {
               return ele.type === "boardgameexpansion" ? (
-                <p className="info-mech"> Expansion: {ele.value}</p>
+                <p key={i} className="info-mech"> Expansion: {ele.value}</p>
               ) : (
                 ""
               );

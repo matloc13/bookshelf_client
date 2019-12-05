@@ -25,10 +25,8 @@ const useManageItem = del => {
   }, [del]); //eslint-disable-line
 
   useEffect(() => {
-    console.log(topVote );
-    
+    // console.log(topVote );
     setTopPlayerCount({...topPlayerCount, playercount: topVote.playercount, best: topVote.best})
-    
     
     return () => {
     

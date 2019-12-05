@@ -9,7 +9,7 @@ const usePlayerParse = (m) => {
       const top = await new Promise((resolve) => {
         return resolve(findPlayerCount(m.items.item));
       });
-      console.log(top);
+      // console.log(top);
       if (top.playercount) {
       
       setTopVote({...topVote, playercount: top.playercount, best: top.best})
@@ -20,15 +20,12 @@ const usePlayerParse = (m) => {
       console.error(error);
     } finally {
       // console.log(topVote);
-      
     }
   }
 useEffect(() => {
-  // console.log(m);
   if (m) {
    formatData(m);
   }
-// console.log(topVote);
   return () => {
     
   };
@@ -40,9 +37,6 @@ const findVotes = (ele, type) => {
   
   const vote = ele.result.forEach((item, i) => {
     if (item.value === type) {
-      // console.log(item.value);
-      // console.log(type);
-      // console.log(item.numvotes);
       numvote = item.numvotes;
     }
   });
@@ -52,28 +46,28 @@ const findVotes = (ele, type) => {
 
 // find recommended player count
 const findPlayerCount = (m) => { 
-  // console.log(m);
   
+  // console.log(m);
+  // index zero of poll array ie playercount votes
+  if (m.poll[0].totalvotes === "0") {
+    return {playercount: "unknown", best: "unknown"}
+  }
   const find = m.poll[0].results.map((ele) => {
     let playerCount = {}
     if (m) { 
       // console.log(ele);
-            playerCount = {num_players: ele.numplayers,
-            best: findVotes(ele, "Best"),
-            recommended: findVotes(ele, "Recommended"),
-            not_recommended: findVotes(ele, "Not Recommended")}
+        playerCount = {num_players: ele.numplayers,
+        best: findVotes(ele, "Best"),
+        recommended: findVotes(ele, "Recommended"),
+        not_recommended: findVotes(ele, "Not Recommended")}
         }
-      
        return playerCount;
-      })
-     
-    
-
+      })     
 return findBest(find);   
 }
 
 const findBest = (f) => {
-  console.log(f);
+  // console.log(f);
   let best = {
     playercount: 0,
     best: 0
@@ -86,7 +80,7 @@ const findBest = (f) => {
        best = {...best, playercount: prop.num_players, best: large}
     }
   })
-  console.log(best);
+  // console.log(best);
   
 return best;
 }

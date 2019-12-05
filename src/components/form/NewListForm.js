@@ -3,27 +3,76 @@ import {toast} from 'react-toastify';
 import Input from "./inputs/Input";
 import useInput from "../../hooks/useInput";
 import useListGenerator from "./../../hooks/useListGenerator";
+import useManageItem from "./../../hooks/useManageItem";
 const initList = {
   title: "",
   game: {}
 };
 
-const NewListForm = ({ formType, game, i,  }) => {
+const NewListForm = ({ formType, game, i, page  }) => {
   const [handleInput, values] = useInput();
   const [formInfo, setFormInfo] = useState(initList);
   const [formAcc, setFormAcc] = useState({});
   const [loading] = useListGenerator(formAcc);
+  const [item, load, getItem] = useManageItem();
+
+  const searchFormat = async () => {
+    try {
+      await getItem();
+      await new Promise(resolve => {
+        return setFormInfo({
+          title: values.title,
+          game: {
+            name: game.name.value,
+            img: item,
+            bggid: game.id
+          }
+        })
+      })
+    } catch (error) {
+      console.error(error);
+      
+    } finally {
+      console.log(item);
+      
+    }
+  
+
+  }
 
   useEffect(() => {
-    setFormInfo({
-      ...formInfo,
-      title: values.title,
-      game: {
-        name: game.name.value,
-        img: game.thumbnail.value,
-        bggid: game.id
-      }
-    });
+    console.log(game);
+    switch(page) {
+      case "search":
+       searchFormat();
+       console.log(item);
+       
+
+        // setFormInfo({
+        //   ...formInfo, 
+        //   title: values.title,
+        //   game: {
+        //     name: game.name.value,
+        //     img: item.thumbnail.value,
+        //     bggid: game.id
+        //   }
+        // })
+        break;
+      case "hotlist":
+        return    setFormInfo({
+          ...formInfo,
+          title: values.title,
+          game: {
+            name: game.name.value,
+            img: game.thumbnail.value,
+            bggid: game.id
+          }
+        });
+      default:
+        return;
+    }
+    
+ 
   }, [values, game]); //eslint-disable-line
 
   const handleSubmit = e => {

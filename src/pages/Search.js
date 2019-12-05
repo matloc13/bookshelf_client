@@ -89,6 +89,8 @@ const pagination = (e)=> {
     case "next":
       return setPage(page + 1);
     case "clear":
+      setQuery({query: " "})
+      setSearchClick(!searchClick);
       return setOutputResult([]);
     default:
       return;
@@ -128,7 +130,7 @@ const pagination = (e)=> {
           </select>
           </label>
           </fieldset>
-          <button onClick={pagination}>clear</button>
+          <button id="clear" onClick={pagination}>clear</button>
       </form>
       { 
       searchTotal &&

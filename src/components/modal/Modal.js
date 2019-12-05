@@ -10,7 +10,7 @@ const Modal = ({setShow, show}) => {
     const div = document.createElement('div');
     modalRef.current = div;
   }
-  const [game, loading, getItem] = useManageItem();
+  const [game, loading, getItem, deleteItem, response, topPlayerCount] = useManageItem();
   const [hide, setHide] = useState({
     pub: false,
     art: false,
@@ -75,13 +75,7 @@ const Modal = ({setShow, show}) => {
                   ""
                 )}
               </h3>
-              {/* {game.items.item.link.map(ele => {
-            return ele.type === "boardgamedesigner" ? (
-              <h6 className="info-designer">Designer: {ele.value}</h6>
-            ) : (
-              ""
-            );
-          })} */}
+              <h6>Preferred Player Count {topPlayerCount.playercount}</h6>
           </div>
             </div>
           ) : (
@@ -107,13 +101,7 @@ const Modal = ({setShow, show}) => {
                   )}
                 </h3>
                 </div>
-                {/* {game.items.item.link.map(ele => {
-            return ele.type === "boardgamedesigner" ? (
-              <h6 className="info-designer">Designer: {ele.value}</h6>
-            ) : (
-              ""
-            );
-          })} */}
+                <h6>Preferred Player Count {topPlayerCount.playercount}</h6>
               </div>
             )
           )}
@@ -134,9 +122,9 @@ const Modal = ({setShow, show}) => {
             }}>{!hide.moreInfo ? "More Info" : "hide"}</h6>
           {hide.moreInfo &&    
         <section className="more-info">
-            {game.items.item.link.map(ele => {
+            {game.items.item.link.map((ele, i) => {
             return ele.type === "boardgamedesigner" ? (
-              <h6 className="info-designer">Designer: {ele.value}</h6>
+              <h6  key={i}className="info-designer">Designer: {ele.value}</h6>
             ) : (
               ""
             );
@@ -158,9 +146,9 @@ const Modal = ({setShow, show}) => {
             {!hide.art ? "Artists" : "hide"}
           </h6>
           {hide.art &&
-            game.items.item.link.map(ele => {
+            game.items.item.link.map((ele, i) => {
               return ele.type === "boardgameartist" ? (
-                <p className="info-artist">Artist: {ele.value}</p>
+                <p key={i} className="info-artist">Artist: {ele.value}</p>
               ) : (
                 ""
               );
@@ -174,9 +162,9 @@ const Modal = ({setShow, show}) => {
             {!hide.pub ? "Publishers" : "hide"}
           </h6>
           {hide.pub &&
-            game.items.item.link.map(ele => {
+            game.items.item.link.map((ele, i) => {
               return ele.type === "boardgamepublisher" ? (
-                <p className="info-publisher">Publisher: {ele.value}</p>
+                <p key={i} className="info-publisher">Publisher: {ele.value}</p>
               ) : (
                 ""
               );
@@ -189,9 +177,9 @@ const Modal = ({setShow, show}) => {
                 {!hide.cat ? "Categories" : "hide"}
           </h6>
             {hide.cat &&
-            game.items.item.link.map(ele => {
+            game.items.item.link.map((ele, i) => {
               return ele.type === "boardgamecategory" ? (
-                <p className="info-cat"> Category: {ele.value}</p>
+                <p key={i} className="info-cat"> Category: {ele.value}</p>
               ) : (
                 ""
               );
@@ -206,9 +194,9 @@ const Modal = ({setShow, show}) => {
           {!hide.mech ? "Mechanicisms": "hide"}
         </h6>
         {hide.mech &&
-            game.items.item.link.map(ele => {
+            game.items.item.link.map((ele, i) => {
               return ele.type === "boardgamemechanic" ? (
-                <p className="info-mech"> Category: {ele.value}</p>
+                <p key={i} className="info-mech"> Category: {ele.value}</p>
               ) : (
                 ""
               );
@@ -223,9 +211,9 @@ const Modal = ({setShow, show}) => {
           {!hide.ex ? "Expansions": "hide"}
         </h6>
         {hide.ex &&
-            game.items.item.link.map(ele => {
+            game.items.item.link.map((ele, i) => {
               return ele.type === "boardgameexpansion" ? (
-                <p className="info-mech"> Expansion: {ele.value}</p>
+                <p key={i} className="info-mech"> Expansion: {ele.value}</p>
               ) : (
                 ""
               );
