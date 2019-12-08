@@ -1,10 +1,12 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext } from "react";
 import Form from "./../form/Form";
+import NavLink from "./../navlink/NavLink";
 import UserContext from "./../../contexts/userContext";
 const Login = () => {
   const user = useContext(UserContext);
   const [signup, setSignUp] = useState(false);
   const [login, setLogin] = useState(false);
+  const [logout, setLogout] = useState(false)
   
   const toggle = e => {
     e.persist();
@@ -22,7 +24,15 @@ const Login = () => {
       {user.isAuthenticated ? (
         <div>
           {/* <h1>{user.username}</h1> */}
-          <Form formType="LOGOUT" />
+          <span onClick={() => setLogout(!logout)}>{user.username}</span>
+          {
+            logout &&
+            <>
+            <NavLink to="user">users lists</NavLink>
+            <Form formType="LOGOUT" />
+            </>
+          }
+          
         </div>
       ) : (
         <div>

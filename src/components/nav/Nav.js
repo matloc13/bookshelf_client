@@ -8,10 +8,10 @@ const Nav = () => {
     <nav className={"nav-style"} data-testid={"nav"}>
       <NavLink to="hotlist">Hot 50</NavLink>
       <NavLink to="search">Search</NavLink>
-      {
+      {/* {
         user.isAuthenticated &&
           <NavLink to="user/">{user.username}</NavLink>
-      }
+      } */}
 
     </nav>
   );
