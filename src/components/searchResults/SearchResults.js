@@ -1,32 +1,81 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext, useState, useEffect} from 'react';
+import UserContext from './../../contexts/userContext';
 import DispatchContext from "./../../contexts/dispatchContext";
+import ListContext from './../../contexts/listContext';
 import Modal from './../modal/Modal';
 import GameForm from './../form/GameForm';
 import NewListForm from './../form/NewListForm';
+import useManageItem from './../../hooks/useManageItem';
+import { toast } from 'react-toastify';
+
 
 const SearchResults = ({array, page, status, pl}) => {
   // console.log(array);
+const user = useContext(UserContext);
 const dispatch = useContext(DispatchContext);
+const allLists = useContext(ListContext);
+const [gameStatus, setGameStatus] = useState(false);
 const [show, setShow] = useState(false);
 const [seeForms, setSeeForms] = useState(true);
-const handleClick = (e, ele) => {
-  e.preventDefault();
-  console.log(ele);
-  dispatch({ type: "SET_CURRENT_GAME", game: ele.id });
-  return setShow(!show);
+const [game, load, getItem] = useManageItem();
+const notify = (item) => {
+  toast(item)
 }
-console.log(array);
+// console.log(array);
 
-const toggle = (e) => {
-  e.preventDefault();
-  switch(e.target.id) {
+useEffect(() => {
+  setGameStatus(!gameStatus)
+  console.log(game);
+  
+  return () => {
+    
+  };
+}, [game])
+useEffect(() => {
+  if (allLists.current) {
+    console.log(allLists.current.id);
+  }
+  return () => {};
+}, [allLists.current, allLists])
+
+const toggle = (e, ele, type) => {
+  e.persist();
+  // console.log(seeForms);
+  console.log(ele);
+  
+  switch(type) {
     case "showLogo": 
-      return setSeeForms(!seeForms);
+    dispatch({ type: "SET_CURRENT_GAME", game: ele.id });
+      const thisGame = async () => {
+        try {
+          if (user.isAuthenticated) {
+            console.log('user present');
+            
+            if (allLists.current) {
+              console.log('grabbing data');
+             getItem();
+              await new Promise((resolve) => {
+                return resolve(setSeeForms(!seeForms))
+            })
+            }
+          } else {
+            notify('Please Login')
+          }
+        } catch (error) {
+            console.error(error);          
+        } finally {
+            // console.log(thisItem);
+            
+        }
+      }
+      return thisGame();
+    case "showModal" :
+      dispatch({ type: "SET_CURRENT_GAME", game: ele.id });
+        return setShow(!show);        
     default:
       return;
   }
 }
-
   return (
     <div className="search-results-container">
           {show && <Modal setShow={setShow} show={show}/>}
@@ -37,11 +86,14 @@ const toggle = (e) => {
             return (
               <li key={`${ele.id}n${i}`} className="search-result-item">
 
-                <span 
+                <div
                   className="title-container"
-                  onClick={(e) => handleClick(e,ele)}>
+                  onClick={(e) => toggle(e,ele, "showModal")}>
                     
-                  <span className="title">{ele.name.value}</span> 
+                  <span 
+                  className="title"
+                  id={`showModal`}>
+                    {ele.name.value}</span> 
                     <b></b>
                     {
                       ele.yearpublished &&
@@ -52,14 +104,13 @@ const toggle = (e) => {
                     <span className="id">
                       <span className="property-text">bggid: </span> {ele.id}
                     </span>                  
-                </span>
+                </div>
                 <b></b>
                 {
                   seeForms ? 
                   <div 
-                  id="showLogo"
-                  className="arrow-container" 
-                  onClick={toggle}>
+                    className="arrow-container" 
+                    onClick={(e) => toggle(e, ele, "showLogo")}>
                     <span className="arrow-item">
                         <i className="arrow down"></i>
                       </span>
@@ -67,20 +118,30 @@ const toggle = (e) => {
                     </span>
                    
                   </div>   :
-                  <div className="forms">
-                    <GameForm
-                      game={ele}
-                      i={i}
-                      set={toggle}
-                      page="search"
-                    /> 
-                    <NewListForm 
-                      game={ele}
-                      i={i}
-                      set={toggle}
-                      page="search"
-                    />
+                  <div className="forms-box">                    
+                    {
+                    game && 
+                    ele.id === game.items.item.id ?
+                      <div className="forms">
+                        <span onClick={() => setSeeForms(true)}>X</span>
+                          <GameForm
+                            game={game.items.item}
+                            i={i}
+                            set={toggle}
+                            page="search"
+                          /> 
+                          <b></b>
+                          <NewListForm 
+                            game={game.items.item}
+                            i={i}
+                            set={toggle}
+                            page="search"
+                          />
+                      </div>
+                    : ''
+                    }                              
                   </div>
+                
                 }
                             
               </li>

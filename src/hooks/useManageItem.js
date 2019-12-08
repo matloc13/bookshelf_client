@@ -12,7 +12,7 @@ const useManageItem = del => {
   const [game, setGame] = useState(null);
   const [response, setResponse] = useState({});
   const [loading, setLoading] = useState(false);
-  const [topPlayerCount, setTopPlayerCount] = useState()
+  const [topPlayerCount, setTopPlayerCount] = useState({})
   const [topVote] = usePlayerParse(game);
 
   useEffect(() => {
@@ -25,13 +25,9 @@ const useManageItem = del => {
   }, [del]); //eslint-disable-line
 
   useEffect(() => {
-    // console.log(topVote );
     setTopPlayerCount({...topPlayerCount, playercount: topVote.playercount, best: topVote.best})
-    
-    return () => {
-    
-    };
-  }, [topVote])
+    return () => {};
+  }, [topVote]) //eslint-disable-line
 
   const notify = item => {
     toast(`${item}`);
@@ -43,19 +39,21 @@ const useManageItem = del => {
       setLoading(true);
       const gameid = await allLists.current.gameid;
       console.log(gameid);
-      
       const res = await fetch(`${BASE_URL}/bgg_lists/${gameid}`);
       const getgame = await res.json();
       await new Promise((resolve) => {
+        // console.log(getgame);      
         if (getgame.items.item.name) {
           return resolve(setGame(getgame))
         } 
       });
     } catch (err) {
       console.error(err);
-    } finally {
-      // console.log(game);     
+    } finally {   
       setLoading(false);
+      // console.log(allLists.curent);
+      
+      
     }
   };
 
@@ -80,7 +78,6 @@ const useManageItem = del => {
         });
         notify(`Item deleted`)
         // Notify goes here
-        // const gameItem = res.filter
       }
     } catch (err) {
       console.error(err);

@@ -120,24 +120,25 @@ const Hotlist = () => {
                 <>
                   {gameForm && focusCurrent.id === ele.id && (
                     <GameForm 
-                    formType="ADDGAME" 
-                    game={ele} 
-                    i={index} 
-                    set={setGameForm}
-                    gameForm={gameForm}
-                     />
+                      formType="ADDGAME" 
+                      game={ele} 
+                      i={index} 
+                      set={setGameForm}
+                      gameForm={gameForm}
+                      />
                   )}
                 </>
                 <>
                   {newList && focusCurrent.id === ele.id &&  (
 
                     <NewListForm 
-                    formType="NewList"
-                     game={ele} 
-                     i={index}
-                     set={setNewList}
-                     newList={newList}
-                />
+                      formType="NewList"
+                      game={ele} 
+                      i={index}
+                      set={setNewList}
+                      newList={newList}
+                      page="hotlist"
+                    />
                   )}
                 </>
                 </div> 

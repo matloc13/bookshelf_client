@@ -46,8 +46,6 @@ const findVotes = (ele, type) => {
 
 // find recommended player count
 const findPlayerCount = (m) => { 
-  
-  // console.log(m);
   // index zero of poll array ie playercount votes
   if (m.poll[0].totalvotes === "0") {
     return {playercount: "unknown", best: "unknown"}
@@ -55,7 +53,6 @@ const findPlayerCount = (m) => {
   const find = m.poll[0].results.map((ele) => {
     let playerCount = {}
     if (m) { 
-      // console.log(ele);
         playerCount = {num_players: ele.numplayers,
         best: findVotes(ele, "Best"),
         recommended: findVotes(ele, "Recommended"),
@@ -67,7 +64,6 @@ return findBest(find);
 }
 
 const findBest = (f) => {
-  // console.log(f);
   let best = {
     playercount: 0,
     best: 0
@@ -81,11 +77,9 @@ const findBest = (f) => {
     }
   })
   // console.log(best);
-  
 return best;
 }
 
-
-  return [ topVote, findPlayerCount];
+  return [ topVote ];
 }
 export default usePlayerParse;

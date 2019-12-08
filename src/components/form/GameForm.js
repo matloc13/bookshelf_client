@@ -21,11 +21,20 @@ const GameForm = ({ formType, game, i, set, gameForm, page}) => {
   const [selectedOption, setSelectedOption] = useState(null);
   const [loading] = useListGenerator(formAcc);
 
+
   useEffect(() => {
-    if (selectedOption) {
+    if (selectedOption && page === "hotlist") {
       setFormInfo({
         name: game.name.value,
         img: game.thumbnail.value,
+        bggid: game.id,
+        listname_id: selectedOption.value
+      });
+    }
+    if (selectedOption && page === "search") {
+      setFormInfo({
+        name: game.name.value,
+        img: game.thumbnail,
         bggid: game.id,
         listname_id: selectedOption.value
       });
@@ -36,6 +45,7 @@ const GameForm = ({ formType, game, i, set, gameForm, page}) => {
     };
   }, [game, selectedOption]);
 
+ 
   const notify = item => {
     toast(`${item}`);
   };

@@ -62,7 +62,7 @@ const useSearch = (query,paginate ) => {
                 if (i <= cp - 1 ) {
                 newArray.push(ele)
             } else if (i >= cp) {
-              console.log(newArray);
+              // console.log(newArray);
               
               return;
             }

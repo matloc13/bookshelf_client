@@ -112,6 +112,14 @@
     }
   }
 
+
+  .forms {
+    grid-column: 1/4;
+    margin-left: -100%;
+    background-color: $backgroundWhite;
+    padding: 24%;
+  }
+
   .arrow-container {
     place-content: right;
     width: 80%;
@@ -122,6 +130,7 @@
 
     .arrow-item {
       // place-items: right end;
+      padding: 2%;
     }
   }
 

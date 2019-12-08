@@ -3,61 +3,46 @@ import {toast} from 'react-toastify';
 import Input from "./inputs/Input";
 import useInput from "../../hooks/useInput";
 import useListGenerator from "./../../hooks/useListGenerator";
-import useManageItem from "./../../hooks/useManageItem";
+// import useManageItem from "./../../hooks/useManageItem";
 const initList = {
   title: "",
   game: {}
 };
 
-const NewListForm = ({ formType, game, i, page  }) => {
+const NewListForm = ({ formType, game, i, page, set, newList  }) => {
   const [handleInput, values] = useInput();
   const [formInfo, setFormInfo] = useState(initList);
   const [formAcc, setFormAcc] = useState({});
   const [loading] = useListGenerator(formAcc);
-  const [item, load, getItem] = useManageItem();
+  // const [item, load] = useManageItem();
 
-  const searchFormat = async () => {
-    try {
-      await getItem();
-      await new Promise(resolve => {
-        return setFormInfo({
-          title: values.title,
-          game: {
-            name: game.name.value,
-            img: item,
-            bggid: game.id
-          }
-        })
-      })
-    } catch (error) {
-      console.error(error);
-      
-    } finally {
-      console.log(item);
-      
-    }
-  
-
-  }
+  useEffect(() => {
+    console.log(formInfo);
+    console.log(game);
+    
+    return () => { };
+  }, [formInfo, game])  
 
   useEffect(() => {
     console.log(game);
+    console.log(game);
+    
     switch(page) {
       case "search":
-       searchFormat();
-       console.log(item);
-       
 
-        // setFormInfo({
-        //   ...formInfo, 
-        //   title: values.title,
-        //   game: {
-        //     name: game.name.value,
-        //     img: item.thumbnail.value,
-        //     bggid: game.id
-        //   }
-        // })
-        break;
+        if (game) {
+          return setFormInfo({
+            ...formInfo,
+            title: values.title,
+            game: {
+              name: game.name.value,
+              img: game.thumbnail,
+              bggid: game.id
+            }
+          }); 
+        }
+break;
+            
       case "hotlist":
         return    setFormInfo({
           ...formInfo,
@@ -71,8 +56,6 @@ const NewListForm = ({ formType, game, i, page  }) => {
       default:
         return;
     }
-    
- 
   }, [values, game]); //eslint-disable-line
 
   const handleSubmit = e => {
@@ -85,8 +68,6 @@ const NewListForm = ({ formType, game, i, page  }) => {
       console.log(formInfo);
       notify(` ${formInfo.game.name} added to new list ${formInfo.title}`)
       return setFormAcc({ type: "CREATE_LIST", payload: formInfo });
-     
-      // set(!newList);
 
     } else {
       throw new Error("did not submit");
@@ -104,6 +85,12 @@ const NewListForm = ({ formType, game, i, page  }) => {
           <h2>...LOADING...</h2>
         </div>
       )}
+      {/* {
+        load && 
+          <div>
+            <h2>one second...</h2>
+          </div> */}
+      
       <form onSubmit={handleSubmit} className="form-style new-list-form">
         <fieldset>
           {/* <Label name="title"> */}
