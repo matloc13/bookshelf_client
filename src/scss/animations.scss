@@ -3,7 +3,7 @@
 @keyframes slide-to-right {
 
   from {
-    transform: translateX(250px);
+    transform: translateX(-550px);
     opacity: 0;
   }
 
@@ -12,4 +12,16 @@
     opacity: 1;
   }
 
+}
+
+@keyframes slide-to-left {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+
+  to {
+    transfrom: translateX(-550px);
+    opacity: 0;
+  }
 }

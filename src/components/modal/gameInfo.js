@@ -43,6 +43,8 @@ const GameInfo = ({ set, gameInfo}) => {
           <span 
             className="button icon-button"  
             onClick={()=> {
+              const box = document.querySelector('.game-info-box');
+              box.classList.add('close')
             set(!gameInfo);
             }
              }> 

@@ -91,3 +91,13 @@
     text-decoration: none;
   }
 }
+
+.logoutdiv {
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+
+  span {
+    padding: 8% 0;
+  }
+}

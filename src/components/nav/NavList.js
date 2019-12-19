@@ -26,7 +26,7 @@ const NavList = () => {
   return (
     <nav className="nav-style">
       <NavLink to="/hotlist">main</NavLink>
-      <NavLink to="userlists">lists</NavLink>
+      {/* <NavLink to="userlists">lists</NavLink> */}
     </nav>
   );
 };

@@ -29,7 +29,7 @@
 
 
     &:hover {
-      box-shadow: 0 4px 8px -2px rgba(255, 81, 0, 30%) inset, 0 -78px 208px 0 $green inset;
+      box-shadow: 0 4px 8px -2px rgba(255, 81, 0, 30%) inset, 0 -78px 208px 0 $backgroundWhite inset;
     }
 
 
@@ -142,13 +142,18 @@
   z-index: 2;
   overflow: auto;
 
+  .close {
+    animation: slide-to-left 3s ease-out;
+  }
+
+
+
   .game-info-box {
-    // margin: 8% auto;
     padding: 2%;
-    // width: 80%;
     background-color: $backgroundWhite;
     color: $boardgameblue;
-    box-shadow: -1px 6px 6px -2px $green inset, 2px -6px 8px -2px $boardgameblue inset;
+    box-shadow: -1px 8px 1px -2px $boardgameblue inset, 0px -2px 1px -2px $boardgameblue inset;
+    animation: slide-to-right 1.6s ease-in;
 
     .button {
       padding: 2%;
@@ -159,18 +164,16 @@
     }
 
     .icon-button:hover>.icon-text {
-      transform: translateY(0px);
-      transform: translateX(120px);
+      padding: 2%;
       opacity: 1;
-
+      color: white;
+      background-color: $boardgameblue;
+      width: 100%;
     }
 
     .icon-button {
       box-shadow: none;
-      // background-color: $boardgameorange;
-
       font-family: 'Lora', serif;
-      box-shadow: none;
 
       &::active {
         box-shadow: 0 0 3px $lightgreen inset;
@@ -179,11 +182,9 @@
 
     .icon-text {
       opacity: 0;
-      text-align: center;
+      text-align: left;
       transition: opacity 0.43s ease-in;
       transition: transform 1s ease-out;
-      // display: inline-block;
-      width: 100px;
       margin: 0 auto;
       place-items: center;
     }

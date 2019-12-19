@@ -1,4 +1,5 @@
 import React, { useState, useContext } from "react";
+// import { Router } from "@reach/router";
 import Form from "./../form/Form";
 import NavLink from "./../navlink/NavLink";
 import UserContext from "./../../contexts/userContext";
@@ -22,13 +23,18 @@ const Login = () => {
   return (
     <div>
       {user.isAuthenticated ? (
-        <div>
+        <div className="logoutdiv">
           {/* <h1>{user.username}</h1> */}
-          <span onClick={() => setLogout(!logout)}>{user.username}</span>
+          <span onClick={() => setLogout(!logout)}>{logout ? "hide" : user.username}</span>
           {
             logout &&
             <>
-            <NavLink to="user">users lists</NavLink>
+            <NavLink to="user/userlists">{user.username}'s lists</NavLink>
+            {/* <NavLink to="/hotlist">main</NavLink> */}
+            {/* <Router>
+              <NavLink/>
+            </Router> */}
+
             <Form formType="LOGOUT" />
             </>
           }
