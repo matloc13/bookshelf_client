@@ -7,7 +7,7 @@ import Login from "./../login/Login";
 const Header = () => {
   return (
     <header className={"header-style"} data-testid={"header"}>
-      <Link to="/" className="logo"><h1 className="logo">BGG-Lister</h1></Link>
+      <Link to="/"><h1 className="logo">BGG-Lister</h1></Link>
       <b></b>
       <Router>
         <Nav path="/*" />

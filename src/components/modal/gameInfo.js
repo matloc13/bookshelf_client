@@ -24,7 +24,7 @@ const GameInfo = ({ set, gameInfo}) => {
   return (
     
 <main className="game-info-container " key={game ? game.items.item.id: ""}>
-    <div className="loading-container" key={1+"loading"}>
+    <div className="loading-container">
        {loading && (
   
         <img

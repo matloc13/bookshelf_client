@@ -1,3 +1,16 @@
 .user-lists-container {
   height: 96vh;
 }
+
+.user-list-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 2% 4%;
+
+  .edit-title {
+    span {
+      padding: 0 6%;
+      font-size: .8em;
+    }
+  }
+}

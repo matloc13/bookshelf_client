@@ -15,12 +15,10 @@
     grid-area: logo;
 
     @extend .link;
-    // color: $boardgameorange;
+    font-size: 1.2em;
+    font-weight: 600;
   }
 
-  // a {
-  //   @extend .link;
-  // }
 
   b {
     grid-area: space;
@@ -76,7 +74,6 @@
     display: block;
   }
 
-  ;
 
   b {
     grid-column: 1;
@@ -89,6 +86,8 @@
   .link {
     font-family: 'Lora', serif;
     text-decoration: none;
+
+
   }
 }
 

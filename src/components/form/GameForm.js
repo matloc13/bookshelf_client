@@ -24,6 +24,8 @@ const GameForm = ({ formType, game, i, set, gameForm, page}) => {
 
   useEffect(() => {
     if (selectedOption && page === "hotlist") {
+      console.log('added to list');
+      
       setFormInfo({
         name: game.name.value,
         img: game.thumbnail.value,

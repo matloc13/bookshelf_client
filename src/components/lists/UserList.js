@@ -68,7 +68,7 @@ const UserList = () => {
                 >
                   {ele.title}
                 </span>
-                <div>
+                <div className="edit-title">
                   <span>update</span>
                   <span onClick={() => deleteItem(ele, formatList)}>
                     delete

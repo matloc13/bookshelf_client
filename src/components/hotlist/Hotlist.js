@@ -125,6 +125,7 @@ const Hotlist = () => {
                       i={index} 
                       set={setGameForm}
                       gameForm={gameForm}
+                      page={'hotlist'}
                       />
                   )}
                 </>

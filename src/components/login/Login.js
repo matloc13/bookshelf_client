@@ -1,14 +1,16 @@
 import React, { useState, useContext } from "react";
-// import { Router } from "@reach/router";
+// import { Router } from "@reach/router";`
 import Form from "./../form/Form";
 import NavLink from "./../navlink/NavLink";
 import UserContext from "./../../contexts/userContext";
+
+
 const Login = () => {
   const user = useContext(UserContext);
   const [signup, setSignUp] = useState(false);
   const [login, setLogin] = useState(false);
   const [logout, setLogout] = useState(false)
-  
+
   const toggle = e => {
     e.persist();
     switch (e.target.id) {
@@ -25,7 +27,7 @@ const Login = () => {
       {user.isAuthenticated ? (
         <div className="logoutdiv">
           {/* <h1>{user.username}</h1> */}
-          <span onClick={() => setLogout(!logout)}>{logout ? "hide" : user.username}</span>
+          <span onClick={() => setLogout(!logout)}>{logout ? <span className="close">hide</span> : user.username}</span>
           {
             logout &&
             <>
