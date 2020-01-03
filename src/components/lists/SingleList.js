@@ -15,7 +15,8 @@ const SingleList = () => {
 
 
 
-  const handleClick = (ele, type) => {
+  const handleClick = (e, ele, type) => {
+    e.persist();
     console.log(ele);
 
     switch (type) {
@@ -47,11 +48,11 @@ const SingleList = () => {
           allLists.sList.map(ele => {
             return (
               <li key={ele.id} className="single-item">
-                <div  className="game-container" onClick={() => handleClick(ele, "cur")}>
+                <div  className="game-container" onClick={(e) => handleClick(e, ele, "cur")}>
                 <img src={ele.img} alt={ele.name}/>
                   <h3>{ele.name}</h3>
                 </div>
-                <span onClick={() => handleClick(ele, "del")}>X</span>
+                <span onClick={(e) => handleClick(e, ele, "del")}>X</span>
               </li>
             );
           })}

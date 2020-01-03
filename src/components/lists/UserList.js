@@ -10,7 +10,7 @@ const UserList = () => {
   
   useEffect(() => {
     setGet({ type: "GET_LIST", payload: "getting" });
-  }, []);
+  },[]);
 
 
 
@@ -39,7 +39,7 @@ const UserList = () => {
     <div className="user-lists-container">
       {
         user.isAuthenticated ?
-        <h1>{user.username}'s lists</h1>
+        <h1>{user.username}'s boardgame lists</h1>
         : <p>Please login in to see your a lists</p>
       }
       
