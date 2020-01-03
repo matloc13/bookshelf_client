@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
-import {createPortal}from 'react-dom';
+import { createPortal }from 'react-dom';
 
 import useManageItem from "./../../hooks/useManageItem";
 
@@ -37,11 +37,14 @@ const Modal = ({setShow, show}) => {
     <div className={"game-container modal-container"}>
    
       {loading && (
-        <img
-          className="modal-img"
-          src="https://media.giphy.com/media/5KX9jiNXkb3xK/giphy.gif"
-          alt="loading"
-        />
+        <aside className="loading-div">
+          <img
+            className="modal-img"
+            src="https://media.giphy.com/media/5KX9jiNXkb3xK/giphy.gif"
+            alt="loading"
+          />
+        </aside>
+       
       )}
 
       {game ? (

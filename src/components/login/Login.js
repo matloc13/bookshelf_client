@@ -18,6 +18,8 @@ const Login = () => {
         return setLogin(!login);
       case "signup":
         return setSignUp(!signup);
+      case "logout": 
+        return setLogout(!logout)
       default:
         return;
     }
@@ -26,21 +28,25 @@ const Login = () => {
     <div>
       {user.isAuthenticated ? (
         <div className="logoutdiv">
-          {/* <h1>{user.username}</h1> */}
-          <span onClick={() => setLogout(!logout)}>{logout ? <span className="close">hide</span> : user.username}</span>
-          {
-            logout &&
-            <>
-            <NavLink to="user/userlists">{user.username}'s lists</NavLink>
-            {/* <NavLink to="/hotlist">main</NavLink> */}
-            {/* <Router>
-              <NavLink/>
-            </Router> */}
+          <nav>
+            <span 
+              className={`user-nav ${logout && "close"}`}
+              onClick={toggle}
+              id="logout">
+                {
+                  logout ? "hide" : user.username
+                }
+            </span>
 
-            <Form formType="LOGOUT" />
-            </>
-          }
-          
+            <span>
+              {logout && 
+                <NavLink to="user/userlists">{user.username}'s lists</NavLink>}
+            </span>
+
+            <span>
+              {logout &&  <Form formType="LOGOUT" />}
+            </span>
+          </nav>                                                           
         </div>
       ) : (
         <div>
@@ -58,20 +64,7 @@ const Login = () => {
               </span>
             )}
           </>
-          <>
-            {signup ? (
-              <>
-                <Form formType="CREATE" />
-                <span onClick={toggle} id="signup">
-                  X
-                </span>
-              </>
-            ) : (
-              <span onClick={toggle} id="signup">
-                Sign Up
-              </span>
-            )}
-          </>
+       
         </div>
       )}
     </div>

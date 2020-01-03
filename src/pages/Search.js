@@ -97,7 +97,7 @@ const pagination = (e)=> {
   }
 }
   return (
-    <div className="search-container">
+    <main className="search-container">
       <form onSubmit={handleSearch} className="form-style search">
         <label htmlFor="query">
           <Input
@@ -128,7 +128,7 @@ const pagination = (e)=> {
               ))
             }
           </select>
-          </label>
+            </label>
           </fieldset>
           <button id="clear" onClick={pagination}>clear</button>
       </form>
@@ -145,14 +145,14 @@ const pagination = (e)=> {
  
       {
         loading ? 
-        <div className="loading-div">
+        <aside className="loading-div">
             
           <img
             src="https://media.giphy.com/media/5KX9jiNXkb3xK/giphy.gif"
             alt="loading.."
           />
      
-        </div>
+        </aside>
         : 
 
           <SearchResults 
@@ -162,7 +162,6 @@ const pagination = (e)=> {
             status={searchClick}
   
           />
-
       }
 
 { 
@@ -176,7 +175,7 @@ const pagination = (e)=> {
         />
       }
       
-    </div>
+    </main>
   )
 }
 export default Search;  

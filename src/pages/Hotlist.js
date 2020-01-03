@@ -1,11 +1,11 @@
 import React, { useEffect, useContext, useState, useRef } from "react";
-import DispatchContext from "./../../contexts/dispatchContext";
-import UserContext from "./../../contexts/userContext";
-import useHotlist from "./../../hooks/useHotlist";
-import GameInfo from './../modal/gameInfo';
-import GameForm from "./../form/GameForm";
-import NewListForm from "./../form/NewListForm";
-import useListGenerator from "../../hooks/useListGenerator";
+import DispatchContext from "../contexts/dispatchContext";
+import UserContext from "../contexts/userContext";
+import useHotlist from "../hooks/useHotlist";
+import GameInfo from '../components/modal/gameInfo';
+import GameForm from "../components/form/GameForm";
+import NewListForm from "../components/form/NewListForm";
+import useListGenerator from "../hooks/useListGenerator";
 import { toast } from "react-toastify";
 
 const Hotlist = () => {
@@ -78,14 +78,14 @@ const Hotlist = () => {
     <main className="hotlist-container">
 
       <h2>Hot 50</h2>
-      <div className="loading-div">
+      <aside className="loading-div">
         {loading && (
           <img
             src="https://media.giphy.com/media/5KX9jiNXkb3xK/giphy.gif"
             alt="loading.."
           />
         )}
-      </div>
+      </aside>
       <>
         {hotlist.items &&
           hotlist.items.item.map((ele, index) => {

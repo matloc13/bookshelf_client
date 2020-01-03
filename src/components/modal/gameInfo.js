@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from '@reach/router';
 import useManageItem from './../../hooks/useManageItem';
 
 const GameInfo = ({ set, gameInfo}) => {
@@ -24,7 +25,7 @@ const GameInfo = ({ set, gameInfo}) => {
   return (
     
 <main className="game-info-container " key={game ? game.items.item.id: ""}>
-    <div className="loading-container">
+    <aside className="loading-container">
        {loading && (
   
         <img
@@ -34,7 +35,7 @@ const GameInfo = ({ set, gameInfo}) => {
         />
        
       )}
-      </div>
+      </aside>
     
 
      {game ? (
@@ -57,9 +58,14 @@ const GameInfo = ({ set, gameInfo}) => {
              
               <h3 className="game-title">
                 {game.items.item.image && game.items.item.image ? (
-                  <a href={game.items.item.image} target={"_blank"}>
-                    {game.items.item.name.value}
-                  </a>
+                  // <a href={game.items.item.image} target={"_blank"}>
+                  //   {game.items.item.name.value}
+                  // </a>
+                  <Link 
+                    to={game.items.item.image}
+                    target={"_blank"}>
+                        {game.items.item.name.value}
+                  </Link>
                 ) : (
                   ""
                 )}

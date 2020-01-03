@@ -77,7 +77,6 @@ const useManageItem = del => {
           return resolve(setResponse(res));
         });
         notify(`Item deleted`)
-        // Notify goes here
       }
     } catch (err) {
       console.error(err);

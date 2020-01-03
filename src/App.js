@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.min.css'
 import ErrorBoundary from './errorboundaries/ErrorBoundary';
 import Header from "./components/header/Header";
-import Hotlist from "./components/hotlist/Hotlist";
+import Hotlist from "./pages/Hotlist";
 import Search from './pages/Search';
 import User from "./pages/User";
 import UserHome from "./pages/UserHome";
@@ -55,7 +55,7 @@ const App = () => {
   const [sList, dispatchSList] = useReducer(singleListReducer, initSingle);
   const [current, dispatchCurrent] = useReducer(currentReducer, currentItem);
   const [search, dispatchSearch] = useReducer(searchReducer, initSearch)
-  // console.log(search.searchLength);
+
   // const [store, dispatchStore] = useReducer(storeReducer,)
 
   useEffect(() => {

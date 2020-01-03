@@ -62,7 +62,8 @@ break;
     e.preventDefault();
 
     if (formInfo.title === " ") {
-      throw new Error("username cannot be empty");
+      notify(`No list created.  Title cannot be empty.`)
+      throw new Error("title cannot be empty");
     }
     if (formInfo.title !== " ") {
       console.log(formInfo);

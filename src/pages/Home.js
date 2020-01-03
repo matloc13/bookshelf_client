@@ -1,20 +1,79 @@
-import React, {useEffect, useState} from 'react';
-import {Redirect, Link} from '@reach/router';
-const Home = () => {
-const [redirect, setRedirect] = useState(false);
+import React, {useEffect, useState, useContext} from 'react';
+import { Link } from '@reach/router';
+import UserContext from './../contexts/userContext';
+import Form from './../components/form/Form';
 
-    useEffect(() => {
-      if (!redirect) {
-        setTimeout(() => {
-         setRedirect(!redirect);
-      }, 4000);
+
+const Home = () => {
+
+  const user = useContext(UserContext);
+  const [infoArt, setInfoArt] = useState("hide");
+  const [signup, setSignup] = useState("hide")
+
+  useEffect(() => {
+    if (!user.isAuthenticated) {
+      setTimeout(()=> {
+        setInfoArt("show")
+      },5000)
     }
-    }, [redirect])
+    
+    return () => {};
+  }, [user, infoArt])
+
+  const toggle = (e) => {
+    e.persist();
+    switch (e.target.id) {
+      case "signup":
+        return signup === "hide" ? setSignup("show") : setSignup("hide");
+      case "infoart":
+        return setInfoArt("hide");
+      default:
+        return;
+    }
+  }
       
   return (
-    <div className="home">
-      <Link to="search"><h1>Welcome to BGG-Lister</h1></Link>
-    </div>
+    <main className="home">
+   
+      <nav>
+        <h1>BGG-LISTER</h1>
+        <Link to="search"><span>find something on BGG</span></Link>
+        <Link to="hotlist"><span>BGG hot 50</span></Link>
+        {
+          !user.isAuthenticated &&
+          <>
+          {signup === "show" ? (
+            <>
+              <span onClick={toggle} id="signup">
+                close
+              </span>
+              <Form formType="CREATE" />
+              
+            </>
+          ) : (
+            <span onClick={toggle} id="signup">
+              Create an Account
+            </span>
+          )}
+        </>
+        }
+      </nav>
+
+
+      {
+        infoArt === "show" && 
+        <article>Please login to view and create lists. 
+          <button 
+            id="infoart"
+            onClick={toggle}
+            className="btn-close">
+              cool
+          </button>
+        </article>
+      }
+
+    </main>
+   
   )
 }
 export default Home;    

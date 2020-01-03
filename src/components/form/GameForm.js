@@ -54,14 +54,17 @@ const GameForm = ({ formType, game, i, set, gameForm, page}) => {
 
   const handleSubmit = e => {
     e.preventDefault();
-    notify(`${formInfo.name} added to ${selectedOption.label}`);
+  
     // set(!gameForm);
     if (formInfo.name === " ") {
-      throw new Error("username cannot be empty");
+      notify(`no game selected`)
+      throw new Error("no game selected");
     } else if (formInfo.bggid === " ") {
-      throw new Error("password cannot be empty");
+      notify(`game id not found`)
+      throw new Error("game id not found");
     }
     if (formInfo.name !== " " && formInfo.bggid !== " ") {
+      notify(`${formInfo.name} added to ${selectedOption.label}`);
        return setFormAcc({ type: "ADD_GAME", payload: formInfo });
     } else {
       throw new Error("did not submit");
