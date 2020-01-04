@@ -46,57 +46,71 @@
 
 
 
+// .dropNav {
+//   display: grid;
+//   grid-template-columns: 1fr 3fr 150px 150px;
+//   grid-gap: 1%;
+//   place-items: center;
+//   width: 100%;
+//   background-color: $boardgameblue;
+
+//   .listNames {
+//     grid-column: 3;
+//     display: flex;
+//     flex-flow: column;
+//     z-index: 2;
+
+//     a {
+//       color: $green;
+//       text-decoration: none;
+//     }
+//   }
+
+//   span {
+//     width: 100%;
+//     display: block;
+//   }
 
 
+//   b {
+//     grid-column: 1;
+//   }
 
-.dropNav {
-  display: grid;
-  grid-template-columns: 1fr 3fr 150px 150px;
-  grid-gap: 1%;
+//   .big {
+//     grid-column: 2;
+//     grid-row: 1;
+//   }
+
+//   .link {
+//     font-family: 'Lora', serif;
+//     text-decoration: none;
+
+
+//   }
+// }
+
+.user-nav {
+  grid-area: logout;
+  // padding: 0 6%;
+  position: relative;
   place-items: center;
   width: 100%;
-  background-color: $boardgameblue;
+  // height: 100%;
+  margin-top: -11%;
 
-  .listNames {
-    grid-column: 3;
+
+  .logoutdiv {
+    position: absolute;
     display: flex;
     flex-flow: column;
-    z-index: 2;
+    background-color: $boardgameblue;
+    justify-content: justify;
 
-    a {
-      color: $green;
-      text-decoration: none;
+
+    span {
+      padding: 8% 4%;
+      // background-color: $boardgameblue;
+      // color: $boardgameblue;
     }
-  }
-
-  span {
-    width: 100%;
-    display: block;
-  }
-
-
-  b {
-    grid-column: 1;
-  }
-
-  .big {
-    grid-column: 2;
-  }
-
-  .link {
-    font-family: 'Lora', serif;
-    text-decoration: none;
-
-
-  }
-}
-
-.logoutdiv {
-  display: flex;
-  flex-flow: column;
-  justify-content: center;
-
-  span {
-    padding: 8% 0;
   }
 }
