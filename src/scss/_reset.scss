@@ -25,6 +25,12 @@ h2 {
   color: $boardgameblue;
 }
 
+button {
+  border: none;
+  background-color: transparent;
+  font-family: 'Bree serif', serif;
+}
+
 .link {
   color: $boardgameorange;
   text-decoration: none;
@@ -38,6 +44,8 @@ h2 {
 .searchContainer {
   min-height: 90vh;
 }
+
+
 
 // * {
 //   border: 1px solid gold;

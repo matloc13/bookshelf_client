@@ -147,7 +147,6 @@
   }
 
 
-
   .game-info-box {
     padding: 2%;
     background-color: $backgroundWhite;
@@ -161,6 +160,12 @@
 
     h6 {
       margin: 1% auto;
+
+
+    }
+
+    .hide {
+      color: $boardgameorange;
     }
 
     .icon-button:hover>.icon-text {

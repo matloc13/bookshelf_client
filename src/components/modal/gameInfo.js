@@ -99,7 +99,7 @@ const GameInfo = ({ set, gameInfo}) => {
           })}
 
           <h6
-          className={'info-more-info'} 
+          className={!show.moreInfo ? 'info-more-info' : 'info-more-info hide'} 
           onClick={() => {
             setShow({...show, moreInfo:!show.moreInfo})
             }}>{!show.moreInfo ? "More Info" : "hide"}</h6>
@@ -122,7 +122,7 @@ const GameInfo = ({ set, gameInfo}) => {
           </h6>
 
           <h6
-            className="info-artist"
+            className={!show.art ? "info-artist" : " hide info-artist"}
             onClick={() => {
               setShow({...show, art: !show.art});
             }}
@@ -139,7 +139,7 @@ const GameInfo = ({ set, gameInfo}) => {
             })}
        
           <h6
-            className="info-publisher"
+            className={!show.pub ? "info-publisher" : "info-publisher hide"}
             onClick={() => {
               setShow({...show, pub: !show.pub});
             }}
@@ -149,13 +149,14 @@ const GameInfo = ({ set, gameInfo}) => {
           {show.pub &&
             game.items.item.link.map((ele, i) => {
               return ele.type === "boardgamepublisher" ? (
-                <p key={i} className="info-publisher">Publisher: {ele.value}</p>
+                <p key={i} className= "info-publisher">
+                  Publisher: {ele.value}</p>
               ) : (
                 ""
               );
             })}
             <h6 
-              className="info-cat" 
+              className={!show.cat ? "info-cat" : "info-cat hide"} 
               onClick={() => {
                 setShow({...show,cat: !show.cat});
               }}>
@@ -171,7 +172,7 @@ const GameInfo = ({ set, gameInfo}) => {
             })}
             
         <h6 
-        className="info-mech"
+        className={!show.mech ? "info-mech" : "info-mech hide"}
         onClick={() => {
           setShow({...show, mech: !show.mech});
         }}
@@ -188,7 +189,7 @@ const GameInfo = ({ set, gameInfo}) => {
             })}
 
       <h6 
-        className="info-expansion "
+        className={!show.ex ? "info-expansion" : "info-expansion hide"}
         onClick={() => {
           setShow({...show, ex: !show.ex});
         }}>
@@ -206,7 +207,7 @@ const GameInfo = ({ set, gameInfo}) => {
 </section>
 }
           <h6
-            className="description-button"
+            className={!show.desc ? "description-button" : "description-button hide"}
             onClick={() => {
               setShow({...show, desc: !show.desc});
             }}

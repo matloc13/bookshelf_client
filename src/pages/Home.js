@@ -11,14 +11,14 @@ const Home = () => {
   const [signup, setSignup] = useState("hide")
 
   useEffect(() => {
-    if (!user.isAuthenticated) {
+    if (!user.isAuthenticated && signup === "hide") {
       setTimeout(()=> {
         setInfoArt("show")
       },5000)
     }
     
     return () => {};
-  }, [user, infoArt])
+  }, [user, infoArt, signup])
 
   const toggle = (e) => {
     e.persist();
@@ -26,6 +26,7 @@ const Home = () => {
       case "signup":
         return signup === "hide" ? setSignup("show") : setSignup("hide");
       case "infoart":
+        setSignup("show");
         return setInfoArt("hide");
       default:
         return;
@@ -35,30 +36,33 @@ const Home = () => {
   return (
     <main className="home">
    
-      <nav>
-        <h1>BGG-LISTER</h1>
-        <Link to="search"><span>find something on BGG</span></Link>
-        <Link to="hotlist"><span>BGG hot 50</span></Link>
+      <nav className="home-nav">
+        {/* <h1>BGG-LISTER</h1> */}
+        <button><Link to="search">Find a game on BGG</Link></button>
+        <button><Link to="hotlist">BGG hot 50</Link></button>
         {
           !user.isAuthenticated &&
           <>
           {signup === "show" ? (
             <>
-              <span onClick={toggle} id="signup">
+              <button onClick={toggle} id="signup">
                 close
-              </span>
-              <Form formType="CREATE" />
+              </button>
               
             </>
           ) : (
-            <span onClick={toggle} id="signup">
+            <button onClick={toggle} id="signup">
               Create an Account
-            </span>
+            </button>
           )}
         </>
         }
       </nav>
 
+      {
+        signup === "show" &&
+          <Form formType="CREATE" />
+      }
 
       {
         infoArt === "show" && 

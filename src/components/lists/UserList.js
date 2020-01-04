@@ -20,19 +20,29 @@ const UserList = () => {
   let formatList = allLists.list[0].filter(ele => ele.user_id === user.id);
 
   const deleteItem = async ele => {
-    await new Promise(resolve => {
-      return resolve(
-        setGet({
-          type: "DELETE_LIST",
-          payload: {
-            listid: ele.id,
-            userid: ele.user_id,
-            lists: allLists.list
-          }
-        })
-      );
-    });
-    await navigate("/user");
+    try {
+      await new Promise(resolve => {
+        return resolve(
+          setGet({
+            type: "DELETE_LIST",
+            payload: {
+              listid: ele.id,
+              userid: ele.user_id,
+              lists: allLists.list
+            }
+          })
+        );
+      });
+      // await navigate("/user");
+      await new Promise(resolve => {
+        return resolve(
+          setGet({type: "GET_LIST", payload: "getting"})
+        )
+      })
+    } catch (error) {
+      console.error(error);
+    }
+ 
   };
 
   return (
@@ -50,7 +60,7 @@ const UserList = () => {
         />
       )}
       <ul className="user-lists">
-        {formatList &&
+        {formatList ?
           formatList.map(ele => {
             return (
               <li key={ele.id} className="user-list-item">
@@ -76,7 +86,7 @@ const UserList = () => {
                 </div>
               </li>
             );
-          })}
+          }) : ""}         
       </ul>
     </div>
   );

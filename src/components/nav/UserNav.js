@@ -2,11 +2,11 @@ import React, {useContext, useState } from 'react';
 import NavLink from './../navlink/NavLink';
 import Form from './../form/Form';
 import UserContext from './../../contexts/userContext';
-import ListContext from './../../contexts/listContext';
+// import ListContext from './../../contexts/listContext';
 const UserNav = () => {
 
   const user = useContext(UserContext);
-  const allists = useContext(ListContext);
+  // const allists = useContext(ListContext);
   const [logout, setLogout] = useState(false);
 
   const toggle = (e) => {

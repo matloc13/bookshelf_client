@@ -14,7 +14,6 @@ const SingleList = () => {
   // console.log(allLists.sList);
 
 
-
   const handleClick = (e, ele, type) => {
     e.persist();
     console.log(ele);
