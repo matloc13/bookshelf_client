@@ -167,7 +167,6 @@ const useListGenerator = action => {
               const status = res;
               await new Promise(resolve => {
                 console.log(status);
-
                 return resolve(
                   dispatch({
                     type: "DELETE_LIST",

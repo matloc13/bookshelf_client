@@ -119,7 +119,7 @@ const Modal = ({setShow, show}) => {
           </h6>
         
              <h6
-          className={'info-more-info'} 
+          className={!hide.moreInfo ? "info-more-info" : "info-more-info hide"} 
           onClick={() => {
             setHide({...hide, moreInfo:!hide.moreInfo})
             }}>{!hide.moreInfo ? "More Info" : "hide"}</h6>
@@ -142,7 +142,7 @@ const Modal = ({setShow, show}) => {
        
 
           <h6
-            className="info-artist"
+            className={!hide.art ? "info-artist" : "info-artist hide"}
             onClick={() => {
               setHide({...hide, art: !hide.art});
             }}>
@@ -158,7 +158,7 @@ const Modal = ({setShow, show}) => {
             })}
        
           <h6
-            className="info-publisher"
+            className={!hide.pub ? "info-publisher" : "info-publisher hide"}
             onClick={() => {
               setHide({...hide, pub: !hide.pub});
             }}>
@@ -173,7 +173,7 @@ const Modal = ({setShow, show}) => {
               );
             })}
           <h6 
-            className="info-cat" 
+            className={!hide.cat ? "info-cat" : "info-cat hide" }
             onClick={() => {
               setHide({...hide,cat: !hide.cat});
               }}>
@@ -189,7 +189,7 @@ const Modal = ({setShow, show}) => {
             })}
             
         <h6 
-        className="info-mech"
+        className={!hide.mech ? "info-mech" : "info-mech hide"}
         onClick={() => {
           setHide({...hide, mech: !hide.mech});
         }}
@@ -206,7 +206,7 @@ const Modal = ({setShow, show}) => {
             })}
 
         <h6 
-          className="info-expansion "
+          className={!hide.ex ? "info-expansion": "info-expansion hide"}
           onClick={() => {
             setHide({...hide, ex: !hide.ex});
         }}
@@ -226,7 +226,7 @@ const Modal = ({setShow, show}) => {
       }
         
           <h6
-            className="description-button"
+            className={!hide.desc ? "description-button" : "description-button hide "}
             onClick={() => {
               setHide({...hide, desc: !hide.desc});
             }}

@@ -99,7 +99,7 @@ const GameInfo = ({ set, gameInfo}) => {
           })}
 
           <h6
-          className={!show.moreInfo ? 'info-more-info' : 'info-more-info hide'} 
+          className={!show.moreInfo ? "info-more-info" : "info-more-info hide"} 
           onClick={() => {
             setShow({...show, moreInfo:!show.moreInfo})
             }}>{!show.moreInfo ? "More Info" : "hide"}</h6>

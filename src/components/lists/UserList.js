@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from "react";
-import { navigate } from "@reach/router";
+import { navigate, Redirect } from "@reach/router";
 import ListContext from "./../../contexts/listContext";
 import UserContext from "./../../contexts/userContext";
 import useListGenerator from "./../../hooks/useListGenerator";
@@ -11,8 +11,6 @@ const UserList = () => {
   useEffect(() => {
     setGet({ type: "GET_LIST", payload: "getting" });
   },[]);
-
-
 
   const [get, setGet] = useState({});
   const [loading] = useListGenerator(get);
@@ -33,7 +31,6 @@ const UserList = () => {
           })
         );
       });
-      // await navigate("/user");
       await new Promise(resolve => {
         return resolve(
           setGet({type: "GET_LIST", payload: "getting"})

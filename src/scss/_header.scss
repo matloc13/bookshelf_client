@@ -13,10 +13,9 @@
 
   .logo {
     grid-area: logo;
-
-    @extend .link;
-    font-size: 1.2em;
     font-weight: 600;
+    font-size: 1.4em;
+
   }
 
   b {
@@ -30,6 +29,10 @@
 
   .user {
     grid-area: user;
+  }
+
+  a {
+    margin: .26rem;
   }
 
   span {
