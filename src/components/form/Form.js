@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from "react";
 // import useIsMounted from 'ismounted';
 import useInput from "../../hooks/useInput";
 import useAuth from "./../../hooks/useAuth";
-
 import Label from "./label/Label";
 import Input from "./inputs/Input";
 
@@ -19,7 +18,8 @@ const Form = ({ formType }) => {
   const [formInfo, setFormInfo] = useState(initUser);
   const [loading] = useAuth(formAcc);
   const isMounted = useRef(null);
-  const [handleInput, values] = useInput();
+  const { values, handleInput } = useInput();
+
   
   isMounted.current = true;
   useEffect(() => {
@@ -40,7 +40,7 @@ const Form = ({ formType }) => {
     }
   
     return ()=> {
-      setFormInfo(initUser);
+    
       setFormAcc({});
     }
   }, [values]);

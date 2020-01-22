@@ -2,6 +2,7 @@ import React, {useEffect, useState, useContext} from 'react';
 import { Link } from '@reach/router';
 import UserContext from './../contexts/userContext';
 import Form from './../components/form/Form';
+import UserList from '../components/lists/UserList';
 
 
 const Home = () => {
@@ -75,6 +76,13 @@ const Home = () => {
           </button>
         </article>
       }
+
+      <article className="home-user-list">
+      {
+        user && user.isAuthenticated &&
+        <UserList />
+      }
+      </article>
 
     </main>
    

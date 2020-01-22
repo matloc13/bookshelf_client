@@ -1,8 +1,7 @@
-import { useState, useCallback } from "react";
+import { useState } from "react";
 
 const useInput = () => {
   const [values, setValues] = useState(" ");
-
 
   const handleInput = e => {
     e.persist();
@@ -12,8 +11,7 @@ const useInput = () => {
     });
   };
  
-
-  return [handleInput, values ];
+  return {values, handleInput};
 };
 
 export default useInput;

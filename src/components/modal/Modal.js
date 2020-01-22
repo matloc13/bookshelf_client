@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import { createPortal }from 'react-dom';
+import FadeIn from 'react-fade-in';
 
 import useManageItem from "./../../hooks/useManageItem";
 
@@ -10,7 +11,7 @@ const Modal = ({setShow, show}) => {
     const div = document.createElement('div');
     modalRef.current = div;
   }
-  const [game, loading, getItem, deleteItem, response, topPlayerCount] = useManageItem();
+  const [game, loading, getItem, deleteItem, response, topPlayerCount] = useManageItem();//eslint-disable-line
   const [hide, setHide] = useState({
     pub: false,
     art: false,
@@ -48,7 +49,7 @@ const Modal = ({setShow, show}) => {
       )}
 
       {game ? (
-                   
+        <FadeIn>           
         <div className="game-modal" key={game.id}>
           {/* button */}
           <span 
@@ -123,11 +124,15 @@ const Modal = ({setShow, show}) => {
           onClick={() => {
             setHide({...hide, moreInfo:!hide.moreInfo})
             }}>{!hide.moreInfo ? "More Info" : "hide"}</h6>
-          {hide.moreInfo &&    
+          {hide.moreInfo &&   
+          <FadeIn> 
         <section className="more-info">
+        
             {game.items.item.link.map((ele, i) => {
             return ele.type === "boardgamedesigner" ? (
+              <FadeIn>
               <h6  key={i}className="info-designer">Designer: {ele.value}</h6>
+              </FadeIn>
             ) : (
               ""
             );
@@ -151,7 +156,9 @@ const Modal = ({setShow, show}) => {
           {hide.art &&
             game.items.item.link.map((ele, i) => {
               return ele.type === "boardgameartist" ? (
+                <FadeIn>
                 <p key={i} className="info-artist">Artist: {ele.value}</p>
+                </FadeIn>
               ) : (
                 ""
               );
@@ -167,7 +174,9 @@ const Modal = ({setShow, show}) => {
           {hide.pub &&
             game.items.item.link.map((ele, i) => {
               return ele.type === "boardgamepublisher" ? (
+                <FadeIn>
                 <p key={i} className="info-publisher">Publisher: {ele.value}</p>
+                </FadeIn>
               ) : (
                 ""
               );
@@ -182,7 +191,9 @@ const Modal = ({setShow, show}) => {
             {hide.cat &&
             game.items.item.link.map((ele, i) => {
               return ele.type === "boardgamecategory" ? (
+                <FadeIn>
                 <p key={i} className="info-cat"> Category: {ele.value}</p>
+                </FadeIn>
               ) : (
                 ""
               );
@@ -199,7 +210,9 @@ const Modal = ({setShow, show}) => {
         {hide.mech &&
             game.items.item.link.map((ele, i) => {
               return ele.type === "boardgamemechanic" ? (
+                <FadeIn>
                 <p key={i} className="info-mech"> Category: {ele.value}</p>
+                </FadeIn>
               ) : (
                 ""
               );
@@ -216,13 +229,16 @@ const Modal = ({setShow, show}) => {
         {hide.ex &&
             game.items.item.link.map((ele, i) => {
               return ele.type === "boardgameexpansion" ? (
+                <FadeIn>
                 <p key={i} className="info-mech"> Expansion: {ele.value}</p>
+                </FadeIn>
               ) : (
                 ""
               );
             })}
-
+     
       </section>
+      </FadeIn>
       }
         
           <h6
@@ -235,6 +251,7 @@ const Modal = ({setShow, show}) => {
           </h6>
 
           {hide.desc &&
+          <FadeIn>
             <p className={"description"}>
               {game.items.item.description
                 .replace(/&hellip;/g, "...")
@@ -248,12 +265,16 @@ const Modal = ({setShow, show}) => {
                 .replace(/&rdquo;/g, '"')
                 .replace(/&ldquo;/g, '"')
                 .replace(/&bull;/g, "~")
-                .replace(/&ouml;/g, "ö")}
+                .replace(/&ouml;/g, "ö")
+                .replace(/&#226;/g, "â")
+                .replace(/&#128;/g, "€")
+                .replace(/&#139;/g, "‹")}
             </p>
-        
+          </FadeIn>
           }
           </div>
         </div>
+        </FadeIn>
 
       ) : (
         ""

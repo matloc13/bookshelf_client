@@ -1,8 +1,10 @@
 import React, { useContext, useState, useEffect } from "react";
-import { navigate, Redirect } from "@reach/router";
+import { navigate } from "@reach/router";
 import ListContext from "./../../contexts/listContext";
 import UserContext from "./../../contexts/userContext";
 import useListGenerator from "./../../hooks/useListGenerator";
+import Loading from './../loading/Loading';
+import FadeIn from 'react-fade-in';
 
 const UserList = () => {
   const user = useContext(UserContext);
@@ -15,7 +17,16 @@ const UserList = () => {
   const [get, setGet] = useState({});
   const [loading] = useListGenerator(get);
 
-  let formatList = allLists.list[0].filter(ele => ele.user_id === user.id);
+  let formatList = allLists.list[0].filter(ele => ele.user_id === user.id)
+
+useEffect(() => {
+  if (formatList && formatList.length) {
+
+  } else {
+    setGet({type: "GET_LIST", payload: "getting" });
+  }
+  return () => {};
+}, [allLists.list, formatList])
 
   const deleteItem = async ele => {
     try {
@@ -39,24 +50,22 @@ const UserList = () => {
     } catch (error) {
       console.error(error);
     }
- 
   };
 
   return (
     <div className="user-lists-container">
       {
-        user.isAuthenticated ?
+      user.isAuthenticated ?
         <h1>{user.username}'s boardgame lists</h1>
-        : <p>Please login in to see your a lists</p>
+        : 
+        <p>Please login in to see your a lists</p>
       }
       
       {loading && (
-        <img
-          src="https://media.giphy.com/media/5KX9jiNXkb3xK/giphy.gif"
-          alt="loading..."
-        />
+       <Loading />
       )}
       <ul className="user-lists">
+        <FadeIn>
         {formatList ?
           formatList.map(ele => {
             return (
@@ -83,7 +92,8 @@ const UserList = () => {
                 </div>
               </li>
             );
-          }) : ""}         
+          }) : ""}  
+          </FadeIn>       
       </ul>
     </div>
   );

@@ -1,19 +1,21 @@
 ul {
   margin: 1%;
+}
 
-  li {
-    list-style: none;
-    padding: 1%;
-    text-align: justify;
-    @extend .text;
-    background-color: $lightgreen;
 
-    &:nth-child(3n) {
-      background-color: $green;
-    }
+li {
+  list-style: none;
+  padding: 1%;
+  text-align: justify;
+  @extend .text;
+  // background-color: $green;
+  background-image: linear-gradient(to left, $green, $lightgreen 75%);
+
+  box-shadow: 0 0 1px 0 $boardgameorange;
+
+  &:nth-child(3n) {
+    background-image: linear-gradient(to left, $green, $lightgreen 25%);
   }
-
-
 }
 
 .arrow {

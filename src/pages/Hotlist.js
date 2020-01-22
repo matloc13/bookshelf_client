@@ -5,6 +5,7 @@ import useHotlist from "../hooks/useHotlist";
 import GameInfo from '../components/modal/gameInfo';
 import GameForm from "../components/form/GameForm";
 import NewListForm from "../components/form/NewListForm";
+import Loading from "./../components/loading/Loading";
 import useListGenerator from "../hooks/useListGenerator";
 import { toast } from "react-toastify";
 
@@ -15,7 +16,6 @@ const Hotlist = () => {
 
   const [hotlist, loading, getHotlist] = useHotlist();
   const [get, setGet] = useState({});
-  // const [show, setShow] = useState(false);
   const [gameForm, setGameForm] = useState(false);
   const [newList, setNewList] = useState(false);
   const [gameInfo, setGameInfo] = useState(false);
@@ -61,12 +61,13 @@ const Hotlist = () => {
 
   useEffect(() => {
       getHotlist();
-      return () => {
-      }
+      return () => {}
   }, []); //eslint-disable-line
 
   useEffect(() => {
     if (user) {
+      console.log('gettinglist');
+      
       setGet({ type: "GET_LIST", payload: "getting" });
     }
     return () => {
@@ -80,17 +81,14 @@ const Hotlist = () => {
       <h2>Hot 50</h2>
       <aside className="loading-div">
         {loading && (
-          <img
-            src="https://media.giphy.com/media/5KX9jiNXkb3xK/giphy.gif"
-            alt="loading.."
-          />
+         <Loading />
         )}
       </aside>
       <>
+     
         {hotlist.items &&
           hotlist.items.item.map((ele, index) => {
             return (
-            
               <div key={`${ele.rank}`} className="hotlist-item">
                 <div key={`${index}${ele.name.value}`}>
                   <img
@@ -107,13 +105,13 @@ const Hotlist = () => {
                   id="addtolist" 
                   className="add-button"
                   onClick={e => handleClick(e,ele)}>
-                    {gameForm ? "close" : " add to list"}
+                    { focusCurrent.id === ele.id && gameForm ? "close" : " add to list"}
                   </span>
                   <span 
                   id="newlist" 
                   className="add-button"
                   onClick={e => handleClick(e,ele)}>
-                    {newList ? "close" : "new list"}
+                    { focusCurrent.id === ele.id && newList ? "close" : "new list"}
                   </span>
                 </div>
            <div key={index + "form"}>    
@@ -149,9 +147,9 @@ const Hotlist = () => {
                 </>
                 
               </div>
-            
             );
           })}
+    
       </>
 
     </main>

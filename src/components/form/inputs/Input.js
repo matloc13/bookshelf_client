@@ -1,7 +1,9 @@
 import React from "react";
 
+
 const Input = ({ type, name, handleInput, value, id, i }) => {
-  return (
+
+    return (
     <>
       <input
         className={"input-style"}

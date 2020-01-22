@@ -1,5 +1,10 @@
-import {createContext} from 'react';
+import ListContext from './listContext';
+import DispatchContext from './dispatchContext';
+import UserContext from './userContext';
 
-const StoreContext = createContext();
 
-export default StoreContext;
+export {
+  ListContext,
+  DispatchContext,
+  UserContext
+}

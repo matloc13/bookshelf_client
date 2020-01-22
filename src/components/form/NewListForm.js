@@ -10,7 +10,7 @@ const initList = {
 };
 
 const NewListForm = ({ formType, game, i, page, set, newList  }) => {
-  const [handleInput, values] = useInput();
+  const { values, handleInput} = useInput();
   const [formInfo, setFormInfo] = useState(initList);
   const [formAcc, setFormAcc] = useState({});
   const [loading] = useListGenerator(formAcc);

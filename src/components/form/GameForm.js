@@ -21,6 +21,13 @@ const GameForm = ({ formType, game, i, set, gameForm, page}) => {
   const [selectedOption, setSelectedOption] = useState(null);
   const [loading] = useListGenerator(formAcc);
 
+  useEffect(() => {
+    if (user) {
+      setFormAcc({type: "GET_LIST", payload: "getting"});
+    }
+    return () => {};
+  }, [])
+
 
   useEffect(() => {
     if (selectedOption && page === "hotlist") {

@@ -12,14 +12,23 @@ const NavList = () => {
   useEffect(() => {
 
     if (!user.isAuthenticated) {
-      setCuser({})
+      console.log('logged out');
+      
     } else {
-      setCuser({...cuser, user})
-      setGet({type: 'GET_LIST', payload: 'getting'});
+      if (!cuser) {
+        // setCuser({...cuser, user})
+        setCuser(c => {
+          return {...c, user}
+        })
+        setGet({type: 'GET_LIST', payload: 'getting'});
+      }
     }
     
     return () => {
-      setCuser({})
+      if (!cuser) {
+        setCuser({})
+      }
+     
     }
   }, [user])
   

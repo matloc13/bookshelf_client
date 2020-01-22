@@ -1,31 +1,39 @@
-import { useState, useEffect, useContext } from 'react';
+import { useState, useEffect, useContext, useCallback } from 'react';
 import  BASE_URL from './../constants';
+import { toast } from 'react-toastify';
 import DispatchContext from './../contexts/dispatchContext';
 
 
-const useSearch = (query,paginate ) => {
+const useSearch = (query, paginate, clear ) => {
   // console.log(query);
+  // let toastId = null;
   const dispatch = useContext(DispatchContext);
   const [outputResult, setOutputResult] = useState([])
   const [loading, setLoading] = useState(false);
   const [curQuery, setCurQuery] = useState('');
   const [pageLength, setPageLength] = useState(25)
-
+  
   useEffect(() => {
     const ac = new AbortController();
-    if (query !== '' && query !== curQuery) {
-      getSearch(query, pageLength)
-        setCurQuery(query);
-        
-    } else if (query === curQuery && query !== ''){
-      getSearch(curQuery, pageLength)
-    }
+
+    if (clear === "clearing") {
+      clearSearch();
+      } else {
+        if (query !== '' && query !== curQuery) {
+          getSearch(query, pageLength)
+            setCurQuery(query);
+        } else if (query === curQuery && query !== '') {
+          getSearch(curQuery, pageLength)
+        }
+
+      }
 
     return () => {
       ac.abort();
     }
-  },[query, paginate]);//eslint-disable-line
+  },[query, paginate, clear]);//eslint-disable-line
 
+  
 // current position of pagination
 
   const currentPosition = (page) => {
@@ -39,6 +47,7 @@ const useSearch = (query,paginate ) => {
     // const pageLength = 25;
     try {
       setLoading(true);
+      // const search = new Promise.all()
       const res = await fetch(`${BASE_URL}/searchlists/${query}`);
       const json = await res.json();
       console.log(json);
@@ -93,6 +102,26 @@ const useSearch = (query,paginate ) => {
       
       // console.log(allLists.search);      
       setLoading(false)
+ 
+    }
+  }
+
+  const clearSearch = async () => {
+    // const pageLength = 25;
+    try {
+        await new Promise((resolve) => {
+          console.log('clearing search');
+          
+          return resolve(dispatch({type: 'CLEAR_SEARCH', payload: "clearing"}))
+        })
+      
+        await new Promise (resolve => {
+          setOutputResult([[], ...outputResult])
+          return resolve(outputResult)
+        })
+  
+    } catch  (error) {
+        console.error(error);
     }
   }
   

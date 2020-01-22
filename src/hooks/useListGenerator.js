@@ -1,12 +1,10 @@
 import { useState, useContext, useEffect } from "react";
 import BASE_URL from "./../constants";
 import UserContext from "./../contexts/userContext";
-// import ListContext from "./../contexts/listContext";
 import DispatchContext from "./../contexts/dispatchContext";
 
 const useListGenerator = action => {
   const user = useContext(UserContext);
-  // const list = useContext(ListContext);
   const dispatch = useContext(DispatchContext);
   const [loading, setLoading] = useState(false);
 
@@ -14,7 +12,6 @@ const useListGenerator = action => {
     const ac = new AbortController();
     const signal = ac.signal;
     if (action.payload) {
-      // console.log(action.payload.title);
       switch (action.type) {
         case "ADD_GAME":
           return async function addGame() {
@@ -78,7 +75,7 @@ const useListGenerator = action => {
               const title = await res.json();
 
               await new Promise(resolve => {
-                console.log(title);
+                // console.log(title);
                 return resolve(
                   dispatch({
                     type: "CREATE_LIST",
@@ -101,7 +98,7 @@ const useListGenerator = action => {
               const res = await fetch(`${BASE_URL}/users/${user.id}/listnames`,{signal: signal});
               const listJSON = await res.json();
               await new Promise(resolve => {
-                console.log(listJSON);
+                // console.log(listJSON);
 
                 return resolve(
                   dispatch({
@@ -190,10 +187,8 @@ const useListGenerator = action => {
                 ele => action.payload.listid === ele.listname_id
               );
               await new Promise(resolve => {
-                console.log(listJSON);
-
-                console.log(format);
-
+                // console.log(listJSON);
+                // console.log(format);
                 return resolve(
                   dispatch({
                     type: "SET_SINGLE_LIST",

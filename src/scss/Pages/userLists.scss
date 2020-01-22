@@ -1,5 +1,6 @@
 .user-lists-container {
-  height: 96vh;
+  min-height: 96vh;
+  height: auto;
 }
 
 .user-list-item {

@@ -6,10 +6,19 @@ import Modal from './../modal/Modal';
 import GameForm from './../form/GameForm';
 import NewListForm from './../form/NewListForm';
 import useManageItem from './../../hooks/useManageItem';
+import FadeIn from 'react-fade-in';
 import { toast } from 'react-toastify';
+// 
 
 
-const SearchResults = ({array, page, status, pl}) => {
+const SearchResults = ({array, page, status, pl, infiniteScroll}) => {
+  // const observer = useRef(new IntersectionObserver((entries) => {
+  //   const first = entries[0];
+  //   console.log(first);
+  //   if (first.isIntersecting) {
+  //     infiniteScroll('up');
+  //   }
+  // }, {threshold: 1}));
   // console.log(array);
 const user = useContext(UserContext);
 const dispatch = useContext(DispatchContext);
@@ -18,6 +27,25 @@ const [gameStatus, setGameStatus] = useState(false);
 const [show, setShow] = useState(false);
 const [seeForms, setSeeForms] = useState(true);
 const [game, load, getItem] = useManageItem();
+// const [eleObserver, setEleObserver] = useState(null);
+
+// useEffect(() => {
+//   const currentElement = eleObserver;
+//   const currentObserver = observer.current;
+
+//   if (currentElement) {
+//     currentObserver.observe(currentElement);
+//   }
+//   return () => {
+//     if (currentElement) {
+//       currentObserver.unobserve(currentElement);
+//     }
+   
+//   };
+// }, [eleObserver])
+
+
+
 const notify = (item) => {
   toast(item)
 }
@@ -31,12 +59,13 @@ useEffect(() => {
     
   };
 }, [game])
+
 useEffect(() => {
   if (allLists.current) {
     console.log(allLists.current.id);
   }
   return () => {};
-}, [allLists.current, allLists])
+}, [ allLists])
 
 const toggle = (e, ele, type) => {
   e.persist();
@@ -79,12 +108,19 @@ const toggle = (e, ele, type) => {
   return (
     <div className="search-results-container">
           {show && <Modal setShow={setShow} show={show}/>}
-      <ul>
+          {load}
+         
+      {/* <ul> */}
+      <FadeIn >
         {
           array[page - 1] ?
           array[page - 1].map((ele, i) => {
             return (
-              <li key={`${ele.id}n${i}`} className="search-result-item">
+              <li 
+                key={`${ele.id}n${i}`} 
+                // ref={setEleObserver}
+                id="next"
+                className="search-result-item watch">
 
                 <div
                   className="title-container"
@@ -153,7 +189,9 @@ const toggle = (e, ele, type) => {
           array.length === 0 &&
           <li><span className="year">No results from this search.</span></li>
         }
-      </ul>
+         </FadeIn>
+      {/* </ul> */}
+     
     </div>
   )
 }

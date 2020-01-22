@@ -73,8 +73,6 @@
   }
 }
 
-
-
 .search-result-item {
   display: grid;
   grid-template-columns: 6fr 8px 1fr;
@@ -83,7 +81,7 @@
   place-items: center;
 
   &:hover {
-    border: 4px solid $boardgameblue;
+    background-image: linear-gradient(to left, darken($lightgreen, 5%), darken($green, 5%) 99%);
   }
 
   // flex-direction: row;
