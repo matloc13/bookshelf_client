@@ -67,22 +67,31 @@ const Home = () => {
 
       {
         infoArt === "show" && 
-        <article>Please login to view and create lists. 
+        <article>
+          Please create an account in order to create your own lists from the bgg database.  
           <button 
             id="infoart"
             onClick={toggle}
             className="btn-close">
               cool
           </button>
+          <button> not yet. Tell me more</button>
         </article>
       }
+     
 
       <article className="home-user-list">
       {
-        user && user.isAuthenticated &&
+        user && user.isAuthenticated ?
         <UserList />
+        :
+        <p>
+           
+        </p>
       }
       </article>
+
+    
 
     </main>
    

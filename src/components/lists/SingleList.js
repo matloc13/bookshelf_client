@@ -55,19 +55,24 @@ const SingleList = () => {
               <li key={ele.id} className="single-item"ref={item}>
                 <div 
                   // ref={setEleObserver} 
-                  className="game-container" 
-                  onMouseOverCapture={() => reveal(ele.id)}
-                  onClick={(e) => handleClick(e, ele, "cur")}>
+                  className="game-container">
+                  
+                  <h3 onMouseOverCapture={() => reveal(ele.id)}>{ele.name}</h3>
                   {
                     currentItem === ele.id &&
                     showImg &&
+                    <>
                       <img 
-                         
                         src={ele.img} 
                         alt={ele.name}
                       />
+                      
+                      <figcaption 
+                        onClick={(e) => handleClick(e, ele, "cur")}
+                        align="bottom">
+                          see more</figcaption>
+                    </>
                   }
-                  <h3>{ele.name}</h3>
                 </div>
                 <span onClick={(e) => handleClick(e, ele, "del")}>X</span>
               </li>
