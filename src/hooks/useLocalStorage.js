@@ -13,16 +13,21 @@ const useLocalStorage = (check) => {
 
   // const [loading] = useAuth(userInfo);
 
-  if (check) {
+  if (check === true) {
     console.log(user);
   }
 useEffect(() => {
-  checkLocal()
-  setChecking(true)
+  if (check === true) {
+    checkLocal();
+    console.log('called checklocal');
+    
+    setChecking(true)
+  }
+
   return () => {
     setUserInfo({})
   };
-}, [])
+}, [check])
 
 const checkLocal = async () => {
   if (!localStorage.getItem("user")) {
@@ -33,22 +38,31 @@ const checkLocal = async () => {
             const userUpdate = await JSON.parse(window.localStorage.getItem("user"))
             await new Promise(resolve => {
               console.log(userUpdate);
+              setUserInfo({
+                  ...userInfo,
+                  id: userUpdate.id,
+                  username: userUpdate.username,
+                  isAuthenticated: userUpdate.isAuthenticated,
+                  token: userUpdate.token
+               })
               return resolve(
-                setUserInfo(userUpdate)
+                dispatch({
+                  type: "SET_USER",
+                  id: userUpdate.id,
+                  username: userUpdate.username,
+                  isAuthenticated: userUpdate.isAuthenticated,
+                  token: userUpdate.token
+                 })
               )
             })
           }catch (error) {
             console.error(error)
           } finally {
             setChecking(false);
+            console.log(userInfo);
+            
             if (userInfo.id) {
-              dispatch({
-                type: "SET_USER",
-                id: userInfo.id,
-                username: userInfo.username,
-                isAuthenticated: true,
-                token: userInfo.token
-               })
+             
                setVerified(true);
             }
 
@@ -87,7 +101,7 @@ console.log(user);
 
 
   if (user && user.isAuthenticated) {
-    localStorage.setItem("user", JSON.stringify(user))
+    window.localStorage.setItem("user", JSON.stringify(user))
     setVerified(true);
     console.log('user set');
   }

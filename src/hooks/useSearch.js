@@ -3,10 +3,7 @@ import  BASE_URL from './../constants';
 import { toast } from 'react-toastify';
 import DispatchContext from './../contexts/dispatchContext';
 
-
 const useSearch = (query, paginate, clear ) => {
-  // console.log(query);
-  // let toastId = null;
   const dispatch = useContext(DispatchContext);
   const [outputResult, setOutputResult] = useState([])
   const [loading, setLoading] = useState(false);

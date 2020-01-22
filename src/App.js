@@ -31,7 +31,11 @@ const App = () => {
 
 
 useEffect(() => {
-  setCheck(true);
+  if (!user.isAuthenticated) {
+    setCheck(true);
+  } else {
+    setCheck(false)
+  }
   return () => {
     setCheck(false)
   };
