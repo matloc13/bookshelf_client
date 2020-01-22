@@ -1,15 +1,9 @@
-import React, { useState, useContext } from "react";
-// import { Router } from "@reach/router";`
+import React, { useState } from "react";
 import Form from "./../form/Form";
-// import NavLink from "./../navlink/NavLink";
-import UserContext from "./../../contexts/userContext";
-
 
 const Login = () => {
-  const user = useContext(UserContext);
   const [signup, setSignUp] = useState(false);
   const [login, setLogin] = useState(false);
-  const [logout, setLogout] = useState(false)
 
   const toggle = e => {
     e.persist();

@@ -1,12 +1,12 @@
 import React from "react";
 
 
-const Input = ({ type, name, handleInput, value, id, i }) => {
+const Input = ({ type, name, handleInput, value, id, i, }) => {
 
     return (
     <>
       <input
-        className={"input-style"}
+        className={type === "submit" ? "submit-input" : 'input-style'}
         type={type}
         id={`${i}${id}${name}`}
         name={name}

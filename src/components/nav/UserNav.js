@@ -3,6 +3,7 @@ import NavLink from './../navlink/NavLink';
 import Form from './../form/Form';
 import UserContext from './../../contexts/userContext';
 import useListGenerator from './../../hooks/useListGenerator';
+import FadeIn from 'react-fade-in';
 // import ListContext from './../../contexts/listContext';
 const UserNav = () => {
 
@@ -24,7 +25,7 @@ const UserNav = () => {
     <nav className="user-nav">
       <nav className="logoutdiv">
           <span 
-              className={`user-nav ${logout && "close"}`}
+              className={`user-nav ${logout && "close border-nav"}`}
               onClick={toggle}
               id="logout">
                 {
@@ -32,11 +33,11 @@ const UserNav = () => {
                 }
             </span>
 
-            <span>
+            <span className={logout && "border-nav"}>
               {logout && 
                 <NavLink to="user/userlists" onClick={loadLists}>Lists</NavLink>}
             </span>
-            <span>
+            <span className={logout && "border-nav"}>
                {logout &&  <Form formType="LOGOUT" />}
             </span>
       </nav>  

@@ -1,4 +1,4 @@
-import React, { useContext, useState, } from "react";
+import React, { useContext, useState, useRef} from "react";
 import DispatchContext from "./../../contexts/dispatchContext";
 import ListContext from "./../../contexts/listContext";
 import useManageItem from "./../../hooks/useManageItem";
@@ -8,11 +8,14 @@ const SingleList = () => {
   const dispatch = useContext(DispatchContext);
   const allLists = useContext(ListContext);
   const [del, setDel] = useState(false);
+  const [currentItem, setCurrentItem] = useState()
   const [] = useManageItem(del); //eslint-disable-line no-empty-pattern
   const [show, setShow] = useState(false);
-  const [showImg, setShowImg] = useState(false);
-
- const reveal = () => {
+  const [showImg, setShowImg] = useState({id: 0, state: "hidden"});
+  const item = useRef(null);
+ const reveal = (id) => {
+  setCurrentItem(id);
+  item.current.focus();
    return setShowImg(!showImg);
    }
 
@@ -49,15 +52,20 @@ const SingleList = () => {
         {allLists.sList &&
           allLists.sList.map(ele => {
             return (
-              <li key={ele.id} className="single-item">
+              <li key={ele.id} className="single-item"ref={item}>
                 <div 
                   // ref={setEleObserver} 
                   className="game-container" 
-                  onMouseOverCapture={reveal}
+                  onMouseOverCapture={() => reveal(ele.id)}
                   onClick={(e) => handleClick(e, ele, "cur")}>
                   {
-                    showImg && 
-                    <img src={ele.img} alt={ele.name}/>
+                    currentItem === ele.id &&
+                    showImg &&
+                      <img 
+                         
+                        src={ele.img} 
+                        alt={ele.name}
+                      />
                   }
                   <h3>{ele.name}</h3>
                 </div>

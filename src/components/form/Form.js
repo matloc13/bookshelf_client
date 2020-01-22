@@ -86,13 +86,22 @@ const Form = ({ formType }) => {
       )}
       {formType === "LOGOUT" ? (
         <form onSubmit={handleSubmit} className="form-style">
-          <fieldset className={"fieldset-style"}>
-            <Input
+          <fieldset className={"fieldset-style logout-fieldset"}>
+            {/* <Input
               id={formType}
               type="submit"
               name={formType}
               handleInput={handleInput}
-            />
+              eClass="logout-input"
+            /> */}
+            <input 
+              type="submit" 
+              name={formType} 
+              className="logout-input"
+              onChange={handleInput}
+              value="Logout"
+              id={`${formType}logout`}
+              />
           </fieldset>
         </form>
       ) : (
@@ -120,7 +129,7 @@ const Form = ({ formType }) => {
             />
 
           </fieldset>
-          <Input type={"submit"} name={formType} />
+          <Input type={"submit"} name={formType}  />
         </form>
       )}
     </>

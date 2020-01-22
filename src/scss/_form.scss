@@ -23,10 +23,35 @@
 
 }
 
-input[type=submit] {
+
+// input[type=submit] {
+
+// }
+
+.submit-input {
   background-color: transparent;
   color: $boardgameorange;
   box-shadow: none;
   font-family: 'Bree serif', serif;
   font-size: 1em;
+  @extend .input-style;
+}
+
+.logout-input {
+  align-items: flex-start;
+  text-align: left;
+  color: $green;
+  margin: 0px;
+  border: none;
+  box-shadow: none;
+  font-family: 'Bree serif', serif;
+  font-size: 1em;
+  background-color: transparent;
+
+}
+
+.logout-fieldset {
+  width: 100%;
+  padding: 0;
+  margin: 0;
 }
