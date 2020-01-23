@@ -20,10 +20,10 @@ const UserList = () => {
   const [loading] = useListGenerator(get);
   const [check, setcheck] = useState(0);
 
-  if (check) {
-    console.log(check);
+  // if (check) {
+  //   console.log(check);
     
-  }
+  // }
 
   let formatList = allLists.list[0].filter(ele => ele.user_id === user.id)
 

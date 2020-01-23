@@ -19,7 +19,7 @@ const useLocalStorage = (check) => {
 useEffect(() => {
   if (check === true) {
     checkLocal();
-    console.log('called checklocal');
+    // console.log('called checklocal');
     
     setChecking(true)
   }
@@ -37,7 +37,7 @@ const checkLocal = async () => {
           try {
             const userUpdate = await JSON.parse(window.localStorage.getItem("user"))
             await new Promise(resolve => {
-              console.log(userUpdate);
+              // console.log(userUpdate);
               setUserInfo({
                   ...userInfo,
                   id: userUpdate.id,
@@ -59,7 +59,7 @@ const checkLocal = async () => {
             console.error(error)
           } finally {
             setChecking(false);
-            console.log(userInfo);
+            // console.log(userInfo);
             
             if (userInfo.id) {
              
@@ -67,7 +67,7 @@ const checkLocal = async () => {
             }
 
           }
-          console.log('item from local');
+          // console.log('item from local');
         }
         
 }

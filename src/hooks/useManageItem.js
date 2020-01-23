@@ -38,7 +38,7 @@ const useManageItem = del => {
     try {
       setLoading(true);
       const gameid = await allLists.current.gameid;
-      console.log(gameid);
+      // console.log(gameid);
       const res = await fetch(`${BASE_URL}/bgg_lists/${gameid}`);
       const getgame = await res.json();
       await new Promise((resolve) => {

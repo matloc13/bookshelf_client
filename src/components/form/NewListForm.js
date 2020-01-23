@@ -3,28 +3,27 @@ import {toast} from 'react-toastify';
 import Input from "./inputs/Input";
 import useInput from "../../hooks/useInput";
 import useListGenerator from "./../../hooks/useListGenerator";
-// import useManageItem from "./../../hooks/useManageItem";
+
 const initList = {
   title: "",
   game: {}
 };
 
-const NewListForm = ({ formType, game, i, page, set, newList  }) => {
+const NewListForm = ({ formType, game, i, page, }) => {
   const { values, handleInput} = useInput();
   const [formInfo, setFormInfo] = useState(initList);
   const [formAcc, setFormAcc] = useState({});
   const [loading] = useListGenerator(formAcc);
-  // const [item, load] = useManageItem();
 
   useEffect(() => {
-    console.log(formInfo);
-    console.log(game);
+    // console.log(formInfo);
+    // console.log(game);
     
     return () => { };
   }, [formInfo, game])  
 
   useEffect(() => {
-    console.log(game);
+    // console.log(game);
     
     switch(page) {
       case "search":
@@ -65,7 +64,7 @@ break;
       throw new Error("title cannot be empty");
     }
     if (formInfo.title !== " ") {
-      console.log(formInfo);
+      // console.log(formInfo);
       notify(` ${formInfo.game.name} added to new list ${formInfo.title}`)
       return setFormAcc({ type: "CREATE_LIST", payload: formInfo });
 

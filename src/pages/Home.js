@@ -38,7 +38,7 @@ const Home = () => {
     <main className="home">
    
       <nav className="home-nav">
-        {/* <h1>BGG-LISTER</h1> */}
+
         <button><Link to="search">Find a game on BGG</Link></button>
         <button><Link to="hotlist">BGG hot 50</Link></button>
         {

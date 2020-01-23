@@ -132,7 +132,7 @@ const useListGenerator = action => {
               const title = await res.json();
 
               await new Promise(resolve => {
-                console.log(title);
+                // console.log(title);
 
                 return resolve(
                   dispatch({
@@ -148,7 +148,7 @@ const useListGenerator = action => {
           };
         case "DELETE_LIST":
           return async function deleteList() {
-            console.log("arrived");
+            // console.log("arrived");
             try {
               const res = await fetch(
                 `${BASE_URL}/users/${user.id}/listnames/${action.payload.listid}`,

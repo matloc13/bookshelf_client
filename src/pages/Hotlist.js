@@ -66,7 +66,7 @@ const Hotlist = () => {
 
   useEffect(() => {
     if (user) {
-      console.log('gettinglist');
+      // console.log('gettinglist');
       
       setGet({ type: "GET_LIST", payload: "getting" });
     }

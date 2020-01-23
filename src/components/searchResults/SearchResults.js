@@ -53,7 +53,7 @@ const notify = (item) => {
 
 useEffect(() => {
   setGameStatus(!gameStatus)
-  console.log(game);
+  // console.log(game);
   
   return () => {
     
@@ -62,7 +62,7 @@ useEffect(() => {
 
 useEffect(() => {
   if (allLists.current) {
-    console.log(allLists.current.id);
+    // console.log(allLists.current.id);
   }
   return () => {};
 }, [ allLists])
@@ -70,7 +70,7 @@ useEffect(() => {
 const toggle = (e, ele, type) => {
   e.persist();
   // console.log(seeForms);
-  console.log(ele);
+  // console.log(ele);
   
   switch(type) {
     case "showLogo": 
