@@ -1,6 +1,9 @@
 {
   "name": "bookshelf_client",
   "version": "0.1.0",
+  "engines": {
+    "node": "v12.12.0"
+  },
   "private": true,
   "dependencies": {
     "@reach/router": "^1.2.1",
