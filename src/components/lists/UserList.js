@@ -12,10 +12,18 @@ const UserList = () => {
   
   useEffect(() => {
     setGet({ type: "GET_LIST", payload: "getting" });
+    setcheck( check +1)
   },[]);
+
 
   const [get, setGet] = useState({});
   const [loading] = useListGenerator(get);
+  const [check, setcheck] = useState(0);
+
+  if (check) {
+    console.log(check);
+    
+  }
 
   let formatList = allLists.list[0].filter(ele => ele.user_id === user.id)
 
@@ -23,9 +31,17 @@ useEffect(() => {
   if (formatList && formatList.length) {
 
   } else {
-    setGet({type: "GET_LIST", payload: "getting" });
+    if (check === 3) {
+
+    } else {
+      setGet({type: "GET_LIST", payload: "getting" });
+      setcheck(check + 1)
+    }
+    
   }
-  return () => {};
+  return () => {
+   
+  };
 }, [allLists.list, formatList])
 
   const deleteItem = async ele => {

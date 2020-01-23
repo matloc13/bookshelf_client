@@ -25,7 +25,6 @@ const NewListForm = ({ formType, game, i, page, set, newList  }) => {
 
   useEffect(() => {
     console.log(game);
-    console.log(game);
     
     switch(page) {
       case "search":
@@ -48,7 +47,7 @@ break;
           ...formInfo,
           title: values.title,
           game: {
-            name: game.name.value,
+            name: game.name.value ,
             img: game.thumbnail.value,
             bggid: game.id
           }
@@ -86,11 +85,6 @@ break;
           <h2>...LOADING...</h2>
         </div>
       )}
-      {/* {
-        load && 
-          <div>
-            <h2>one second...</h2>
-          </div> */}
       
       <form onSubmit={handleSubmit} className="form-style new-list-form">
         <fieldset>

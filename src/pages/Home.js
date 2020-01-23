@@ -61,12 +61,12 @@ const Home = () => {
       </nav>
 
       {
-        signup === "show" &&
+        signup === "show" && !user.isAuthenticated &&
           <Form formType="CREATE" />
       }
 
       {
-        infoArt === "show" && 
+        infoArt === "show" && !user.isAuthenticated &&
         <article>
           Please create an account in order to create your own lists from the bgg database.  
           <button 
@@ -78,7 +78,6 @@ const Home = () => {
           <button> not yet. Tell me more</button>
         </article>
       }
-     
 
       <article className="home-user-list">
       {

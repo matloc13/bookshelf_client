@@ -6,6 +6,7 @@ import DispatchContext from "../contexts/dispatchContext";
 const useAuth = action => {
   const dispatch = useContext(DispatchContext);
   const [loading, setLoading] = useState(false);
+  const [welcome, setWelcome] = useState("")
 
 
   useEffect(() => {
@@ -27,20 +28,20 @@ const useAuth = action => {
                   "Content-Type": "application/json"
                 }
               });
-              const user = await res.json();
-              await new Promise(resolve => {
-                if (user.user) {
-                  return resolve(
-                    dispatch({
-                      type: "SET_USER",
-                      id: user.user.id,
-                      username: user.user.username,
-                      isAuthenticated: true,
-                      token: user.token
-                    })
-                  );
-                }
-              });
+              await new Promise((resolve) =>{
+                  if (res) {
+                    setLoading(false)
+                    return resolve(
+                      setWelcome("Please Login to start creating lists.")
+                    )
+                  }
+                
+              })
+              
+              // const user = await res.json();
+              // await new Promise(resolve => {
+              //   if (user.user) {
+              //     console.log(user.user);
             } catch (err) {
               console.error(err);
             } finally {
@@ -92,6 +93,6 @@ const useAuth = action => {
     }
   }, [action, dispatch]);
 
-  return [loading];
+  return [loading, welcome];
 };
 export default useAuth;

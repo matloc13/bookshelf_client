@@ -161,14 +161,16 @@ const toggle = (e, ele, type) => {
                       <div className="forms">
                         <span onClick={() => setSeeForms(true)}>X</span>
                           <GameForm
-                            game={game.items.item}
+                            // game={game.items.item}
+                            game={ele}
                             i={i}
                             set={toggle}
                             page="search"
                           /> 
                           <b></b>
                           <NewListForm 
-                            game={game.items.item}
+                            // game={game.items.item}
+                            game={ele}
                             i={i}
                             set={toggle}
                             page="search"
