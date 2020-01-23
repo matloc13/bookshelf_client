@@ -58,6 +58,18 @@ button {
 
 }
 
+.loading-aside {
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+
+
+  .loading-div {
+    align-items: center;
+    width: 100%;
+    margin: 0 auto;
+  }
+}
 
 
 // * {

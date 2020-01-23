@@ -165,7 +165,7 @@ const infiniteScroll = (direction) => {
  
       {
         loading ? 
-        <aside className="loading-div">
+        <aside className="loading-aside">
             
           <Loading />
      

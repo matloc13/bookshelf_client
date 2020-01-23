@@ -79,7 +79,7 @@ const Hotlist = () => {
     <main className="hotlist-container">
 
       <h2>Hot 50</h2>
-      <aside className="loading-div">
+      <aside className="loading-aside">
         {loading && (
          <Loading />
         )}
