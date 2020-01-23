@@ -14,7 +14,7 @@ const useLocalStorage = (check) => {
   // const [loading] = useAuth(userInfo);
 
   if (check === true) {
-    console.log(user);
+    // console.log(user);
   }
 useEffect(() => {
   if (check === true) {
@@ -68,42 +68,18 @@ const checkLocal = async () => {
 
           }
           // console.log('item from local');
-        }
-        
+        }  
 }
 
-  // useEffect(() => {
-  //   // console.log('did load')
-   
-  //   if (!localStorage.getItem("user")) {
-  //     console.log('storage empty');
-  //   } else {
-  //     console.log('local storage in use');
-  //     try {
-  //       setUserInfo(JSON.parse(window.localStorage.getItem("user")))
-  //       console.log(JSON.parse(window.localStorage.getItem("user")));
-        
-  //     }catch (error) {
-  //       console.error(error)
-  //     } finally {
-  //       console.log(user);
-  //     }
-  //     console.log('item from local');
-  //   }
-  //   return () => {
-  //     console.log('clear hot list')
-  //   }
-  // },[])
-
 useEffect(() => {
-console.log('trigger user side effect...');
-console.log(user);
+console.log('trigger user side effect');
+// console.log(user);
 
 
   if (user && user.isAuthenticated) {
     window.localStorage.setItem("user", JSON.stringify(user))
     setVerified(true);
-    console.log('user set');
+    console.log('user verified');
   }
 
 
