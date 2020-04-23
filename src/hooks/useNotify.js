@@ -1,6 +1,5 @@
 const useNotify = () => {
-  return
-
-}
+    return;
+};
 
 export default useNotify;

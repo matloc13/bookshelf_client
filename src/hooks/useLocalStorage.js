@@ -93,7 +93,7 @@ console.log('trigger user side effect');
 
 
 
- return [checking];
+ return [checking, verified];
 
 }
 

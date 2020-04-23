@@ -1,18 +1,13 @@
-import React from 'react'
+import React from 'react';
 
 const Footer = () => {
-  return (
-    <footer>
-      <div>
-        game data provided by BoardGameGeek LLC
-      </div>
+    return (
+        <footer>
+            <div>game data provided by BoardGameGeek LLC</div>
 
-      <div>
-        page by: Matthew Lockdall
-      </div>
+            <div>page by: Matthew Lockdall</div>
+        </footer>
+    );
+};
 
-    </footer>
-  )
-}
-
-export default Footer
+export default Footer;
